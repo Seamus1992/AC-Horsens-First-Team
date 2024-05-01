@@ -33,7 +33,6 @@ def Match_evaluation ():
 
     df_pv = df_pv[df_pv['label'] == Kampvalg]
     df_xg = df_xg[df_xg['label'] == Kampvalg]
-    st.dataframe(df_xg)
     df_possession_stats = pd.read_csv(r'1. Division/possession_stats_all 1. Division.csv')
     df_possession_stats['label'] = df_possession_stats['label'].str.replace(' ','_')
     df_possession_stats['label'] = (df_possession_stats['label'] + '_' + df_possession_stats['date'])
@@ -91,6 +90,7 @@ def Match_evaluation ():
 
     df_xg_hold = df_xg_hold.groupby(['team_name','label'])['Open play xG'].sum().reset_index()
     df_holdsummary = df_xg_hold.merge(df_possession_pv_hold)
+    st.dataframe(df_holdsummary)
     df_xa = df_possession[df_possession['label'] == Kampvalg]
     df_xa = df_xa[df_xa['q_qualifierId'] == '318.0']
     df_xa['q_value'] = df_xa['q_value'].astype(float)

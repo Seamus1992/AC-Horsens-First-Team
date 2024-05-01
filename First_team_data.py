@@ -558,7 +558,7 @@ def Opposition_analysis ():
     with col2:
         Kampvalg = st.multiselect('Choose matches (last 5 per default)', Kampe_labels, default=Kampe_labels[:5])
 
-    df_possession_columns = ['team_name','id','eventId','typeId','periodId','timeMin','timeSec','outcome','x','y','playerName','sequenceId','possessionId','keyPass','assist','q_id','q_qualifierId','q_value','label','type_name','q_qualifier_name','date']
+    df_possession_columns = ['team_name','id','eventId','typeId','timeMin','timeSec','outcome','x','y','playerName','sequenceId','possessionId','keyPass','assist','q_qualifierId','q_value','label','date']
     df_possession = pd.read_csv(f'1. Division/{Modstander}/{Modstander}_possession_data.csv',usecols=df_possession_columns)
     df_possession['label'] = df_possession['label'].str.replace(' ','_')
     df_possession['team_name'] = df_possession['team_name'].str.replace(' ','_')

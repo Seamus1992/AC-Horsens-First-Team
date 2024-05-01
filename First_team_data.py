@@ -33,7 +33,7 @@ def Match_evaluation ():
 
     df_pv = df_pv[df_pv['label'] == Kampvalg]
     df_xg = df_xg[df_xg['label'] == Kampvalg]
-
+    st.dataframe(df_xg)
     df_possession_stats = pd.read_csv(r'1. Division/possession_stats_all 1. Division.csv')
     df_possession_stats['label'] = df_possession_stats['label'].str.replace(' ','_')
     df_possession_stats['label'] = (df_possession_stats['label'] + '_' + df_possession_stats['date'])

@@ -658,7 +658,6 @@ def Opposition_analysis ():
     df_xg_plot_store_chancer = df_xg_modstander[df_xg_modstander['q_qualifierId'].astype(int) == 321]
     df_xg_plot_store_chancer = df_xg_plot_store_chancer[df_xg_plot_store_chancer['q_value'].astype(float) > 0.2]
 
-
     x = df_xg_plot_store_chancer['x'].astype(float)
     y = df_xg_plot_store_chancer['y'].astype(float)
     shot_xg = df_xg_plot_store_chancer['q_value'].astype(float)

@@ -103,8 +103,8 @@ def Match_evaluation ():
 
     df_xa_hold = df_xa.groupby(['team_name','label'])['q_value'].sum().reset_index()
     df_xa_hold = df_xa_hold.rename(columns={'q_value': 'xA'})
-    st.dataframe(df_xa_hold)
     df_holdsummary = df_xa_hold.merge(df_holdsummary)
+    st.dataframe(df_holdsummary)
     df_holdsummary = df_possession_stats_summary.merge(df_holdsummary)
     df_holdsummary = df_holdsummary[['team_name','label','xA','Open play xG','PvTotal','terr_poss']]
     st.dataframe(df_holdsummary,hide_index=True)

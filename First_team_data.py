@@ -45,6 +45,12 @@ def load_pv():
     df_pv['id'] = df_pv['id'].astype(str)
     return df_pv
 
+def load_pv_opponent(Modstander):
+    df_pv_columns = ['team_name','label','date','playerName','id','possessionValue.pvValue','possessionValue.pvAdded']
+    df_pv = pd.read_csv(f'1. Division/{Modstander}/{Modstander}_pv_data.csv',usecols=df_pv_columns)
+    df_pv['label'] = (df_pv['label'] + ' ' + df_pv['date'])
+    df_pv['id'] = df_pv['id'].astype(str)
+    return df_pv
 
 @st.cache_data(experimental_allow_widgets=True)
 @st.cache_resource(experimental_allow_widgets=True)
@@ -566,12 +572,7 @@ def Opposition_analysis ():
     df_xg = load_xg()
     df_possession_modstander = load_modstander_possession_data(selected_opponent)
     
-    df_pv['label'] = df_pv['label'].str.replace(' ','_')
-    df_pv['team_name'] = df_pv['team_name'].str.replace(' ','_')
-    df_pv['label'] = (df_pv['label'] + '_' + df_pv['date'])
-
     Hold = df_pv['team_name'].unique()
-    Hold = [team.replace(' ', '_') for team in Hold]
     Hold = sorted(Hold)
     Kampe = df_pv[df_pv['team_name'].astype(str) == selected_opponent]
     Kampe = Kampe.sort_values(by='date',ascending = False)
@@ -581,9 +582,6 @@ def Opposition_analysis ():
     with col2:
         Kampvalg = st.multiselect('Choose matches (last 5 per default)', Kampe_labels, default=Kampe_labels[:5])
 
-    df_possession['label'] = df_possession['label'].str.replace(' ','_')
-    df_possession['team_name'] = df_possession['team_name'].str.replace(' ','_')
-    df_possession['label'] = (df_possession['label'] + '_' + df_possession['date'])
     df_possession = df_possession[df_possession['label'].isin(Kampvalg)]
     df_possession_id = df_possession[df_possession['q_qualifierId'].isin([6.0,9.0,26.0,25.0,24.0,107.0])]
     df_possession = df_possession[~df_possession['id'].isin(df_possession_id['id'])]

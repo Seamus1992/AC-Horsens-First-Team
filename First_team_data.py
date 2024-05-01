@@ -54,7 +54,7 @@ def Match_evaluation ():
     df_possession_stats_summary = df_possession_stats_summary.rename(columns={'index':'team_name',0:'terr_poss'})
 
 
-    df_possession_columns = ['team_name','id','eventId','typeId','periodId','timeMin','timeSec','outcome','x','y','playerName','sequenceId','possessionId','keyPass','q_id','q_qualifierId','q_value','label','type_name','q_qualifier_name','date']
+    df_possession_columns = ['team_name','id','eventId','typeId','timeMin','timeSec','outcome','x','y','playerName','sequenceId','possessionId','keyPass','q_qualifierId','q_value','label','date']
     df_possession = pd.read_csv(r'1. Division/Horsens/Horsens_possession_data.csv',usecols=df_possession_columns)
     df_possession['label'] = df_possession['label'].str.replace(' ','_')
     df_possession['team_name'] = df_possession['team_name'].str.replace(' ','_')

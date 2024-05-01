@@ -564,11 +564,12 @@ def Opposition_analysis ():
     from mplsoccer import Pitch
     import numpy as np
 
+    Modstander = load_modstander
     col1,col2 = st.columns(2)
     with col1:
-        selected_opponent = load_modstander()
+        selected_opponent = load_modstander(Modstander)
     
-    df_pv = load_pv_opponent()
+    df_pv = load_pv_opponent(Modstander)
     df_xg = load_xg()
     df_possession_modstander = load_modstander_possession_data(selected_opponent)
     

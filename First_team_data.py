@@ -227,10 +227,11 @@ def Match_evaluation ():
     df_xg_spiller = df_xg_spiller.sort_values(ascending=False)
 
     df_assist = df_possession.copy()
+    st.dataframe(df_assist)
     df_assist = df_assist[df_assist['team_name'].astype(str) == Modstander]
     try:
         df_assist['assist'] = df_assist['assist'].astype(float)
-        df_assist = df_assist[df_assist['assist'] > 0]
+        df_assist = df_assist[df_assist['assist'] == 1]
         df_assist = df_assist.drop_duplicates('id')
         df_assist_spiller = df_assist.groupby('playerName')['assist'].sum()
         df_assist_spiller = df_assist_spiller.sort_values(ascending=False)

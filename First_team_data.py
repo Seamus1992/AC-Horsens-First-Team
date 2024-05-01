@@ -564,7 +564,6 @@ def Opposition_analysis ():
     from mplsoccer import Pitch
     import numpy as np
 
-    Modstander = load_modstander
     col1,col2 = st.columns(2)
     with col1:
         selected_opponent = load_modstander()
@@ -583,7 +582,7 @@ def Opposition_analysis ():
     with col2:
         Kampvalg = st.multiselect('Choose matches (last 5 per default)', Kampe_labels, default=Kampe_labels[:5])
 
-    df_possession_modstander = df_possession[df_possession['team_name'] == selected_opponent]
+    df_possession_modstander = df_possession_modstander[df_possession_modstander['team_name'] == selected_opponent]
     df_possession_modstander = df_possession_modstander[df_possession_modstander['label'].isin(Kampvalg)]
 
     df_keypass = df_possession[df_possession['team_name'] == selected_opponent]

@@ -7,6 +7,7 @@ import plotly.graph_objs as go
 st.set_page_config(layout='wide')
 
 @st.cache(suppress_st_warning=True)
+@st.cache_data()
 def Match_evaluation ():
     team_name = 'Horsens'
     df_pv_columns = ['team_name','label','date','playerName','id','possessionValue.pvValue','possessionValue.pvAdded']
@@ -294,7 +295,10 @@ def Match_evaluation ():
         st.dataframe(df_pv_spiller)
     with col4:
         st.write('Assists per player')
-        st.dataframe(df_assist_spiller)
+        try:
+            st.dataframe(df_assist_spiller)
+        except UnboundLocalError:
+            st.write('No assists in the game') 
 
     col1,col2 = st.columns(2)
     player_names = df_keypass['playerName'].astype(str)

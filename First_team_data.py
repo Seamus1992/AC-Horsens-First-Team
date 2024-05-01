@@ -10,15 +10,15 @@ def Match_evaluation ():
     team_name = 'Horsens'
     df_pv_columns = ['team_name','label','date','playerName','id','possessionValue.pvValue','possessionValue.pvAdded']
     df_pv = pd.read_csv(r'1. Division/Horsens/Horsens_pv_data.csv',usecols=df_pv_columns)
-    df_pv['label'] = df_pv['label'].str.replace(' ','_')
-    df_pv['team_name'] = df_pv['team_name'].str.replace(' ','_')
-    df_pv['label'] = (df_pv['label'] + '_' + df_pv['date'])
+    #df_pv['label'] = df_pv['label'].str.replace(' ','_')
+    #df_pv['team_name'] = df_pv['team_name'].str.replace(' ','_')
+    df_pv['label'] = (df_pv['label'] + ' ' + df_pv['date'])
     df_pv['id'] = df_pv['id'].astype(str)
 
     df_xg = pd.read_csv(r'1. Division/Horsens/Horsens_xg_data.csv')
     df_xg['label'] = df_xg['label'].str.replace(' ','_')
-    df_xg['team_name'] = df_xg['team_name'].str.replace(' ','_')
-    df_xg['label'] = (df_xg['label'] + '_' + df_xg['date'])
+    #df_xg['team_name'] = df_xg['team_name'].str.replace(' ','_')
+    df_xg['label'] = (df_xg['label'] + ' ' + df_xg['date'])
 
     Hold = df_pv['team_name'].unique()
     Hold = [team.replace(' ', '_') for team in Hold]
@@ -34,8 +34,8 @@ def Match_evaluation ():
     df_pv = df_pv[df_pv['label'] == Kampvalg]
     df_xg = df_xg[df_xg['label'] == Kampvalg]
     df_possession_stats = pd.read_csv(r'1. Division/possession_stats_all 1. Division.csv')
-    df_possession_stats['label'] = df_possession_stats['label'].str.replace(' ','_')
-    df_possession_stats['label'] = (df_possession_stats['label'] + '_' + df_possession_stats['date'])
+    #df_possession_stats['label'] = df_possession_stats['label'].str.replace(' ','_')
+    df_possession_stats['label'] = (df_possession_stats['label'] + ' ' + df_possession_stats['date'])
     df_possession_stats = df_possession_stats[df_possession_stats['label'] == Kampvalg]
     df_possession_stats = df_possession_stats[df_possession_stats['type'] == 'territorialThird']
     df_possession_stats['home'] = df_possession_stats['home'].astype(float)
@@ -44,9 +44,7 @@ def Match_evaluation ():
     df_possession_away = df_possession_stats['away'].mean()
     df_possession_stats_summary = pd.DataFrame({'home': [df_possession_home], 'away': [df_possession_away]})
     first_home_team = df_possession_stats['home_team'].iloc[0]
-    first_home_team = first_home_team.str.replace(' ','_')
     first_away_team = df_possession_stats['away_team'].iloc[0]
-    first_away_team = first_away_team.str.replace(' ','_')
     df_possession_stats = df_possession_stats.rename(columns={'home': first_home_team, 'away': first_away_team})
     df_possession_stats_summary = df_possession_stats_summary.rename(columns={'home': first_home_team, 'away': first_away_team})
     df_possession_stats = df_possession_stats.drop_duplicates()
@@ -57,10 +55,10 @@ def Match_evaluation ():
 
     df_possession_columns = ['team_name','id','eventId','typeId','timeMin','timeSec','outcome','x','y','playerName','sequenceId','possessionId','keyPass','q_qualifierId','q_value','label','date']
     df_possession = pd.read_csv(r'1. Division/Horsens/Horsens_possession_data.csv',usecols=df_possession_columns)
-    df_possession['label'] = df_possession['label'].str.replace(' ','_')
-    df_possession['team_name'] = df_possession['team_name'].str.replace(' ','_')
-    df_possession['label'] = (df_possession['label'] + '_' + df_possession['date']).astype(str)
-    df_possession['label'] = df_possession['label'].str.replace(' ','_')
+    #df_possession['label'] = df_possession['label'].str.replace(' ','_')
+    #df_possession['team_name'] = df_possession['team_name'].str.replace(' ','_')
+    df_possession['label'] = (df_possession['label'] + ' ' + df_possession['date']).astype(str)
+    #df_possession['label'] = df_possession['label'].str.replace(' ','_')
     df_possession = df_possession[df_possession['label'] == Kampvalg]
     df_possession['id'] = df_possession['id'].astype(str)
     df_possession = df_possession[['team_name','id','eventId','typeId','timeMin','timeSec','outcome','x','y','playerName','sequenceId','possessionId','keyPass','q_qualifierId','q_value','label']].astype(str)

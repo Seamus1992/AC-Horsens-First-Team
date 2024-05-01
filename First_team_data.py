@@ -7,13 +7,19 @@ import plotly.graph_objs as go
 st.set_page_config(layout='wide')
 
 @st.cache_data(experimental_allow_widgets=True)
+@st.cache_resource()
 def Match_evaluation ():
     team_name = 'Horsens'
-    df_pv_columns = ['team_name','label','date','playerName','id','possessionValue.pvValue','possessionValue.pvAdded']
-    df_pv = pd.read_csv(r'1. Division/Horsens/Horsens_pv_data.csv',usecols=df_pv_columns)
-    df_pv['label'] = (df_pv['label'] + ' ' + df_pv['date'])
-    df_pv['id'] = df_pv['id'].astype(str)
-
+    @st.cache_data
+    def load_pv():
+        df_pv_columns = ['team_name','label','date','playerName','id','possessionValue.pvValue','possessionValue.pvAdded']
+        df_pv = pd.read_csv(r'1. Division/Horsens/Horsens_pv_data.csv',usecols=df_pv_columns)
+        df_pv['label'] = (df_pv['label'] + ' ' + df_pv['date'])
+        df_pv['id'] = df_pv['id'].astype(str)
+        return df_pv
+    
+    
+    
     df_xg = pd.read_csv(r'1. Division/Horsens/Horsens_xg_data.csv')
     df_xg['label'] = (df_xg['label'] + ' ' + df_xg['date'])
 

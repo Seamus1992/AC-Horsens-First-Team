@@ -585,7 +585,7 @@ def Opposition_analysis ():
     df_possession_modstander = df_possession_modstander[df_possession_modstander['team_name'] == selected_opponent]
     df_possession_modstander = df_possession_modstander[df_possession_modstander['label'].isin(Kampvalg)]
 
-    df_keypass = df_possession[df_possession['team_name'] == selected_opponent]
+    df_keypass = df_possession_modstander[df_possession_modstander['team_name'] == selected_opponent]
     df_keypass = df_keypass[df_keypass['label'].isin(Kampvalg)]
     df_keypass = df_keypass[df_keypass['q_qualifierId'] == 210.0]
     df_keypass = df_keypass.drop_duplicates('id')
@@ -606,7 +606,7 @@ def Opposition_analysis ():
     df_xg_spiller = df_xg_modstander.groupby('playerName')['q_value'].sum()
     df_xg_spiller = df_xg_spiller.sort_values(ascending=False)
 
-    df_assist = df_possession.copy()
+    df_assist = df_possession_modstander.copy()
     df_assist = df_assist[df_assist['team_name'] == selected_opponent]
     df_assist['assist'] = df_assist['assist'].astype(float)
     df_assist = df_assist[df_assist['assist'] == 1]

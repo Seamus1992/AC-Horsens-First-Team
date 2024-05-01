@@ -6,22 +6,40 @@ import matplotlib.pyplot as plt
 import plotly.graph_objs as go
 st.set_page_config(layout='wide')
 
+@st.cache_data()
+def load_possession_data():
+    df_possession_columns = ['team_name','id','eventId','typeId','timeMin','timeSec','outcome','x','y','playerName','sequenceId','possessionId','keyPass','assist','q_qualifierId','q_value','label','date']
+    df_possession = pd.read_csv(r'1. Division/Horsens/Horsens_possession_data.csv',usecols=df_possession_columns)
+    df_possession['label'] = (df_possession['label'] + ' ' + df_possession['date']).astype(str)
+    return df_possession
+
+@st.cache_data()
+def load_possession_stats():
+    df_possession_stats = pd.read_csv(r'1. Division/possession_stats_all 1. Division.csv')
+    df_possession_stats['label'] = (df_possession_stats['label'] + ' ' + df_possession_stats['date'])
+    return df_possession_stats
+
+@st.cache_data()
+def load_xg():
+    df_xg = pd.read_csv(r'1. Division/Horsens/Horsens_xg_data.csv')
+    df_xg['label'] = (df_xg['label'] + ' ' + df_xg['date'])
+    return df_xg
+
+def load_pv():
+    df_pv_columns = ['team_name','label','date','playerName','id','possessionValue.pvValue','possessionValue.pvAdded']
+    df_pv = pd.read_csv(r'1. Division/Horsens/Horsens_pv_data.csv',usecols=df_pv_columns)
+    df_pv['label'] = (df_pv['label'] + ' ' + df_pv['date'])
+    df_pv['id'] = df_pv['id'].astype(str)
+    return df_pv
+
+
 @st.cache_data(experimental_allow_widgets=True)
 @st.cache_resource(experimental_allow_widgets=True)
 def Match_evaluation ():
-    team_name = 'Horsens'
-    @st.cache_data
-    def load_pv():
-        df_pv_columns = ['team_name','label','date','playerName','id','possessionValue.pvValue','possessionValue.pvAdded']
-        df_pv = pd.read_csv(r'1. Division/Horsens/Horsens_pv_data.csv',usecols=df_pv_columns)
-        df_pv['label'] = (df_pv['label'] + ' ' + df_pv['date'])
-        df_pv['id'] = df_pv['id'].astype(str)
-        return df_pv
+    team_name = 'Horsens'    
     df_pv = load_pv()
     
-    
-    df_xg = pd.read_csv(r'1. Division/Horsens/Horsens_xg_data.csv')
-    df_xg['label'] = (df_xg['label'] + ' ' + df_xg['date'])
+    df_xg = load_xg()
 
     Hold = df_pv['team_name'].unique()
     Hold = [team.replace(' ', '_') for team in Hold]
@@ -36,8 +54,9 @@ def Match_evaluation ():
 
     df_pv = df_pv[df_pv['label'] == Kampvalg]
     df_xg = df_xg[df_xg['label'] == Kampvalg]
-    df_possession_stats = pd.read_csv(r'1. Division/possession_stats_all 1. Division.csv')
-    df_possession_stats['label'] = (df_possession_stats['label'] + ' ' + df_possession_stats['date'])
+
+    df_possession_stats = load_possession_stats()
+    
     df_possession_stats = df_possession_stats[df_possession_stats['label'] == Kampvalg]
     df_possession_stats = df_possession_stats[df_possession_stats['type'] == 'territorialThird']
     df_possession_stats['home'] = df_possession_stats['home'].astype(float)
@@ -53,10 +72,9 @@ def Match_evaluation ():
     df_possession_stats = df_possession_stats[df_possession_stats['interval_type'] == 5]
     df_possession_stats_summary = df_possession_stats_summary.transpose().reset_index()
     df_possession_stats_summary = df_possession_stats_summary.rename(columns={'index':'team_name',0:'terr_poss'})
-
-    df_possession_columns = ['team_name','id','eventId','typeId','timeMin','timeSec','outcome','x','y','playerName','sequenceId','possessionId','keyPass','assist','q_qualifierId','q_value','label','date']
-    df_possession = pd.read_csv(r'1. Division/Horsens/Horsens_possession_data.csv',usecols=df_possession_columns)
-    df_possession['label'] = (df_possession['label'] + ' ' + df_possession['date']).astype(str)
+    
+    df_possession = load_possession_data()
+    
     df_possession = df_possession[df_possession['label'] == Kampvalg]
     df_possession['id'] = df_possession['id'].astype(str)
     df_possession = df_possession.astype(str)

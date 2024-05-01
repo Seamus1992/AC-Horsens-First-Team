@@ -95,7 +95,7 @@ def Match_evaluation ():
     df_xa = df_possession[df_possession['label'] == Kampvalg]
     df_xa = df_xa[df_xa['q_qualifierId'] == '318.0']
     df_xa['q_value'] = df_xa['q_value'].astype(float)
-    df_xa_agg = df_xa[['team_name','q_value','periodId','timeMin','timeSec']]
+    df_xa_agg = df_xa[['team_name','q_value','timeMin','timeSec']]
     df_xa_agg = df_xa_agg.rename(columns={'q_value': 'xA'})
     df_xa_agg.loc[:,'timeMin'] = df_xa_agg['timeMin'].astype(int)
     df_xa_agg.loc[:,'timeSec'] = df_xa_agg['timeSec'].astype(int)

@@ -16,7 +16,7 @@ def Match_evaluation ():
     df_pv['id'] = df_pv['id'].astype(str)
 
     df_xg = pd.read_csv(r'1. Division/Horsens/Horsens_xg_data.csv')
-    df_xg['label'] = df_xg['label'].str.replace(' ','_')
+    #df_xg['label'] = df_xg['label'].str.replace(' ','_')
     #df_xg['team_name'] = df_xg['team_name'].str.replace(' ','_')
     df_xg['label'] = (df_xg['label'] + ' ' + df_xg['date'])
 

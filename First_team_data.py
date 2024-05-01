@@ -7,7 +7,7 @@ import plotly.graph_objs as go
 st.set_page_config(layout='wide')
 
 @st.cache_data(experimental_allow_widgets=True)
-@st.cache_resource()
+@st.cache_resource(experimental_allow_widgets=True)
 def Match_evaluation ():
     team_name = 'Horsens'
     @st.cache_data

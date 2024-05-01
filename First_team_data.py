@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 import plotly.graph_objs as go
 st.set_page_config(layout='wide')
 
-@st.cache(suppress_st_warning=True)
 @st.cache_data()
 def Match_evaluation ():
     team_name = 'Horsens'

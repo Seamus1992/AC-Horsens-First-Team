@@ -21,7 +21,7 @@ def load_modstander_possession_data(Modstander):
     return df_possession_modstander
 
 def load_modstander():
-    team_names = ['AaB','B_93','Fredericia','HB_Køge','Helsingør','Hillerød','Hobro','Horsens','Kolding','Næstved','SønderjyskE','Vendsyssel']  # Replace with your list of team names
+    team_names = ['AaB','B 93','Fredericia','HB Køge','Helsingør','Hillerød','Hobro','Horsens','Kolding','Næstved','SønderjyskE','Vendsyssel']  # Replace with your list of team names
     Modstander = st.selectbox('Choose opponent',team_names)
     return Modstander
 

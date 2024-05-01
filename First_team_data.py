@@ -14,6 +14,20 @@ def load_possession_data():
     return df_possession
 
 @st.cache_data()
+def load_modstander_possession_data():
+    df_possession_columns = ['team_name','id','eventId','typeId','timeMin','timeSec','outcome','x','y','playerName','sequenceId','possessionId','keyPass','assist','q_qualifierId','q_value','label','date']
+    df_possession = pd.read_csv(f'1. Division/{Modstander}/{Modstander}_possession_data.csv',usecols=df_possession_columns)
+    df_possession['label'] = (df_possession['label'] + ' ' + df_possession['date']).astype(str)
+    return df_possession
+
+@st.cache_data()
+def Modstander():
+    team_names = ['AaB','B_93','Fredericia','HB_Køge','Helsingør','Hillerød','Hobro','Horsens','Kolding','Næstved','SønderjyskE','Vendsyssel']  # Replace with your list of team names
+    team_names = [str(team) for team in team_names]
+    Modstander = st.selectbox('Choose opponent',team_names)
+    return Modstander
+
+@st.cache_data()
 def load_possession_stats():
     df_possession_stats = pd.read_csv(r'1. Division/possession_stats_all 1. Division.csv')
     df_possession_stats['label'] = (df_possession_stats['label'] + ' ' + df_possession_stats['date'])
@@ -56,9 +70,10 @@ def Match_evaluation ():
 
     df_pv = df_pv[df_pv['label'] == Kampvalg]
     df_xg = df_xg[df_xg['label'] == Kampvalg]
+    df_possession_stats = df_possession_stats[df_possession_stats['label'] == Kampvalg]
+    df_possession = df_possession[df_possession['label'] == Kampvalg]
 
     
-    df_possession_stats = df_possession_stats[df_possession_stats['label'] == Kampvalg]
     df_possession_stats = df_possession_stats[df_possession_stats['type'] == 'territorialThird']
     df_possession_stats['home'] = df_possession_stats['home'].astype(float)
     df_possession_stats['away'] = df_possession_stats['away'].astype(float)
@@ -75,7 +90,6 @@ def Match_evaluation ():
     df_possession_stats_summary = df_possession_stats_summary.rename(columns={'index':'team_name',0:'terr_poss'})
     
     
-    df_possession = df_possession[df_possession['label'] == Kampvalg]
     df_possession['id'] = df_possession['id'].astype(str)
     df_possession = df_possession.astype(str)
     df_pv = df_pv[['team_name','playerName','id','possessionValue.pvValue','possessionValue.pvAdded']].astype(str)
@@ -552,19 +566,13 @@ def Opposition_analysis ():
     with col1:
         Modstander = st.selectbox('Choose opponent',team_names)
 
-    df_pv_columns = ['team_name','label','date','playerName','id','possessionValue.pvValue','possessionValue.pvAdded']
-    df_pv = pd.read_csv(f'1. Division/{Modstander}/{Modstander}_pv_data.csv', usecols=df_pv_columns)
-
+    df_pv = load_pv()
+    df_xg = load_xg()
+    
+    
     df_pv['label'] = df_pv['label'].str.replace(' ','_')
     df_pv['team_name'] = df_pv['team_name'].str.replace(' ','_')
     df_pv['label'] = (df_pv['label'] + '_' + df_pv['date'])
-
-    df_xg = pd.read_csv(f'1. Division/{Modstander}/{Modstander}_xg_data.csv')
-    df_xg['label'] = df_xg['label'].str.replace(' ','_')
-    df_xg['team_name'] = df_xg['team_name'].str.replace(' ','_')
-    df_xg['label'] = (df_xg['label'] + '_' + df_xg['date'])
-    df_xg_id = df_xg[df_xg['q_qualifierId'].isin([6.0,9.0,26.0,25.0,24.0,107.0])]
-    df_xg = df_xg[~df_xg['id'].isin(df_xg_id['id'])]
 
     Hold = df_pv['team_name'].unique()
     Hold = [team.replace(' ', '_') for team in Hold]
@@ -574,7 +582,8 @@ def Opposition_analysis ():
     Kampe_labels = Kampe['label'].unique()
     Kampe_labels = Kampe_labels.astype(str)
     Kampe_labels = [label.replace(' ', '_') for label in Kampe_labels]
-
+    with col1:
+        Modstander
     with col2:
         Kampvalg = st.multiselect('Choose matches (last 5 per default)', Kampe_labels, default=Kampe_labels[:5])
 

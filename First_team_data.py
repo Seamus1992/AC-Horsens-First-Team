@@ -569,7 +569,7 @@ def Opposition_analysis ():
     with col1:
         selected_opponent = load_modstander()
     
-    df_pv = load_pv_opponent(Modstander)
+    df_pv = load_pv_opponent(selected_opponent)
     df_xg = load_xg()
     df_possession_modstander = load_modstander_possession_data(selected_opponent)
     

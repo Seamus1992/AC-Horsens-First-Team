@@ -69,7 +69,7 @@ def Match_evaluation ():
     df_possession_pv['PvTotal'] = df_possession_pv['possessionValue.pvValue'].astype(float) + df_possession_pv['possessionValue.pvAdded'].astype(float)
     df_possession_pv_hold = df_possession_pv[df_possession_pv['label'] == Kampvalg]
     df_possession_pv_hold = df_possession_pv_hold.drop_duplicates('id')
-    df_pv_agg = df_possession_pv_hold[['team_name','label','PvTotal','periodId','timeMin','timeSec']]
+    df_pv_agg = df_possession_pv_hold[['team_name','label','PvTotal','timeMin','timeSec']]
     df_pv_agg.loc[:, 'timeMin'] = df_pv_agg['timeMin'].astype(int)
     df_pv_agg.loc[:, 'timeSec'] = df_pv_agg['timeSec'].astype(int)
     df_pv_agg = df_pv_agg.sort_values(by=['timeMin', 'timeSec'])

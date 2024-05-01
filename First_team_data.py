@@ -91,7 +91,7 @@ def Match_evaluation ():
 
     df_xg_hold = df_xg_hold.groupby(['team_name','label'])['Open play xG'].sum().reset_index()
     df_holdsummary = df_xg_hold.merge(df_possession_pv_hold)
-
+    st.dataframe(df_holdsummary)
     df_xa = df_possession[df_possession['label'] == Kampvalg]
     df_xa = df_xa[df_xa['q_qualifierId'] == '318.0']
     df_xa['q_value'] = df_xa['q_value'].astype(float)

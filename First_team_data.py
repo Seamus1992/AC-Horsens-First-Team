@@ -38,6 +38,12 @@ def load_xg():
     return df_xg
 
 @st.cache_data()
+def load_xg_opponent(Modstander):
+    df_xg_opponent = pd.read_csv(f'1. Division/{Modstander}/{Modstander}_xg_data.csv')
+    df_xg_opponent['label'] = (df_xg_opponent['label'] + ' ' + df_xg_opponent['date'])
+    return df_xg_opponent
+
+@st.cache_data()
 def load_pv():
     df_pv_columns = ['team_name','label','date','playerName','id','possessionValue.pvValue','possessionValue.pvAdded']
     df_pv = pd.read_csv(r'1. Division/Horsens/Horsens_pv_data.csv',usecols=df_pv_columns)
@@ -45,6 +51,7 @@ def load_pv():
     df_pv['id'] = df_pv['id'].astype(str)
     return df_pv
 
+@st.cache_data()
 def load_pv_opponent(Modstander):
     df_pv_columns = ['team_name','label','date','playerName','id','possessionValue.pvValue','possessionValue.pvAdded']
     df_pv_opponent = pd.read_csv(f'1. Division/{Modstander}/{Modstander}_pv_data.csv',usecols=df_pv_columns)
@@ -569,7 +576,7 @@ def Opposition_analysis ():
         selected_opponent = load_modstander()
     
     df_pv = load_pv_opponent(selected_opponent)
-    df_xg = load_xg()
+    df_xg = load_xg_opponent(selected_opponent)
     df_possession_modstander = load_modstander_possession_data(selected_opponent)
     
     Hold = df_pv['team_name'].unique()

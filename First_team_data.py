@@ -228,12 +228,14 @@ def Match_evaluation ():
 
     df_assist = df_possession.copy()
     df_assist = df_assist[df_assist['team_name'].astype(str) == Modstander]
-    df_assist['assist'] = df_assist['assist'].astype(float)
-    df_assist = df_assist[df_assist['assist'] > 0]
-    df_assist = df_assist.drop_duplicates('id')
-    df_assist_spiller = df_assist.groupby('playerName')['assist'].sum()
-    df_assist_spiller = df_assist_spiller.sort_values(ascending=False)
-
+    try:
+        df_assist['assist'] = df_assist['assist'].astype(float)
+        df_assist = df_assist[df_assist['assist'] > 0]
+        df_assist = df_assist.drop_duplicates('id')
+        df_assist_spiller = df_assist.groupby('playerName')['assist'].sum()
+        df_assist_spiller = df_assist_spiller.sort_values(ascending=False)
+    except KeyError:
+        df_assist = pd.DataFrame()
 
     df_xg_plot = df_xg_modstander[df_xg_modstander['q_qualifierId'].astype(int) == 321]
     df_xg_plot = df_xg_plot[df_xg_plot['q_value'].astype(float) > 0.0]

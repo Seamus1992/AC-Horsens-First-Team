@@ -20,7 +20,6 @@ def load_modstander_possession_data(Modstander):
     df_possession_modstander['label'] = (df_possession_modstander['label'] + ' ' + df_possession_modstander['date']).astype(str)
     return df_possession_modstander
 
-@st.cache_data()
 def load_modstander():
     team_names = ['AaB','B_93','Fredericia','HB_Køge','Helsingør','Hillerød','Hobro','Horsens','Kolding','Næstved','SønderjyskE','Vendsyssel']  # Replace with your list of team names
     Modstander = st.selectbox('Choose opponent',team_names)

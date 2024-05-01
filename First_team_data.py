@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import plotly.graph_objs as go
 st.set_page_config(layout='wide')
 
+@st.cache
 def Match_evaluation ():
     team_name = 'Horsens'
     df_pv_columns = ['team_name','label','date','playerName','id','possessionValue.pvValue','possessionValue.pvAdded']

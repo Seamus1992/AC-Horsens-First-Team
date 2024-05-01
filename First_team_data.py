@@ -15,10 +15,10 @@ def load_possession_data():
 
 @st.cache_data()
 def load_modstander_possession_data():
-    df_possession_columns = ['team_name','id','eventId','typeId','timeMin','timeSec','outcome','x','y','playerName','sequenceId','possessionId','keyPass','assist','q_qualifierId','q_value','label','date']
-    df_possession = pd.read_csv(f'1. Division/{Modstander}/{Modstander}_possession_data.csv',usecols=df_possession_columns)
-    df_possession['label'] = (df_possession['label'] + ' ' + df_possession['date']).astype(str)
-    return df_possession
+    df_possession_modstander_columns = ['team_name','id','eventId','typeId','timeMin','timeSec','outcome','x','y','playerName','sequenceId','possessionId','keyPass','assist','q_qualifierId','q_value','label','date']
+    df_possession_modstander = pd.read_csv(f'1. Division/{Modstander}/{Modstander}_possession_data.csv',usecols=df_possession_modstander_columns)
+    df_possession_modstander['label'] = (df_possession_modstander['label'] + ' ' + df_possession_modstander['date']).astype(str)
+    return df_possession_modstander
 
 @st.cache_data()
 def Modstander():
@@ -568,7 +568,7 @@ def Opposition_analysis ():
 
     df_pv = load_pv()
     df_xg = load_xg()
-    
+    df_possession_modstander = load_modstander_possession_data()
     
     df_pv['label'] = df_pv['label'].str.replace(' ','_')
     df_pv['team_name'] = df_pv['team_name'].str.replace(' ','_')

@@ -48,7 +48,7 @@ def Match_evaluation ():
     df_possession_stats_summary = df_possession_stats_summary.transpose().reset_index()
     df_possession_stats_summary = df_possession_stats_summary.rename(columns={'index':'team_name',0:'terr_poss'})
 
-    df_possession_columns = ['team_name','id','eventId','typeId','timeMin','timeSec','outcome','x','y','playerName','sequenceId','possessionId','keyPass','q_qualifierId','q_value','label','date']
+    df_possession_columns = ['team_name','id','eventId','typeId','timeMin','timeSec','outcome','x','y','playerName','sequenceId','possessionId','keyPass','assist','q_qualifierId','q_value','label','date']
     df_possession = pd.read_csv(r'1. Division/Horsens/Horsens_possession_data.csv',usecols=df_possession_columns)
     df_possession['label'] = (df_possession['label'] + ' ' + df_possession['date']).astype(str)
     df_possession = df_possession[df_possession['label'] == Kampvalg]

@@ -25,6 +25,7 @@ def load_xg():
     df_xg['label'] = (df_xg['label'] + ' ' + df_xg['date'])
     return df_xg
 
+@st.cache_data()
 def load_pv():
     df_pv_columns = ['team_name','label','date','playerName','id','possessionValue.pvValue','possessionValue.pvAdded']
     df_pv = pd.read_csv(r'1. Division/Horsens/Horsens_pv_data.csv',usecols=df_pv_columns)
@@ -38,8 +39,9 @@ def load_pv():
 def Match_evaluation ():
     team_name = 'Horsens'    
     df_pv = load_pv()
-    
     df_xg = load_xg()
+    df_possession_stats = load_possession_stats()
+    df_possession = load_possession_data()
 
     Hold = df_pv['team_name'].unique()
     Hold = [team.replace(' ', '_') for team in Hold]
@@ -55,7 +57,6 @@ def Match_evaluation ():
     df_pv = df_pv[df_pv['label'] == Kampvalg]
     df_xg = df_xg[df_xg['label'] == Kampvalg]
 
-    df_possession_stats = load_possession_stats()
     
     df_possession_stats = df_possession_stats[df_possession_stats['label'] == Kampvalg]
     df_possession_stats = df_possession_stats[df_possession_stats['type'] == 'territorialThird']
@@ -73,7 +74,6 @@ def Match_evaluation ():
     df_possession_stats_summary = df_possession_stats_summary.transpose().reset_index()
     df_possession_stats_summary = df_possession_stats_summary.rename(columns={'index':'team_name',0:'terr_poss'})
     
-    df_possession = load_possession_data()
     
     df_possession = df_possession[df_possession['label'] == Kampvalg]
     df_possession['id'] = df_possession['id'].astype(str)

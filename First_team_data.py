@@ -14,16 +14,15 @@ def load_possession_data():
     return df_possession
 
 @st.cache_data()
-def load_modstander_possession_data():
+def load_modstander_possession_data(Modstander):
     df_possession_modstander_columns = ['team_name','id','eventId','typeId','timeMin','timeSec','outcome','x','y','playerName','sequenceId','possessionId','keyPass','assist','q_qualifierId','q_value','label','date']
     df_possession_modstander = pd.read_csv(f'1. Division/{Modstander}/{Modstander}_possession_data.csv',usecols=df_possession_modstander_columns)
     df_possession_modstander['label'] = (df_possession_modstander['label'] + ' ' + df_possession_modstander['date']).astype(str)
     return df_possession_modstander
 
 @st.cache_data()
-def Modstander():
+def load_modstander():
     team_names = ['AaB','B_93','Fredericia','HB_Køge','Helsingør','Hillerød','Hobro','Horsens','Kolding','Næstved','SønderjyskE','Vendsyssel']  # Replace with your list of team names
-    team_names = [str(team) for team in team_names]
     Modstander = st.selectbox('Choose opponent',team_names)
     return Modstander
 
@@ -560,15 +559,13 @@ def Opposition_analysis ():
     from mplsoccer import Pitch
     import numpy as np
 
-    team_names = ['AaB','B_93','Fredericia','HB_Køge','Helsingør','Hillerød','Hobro','Horsens','Kolding','Næstved','SønderjyskE','Vendsyssel']  # Replace with your list of team names
-    team_names = [str(team) for team in team_names]
     col1,col2 = st.columns(2)
     with col1:
-        Modstander = st.selectbox('Choose opponent',team_names)
-
+        selected_opponent = load_modstander()
+    
     df_pv = load_pv()
     df_xg = load_xg()
-    df_possession_modstander = load_modstander_possession_data()
+    df_possession_modstander = load_modstander_possession_data(selected_opponent)
     
     df_pv['label'] = df_pv['label'].str.replace(' ','_')
     df_pv['team_name'] = df_pv['team_name'].str.replace(' ','_')
@@ -577,41 +574,37 @@ def Opposition_analysis ():
     Hold = df_pv['team_name'].unique()
     Hold = [team.replace(' ', '_') for team in Hold]
     Hold = sorted(Hold)
-    Kampe = df_pv[df_pv['team_name'].astype(str) == Modstander]
+    Kampe = df_pv[df_pv['team_name'].astype(str) == selected_opponent]
     Kampe = Kampe.sort_values(by='date',ascending = False)
     Kampe_labels = Kampe['label'].unique()
     Kampe_labels = Kampe_labels.astype(str)
-    Kampe_labels = [label.replace(' ', '_') for label in Kampe_labels]
-    with col1:
-        Modstander
+
     with col2:
         Kampvalg = st.multiselect('Choose matches (last 5 per default)', Kampe_labels, default=Kampe_labels[:5])
 
-    df_possession_columns = ['team_name','id','eventId','typeId','timeMin','timeSec','outcome','x','y','playerName','sequenceId','possessionId','keyPass','assist','q_qualifierId','q_value','label','date']
-    df_possession = pd.read_csv(f'1. Division/{Modstander}/{Modstander}_possession_data.csv',usecols=df_possession_columns)
     df_possession['label'] = df_possession['label'].str.replace(' ','_')
     df_possession['team_name'] = df_possession['team_name'].str.replace(' ','_')
     df_possession['label'] = (df_possession['label'] + '_' + df_possession['date'])
     df_possession = df_possession[df_possession['label'].isin(Kampvalg)]
     df_possession_id = df_possession[df_possession['q_qualifierId'].isin([6.0,9.0,26.0,25.0,24.0,107.0])]
     df_possession = df_possession[~df_possession['id'].isin(df_possession_id['id'])]
-    df_possession_modstander = df_possession[df_possession['team_name'] == Modstander]
+    df_possession_modstander = df_possession[df_possession['team_name'] == selected_opponent]
     df_possession_modstander = df_possession_modstander[df_possession_modstander['label'].isin(Kampvalg)]
 
-    df_keypass = df_possession[df_possession['team_name'] == Modstander]
+    df_keypass = df_possession[df_possession['team_name'] == selected_opponent]
     df_keypass = df_keypass[df_keypass['label'].isin(Kampvalg)]
     df_keypass = df_keypass[df_keypass['q_qualifierId'] == 210.0]
     df_keypass = df_keypass.drop_duplicates('id')
     df_keypass_spiller = df_keypass['playerName'].value_counts()
     df_keypass_spiller = df_keypass_spiller.sort_values(ascending=False)
 
-    df_pv_modstander = df_pv[df_pv['team_name'] == Modstander]
+    df_pv_modstander = df_pv[df_pv['team_name'] == selected_opponent]
     df_pv_modstander = df_pv_modstander[df_pv_modstander['label'].isin(Kampvalg)]
     df_pv_modstander['possessionValue.pvAdded'] = df_pv_modstander['possessionValue.pvAdded'].astype(float)
     df_pv_spiller = df_pv_modstander.groupby('playerName')['possessionValue.pvAdded'].sum()
     df_pv_spiller = df_pv_spiller.sort_values(ascending=False)
 
-    df_xg_modstander = df_xg[df_xg['team_name'] == Modstander]
+    df_xg_modstander = df_xg[df_xg['team_name'] == selected_opponent]
     df_xg_modstander = df_xg_modstander[df_xg_modstander['label'].isin(Kampvalg)]
     df_xg_modstander = df_xg_modstander[df_xg_modstander['q_qualifierId'].astype(int) == 321]
     df_xg_modstander = df_xg_modstander[df_xg_modstander['q_value'].astype(float) > 0]
@@ -620,14 +613,14 @@ def Opposition_analysis ():
     df_xg_spiller = df_xg_spiller.sort_values(ascending=False)
 
     df_assist = df_possession.copy()
-    df_assist = df_assist[df_assist['team_name'] == Modstander]
+    df_assist = df_assist[df_assist['team_name'] == selected_opponent]
     df_assist['assist'] = df_assist['assist'].astype(float)
     df_assist = df_assist[df_assist['assist'] == 1]
     df_assist = df_assist.drop_duplicates('id')
     df_assist_spiller = df_assist.groupby('playerName')['assist'].sum()
     df_assist_spiller = df_assist_spiller.sort_values(ascending=False)
 
-    df_possession_modstander = df_possession[df_possession['team_name'] == Modstander]
+    df_possession_modstander = df_possession[df_possession['team_name'] == selected_opponent]
     df_possession_modstander = df_possession_modstander[df_possession_modstander['label'].isin(Kampvalg)]
 
     df_xg_plot = df_xg_modstander[df_xg_modstander['q_qualifierId'].astype(int) == 321]
@@ -648,7 +641,7 @@ def Opposition_analysis ():
     sc = pitch.scatter(x, y, ax=ax, s=sizes)
 
     with col1:
-        st.write('Xg plot '+ Modstander)
+        st.write('Xg plot '+ selected_opponent)
         st.pyplot(fig)
 
     df_xg_plot_store_chancer = df_xg_modstander[df_xg_modstander['q_qualifierId'].astype(int) == 321]
@@ -668,7 +661,7 @@ def Opposition_analysis ():
     fig, ax = pitch.draw()
     sc = pitch.scatter(x, y, ax=ax, s=sizes)
     with col2:
-        st.write('Xg plot store chancer ' + Modstander)
+        st.write('Xg plot store chancer ' + selected_opponent)
         st.pyplot(fig)
 
     col1,col2,col3,col4 = st.columns(4)
@@ -755,19 +748,19 @@ def Opposition_analysis ():
         st.dataframe(store_chancer_sequencer_spillere,hide_index=True)
         
 
-    st.title('Against ' + Modstander)
+    st.title('Against ' + selected_opponent)
     #Modstanders modstandere
 
-    df_keypass = df_possession[df_possession['team_name'] != Modstander]
+    df_keypass = df_possession[df_possession['team_name'] != selected_opponent]
     df_keypass = df_keypass[df_keypass['label'].isin(Kampvalg)]
     df_keypass = df_keypass[df_keypass['q_qualifierId'] == 210.0]
     df_keypass = df_keypass.drop_duplicates('id')
     df_keypass_spiller = df_keypass['playerName'].value_counts()
     df_keypass_spiller = df_keypass_spiller.sort_values(ascending=False)
 
-    df_xg_modstander = df_xg[df_xg['label'].str.contains(Modstander)]
+    df_xg_modstander = df_xg[df_xg['label'].str.contains(selected_opponent)]
     df_xg_modstander = df_xg_modstander[df_xg_modstander['label'].isin(Kampvalg)]
-    df_xg_modstander = df_xg_modstander[df_xg_modstander['team_name'] != Modstander]
+    df_xg_modstander = df_xg_modstander[df_xg_modstander['team_name'] != selected_opponent]
     df_xg_modstander = df_xg_modstander[df_xg_modstander['q_qualifierId'].astype(int) == 321]
     df_xg_modstander = df_xg_modstander[df_xg_modstander['q_value'].astype(float) > 0]
     df_xg_modstander['q_value'] = df_xg_modstander['q_value'].astype(float)
@@ -776,7 +769,7 @@ def Opposition_analysis ():
 
     df_assist = df_possession.copy()
     df_assist = df_assist[df_assist['label'].isin(Kampvalg)]
-    df_assist = df_assist[df_assist['team_name'] != Modstander]
+    df_assist = df_assist[df_assist['team_name'] != selected_opponent]
     df_assist['assist'] = df_assist['assist'].astype(float)
     df_assist = df_assist[df_assist['assist'] == 1]
     df_assist = df_assist.drop_duplicates('id')
@@ -785,7 +778,7 @@ def Opposition_analysis ():
 
     df_possession = df_possession[df_possession['label'].isin(Kampvalg)]
 
-    df_possession_modstander = df_possession[df_possession['team_name'] == Modstander]
+    df_possession_modstander = df_possession[df_possession['team_name'] == selected_opponent]
     df_possession_modstander = df_possession_modstander[df_possession_modstander['label'].isin(Kampvalg)]
 
     df_xg_plot = df_xg_modstander[df_xg_modstander['q_qualifierId'].astype(int) == 321]
@@ -806,7 +799,7 @@ def Opposition_analysis ():
     sc = pitch.scatter(x, y, ax=ax, s=sizes)
 
     with col1:
-        st.write('Xg plot mod '+ Modstander)
+        st.write('Xg plot mod '+ selected_opponent)
         st.pyplot(fig)
 
     df_xg_plot_store_chancer = df_xg_modstander[df_xg_modstander['q_qualifierId'].astype(int) == 321]
@@ -825,7 +818,7 @@ def Opposition_analysis ():
     fig, ax = pitch.draw()
     sc = pitch.scatter(x, y, ax=ax, s=sizes)
     with col2:
-        st.write('Xg plot store chancer mod ' + Modstander)
+        st.write('Xg plot store chancer mod ' + selected_opponent)
         st.pyplot(fig)
     
     col1,col2 = st.columns(2)
@@ -837,7 +830,7 @@ def Opposition_analysis ():
     fig, ax = pitch.draw()
     sc = pitch.scatter(x, y, ax=ax)
     with col1:
-        st.write('Shot assists mod ' + Modstander)
+        st.write('Shot assists mod ' + selected_opponent)
         st.pyplot(fig)
 
     x = df_assist['x'].astype(float)
@@ -847,7 +840,7 @@ def Opposition_analysis ():
     fig, ax = pitch.draw()
     sc = pitch.scatter(x, y, ax=ax)
     with col2:
-        st.write('Assists mod ' + Modstander)
+        st.write('Assists mod ' + selected_opponent)
         st.pyplot(fig)
         
     #sorterer for standardsituationer
@@ -869,7 +862,7 @@ def Opposition_analysis ():
     sc = pitch.scatter(x, y, ax=ax)
     col1,col2 = st.columns(2)
     with col1:
-        st.write('Erobringer der fører til chancer mod ' + Modstander + ' (0,01 xg)')
+        st.write('Erobringer der fører til chancer mod ' + selected_opponent + ' (0,01 xg)')
         st.pyplot(fig)
     store_chancer_sequencer_spillere = store_chancer_sequencer.value_counts('playerName')
 

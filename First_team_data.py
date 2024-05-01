@@ -10,14 +10,10 @@ def Match_evaluation ():
     team_name = 'Horsens'
     df_pv_columns = ['team_name','label','date','playerName','id','possessionValue.pvValue','possessionValue.pvAdded']
     df_pv = pd.read_csv(r'1. Division/Horsens/Horsens_pv_data.csv',usecols=df_pv_columns)
-    #df_pv['label'] = df_pv['label'].str.replace(' ','_')
-    #df_pv['team_name'] = df_pv['team_name'].str.replace(' ','_')
     df_pv['label'] = (df_pv['label'] + ' ' + df_pv['date'])
     df_pv['id'] = df_pv['id'].astype(str)
 
     df_xg = pd.read_csv(r'1. Division/Horsens/Horsens_xg_data.csv')
-    #df_xg['label'] = df_xg['label'].str.replace(' ','_')
-    #df_xg['team_name'] = df_xg['team_name'].str.replace(' ','_')
     df_xg['label'] = (df_xg['label'] + ' ' + df_xg['date'])
 
     Hold = df_pv['team_name'].unique()
@@ -34,7 +30,6 @@ def Match_evaluation ():
     df_pv = df_pv[df_pv['label'] == Kampvalg]
     df_xg = df_xg[df_xg['label'] == Kampvalg]
     df_possession_stats = pd.read_csv(r'1. Division/possession_stats_all 1. Division.csv')
-    #df_possession_stats['label'] = df_possession_stats['label'].str.replace(' ','_')
     df_possession_stats['label'] = (df_possession_stats['label'] + ' ' + df_possession_stats['date'])
     df_possession_stats = df_possession_stats[df_possession_stats['label'] == Kampvalg]
     df_possession_stats = df_possession_stats[df_possession_stats['type'] == 'territorialThird']
@@ -55,10 +50,7 @@ def Match_evaluation ():
 
     df_possession_columns = ['team_name','id','eventId','typeId','timeMin','timeSec','outcome','x','y','playerName','sequenceId','possessionId','keyPass','q_qualifierId','q_value','label','date']
     df_possession = pd.read_csv(r'1. Division/Horsens/Horsens_possession_data.csv',usecols=df_possession_columns)
-    #df_possession['label'] = df_possession['label'].str.replace(' ','_')
-    #df_possession['team_name'] = df_possession['team_name'].str.replace(' ','_')
     df_possession['label'] = (df_possession['label'] + ' ' + df_possession['date']).astype(str)
-    #df_possession['label'] = df_possession['label'].str.replace(' ','_')
     df_possession = df_possession[df_possession['label'] == Kampvalg]
     df_possession['id'] = df_possession['id'].astype(str)
     df_possession = df_possession[['team_name','id','eventId','typeId','timeMin','timeSec','outcome','x','y','playerName','sequenceId','possessionId','keyPass','q_qualifierId','q_value','label']].astype(str)
@@ -73,7 +65,6 @@ def Match_evaluation ():
     df_pv_agg.loc[:, 'timeSec'] = df_pv_agg['timeSec'].astype(int)
     df_pv_agg = df_pv_agg.sort_values(by=['timeMin', 'timeSec'])
     df_pv_agg = df_pv_agg[df_pv_agg['PvTotal'].astype(float) > 0]
-    #df_pv_agg['PvTotal'] = df_pv_agg['PvTotal'].astype(float)
     df_pv_agg['culmulativpv'] = df_pv_agg.groupby(['team_name','label'])['PvTotal'].cumsum()
     df_possession_pv_hold = df_possession_pv_hold.groupby(['team_name','label'])['PvTotal'].sum().reset_index()
 
@@ -192,6 +183,7 @@ def Match_evaluation ():
     df_possession_pv_pivoted = df_possession_pv.pivot(index='id', columns='q_qualifierId', values='q_value').reset_index()
     df_possession_pv = df_possession_pv_pivoted.merge(df_possession_pv)
     df_possession_pv = df_possession_pv.drop_duplicates('id')
+    df_possession_pv = df_possession_pv[df_possession_pv['playerName'].notna()]
     player_pv_df = df_possession_pv.groupby('playerName')['PvTotal'].sum()
     players = df_possession_pv['playerName'].astype(str).drop_duplicates()
     pitch = Pitch(pitch_type='opta', line_color='white', pitch_color='grass',pad_top=0)

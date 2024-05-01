@@ -719,7 +719,7 @@ def Opposition_analysis ():
     # Filter out all rows with the filtered 'id' values
     filtered_data = df_possession_modstander[df_possession_modstander['id'].isin(filtered_ids)]
     #erobringer til store chancer
-    df_store_chancer = filtered_data[(filtered_data['q_qualifier_name'] == 'Expected Goals')]
+    df_store_chancer = filtered_data[(filtered_data['q_qualifierId'] == 321)]
     df_store_chancer = df_store_chancer[df_store_chancer['q_value'].astype(float) > 0.01]
     store_chancer_sequencer = df_store_chancer[['label','sequenceId']]
     store_chancer_sequencer = store_chancer_sequencer.merge(df_possession_modstander)
@@ -850,7 +850,7 @@ def Opposition_analysis ():
     # Filter out all rows with the filtered 'id' values
     filtered_data = df_possession[df_possession['id'].isin(filtered_ids)]
     #erobringer til store chancer
-    df_store_chancer = filtered_data[(filtered_data['q_qualifier_name'] == 'Expected Goals')]
+    df_store_chancer = filtered_data[(filtered_data['q_qualifierId'] == 321)]
     df_store_chancer = df_store_chancer[df_store_chancer['q_value'].astype(float) > 0.01]
     store_chancer_sequencer = df_store_chancer[['label','sequenceId']]
     store_chancer_sequencer = store_chancer_sequencer.merge(df_possession)

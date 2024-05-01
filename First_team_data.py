@@ -47,10 +47,10 @@ def load_pv():
 
 def load_pv_opponent(Modstander):
     df_pv_columns = ['team_name','label','date','playerName','id','possessionValue.pvValue','possessionValue.pvAdded']
-    df_pv = pd.read_csv(f'1. Division/{Modstander}/{Modstander}_pv_data.csv',usecols=df_pv_columns)
-    df_pv['label'] = (df_pv['label'] + ' ' + df_pv['date'])
-    df_pv['id'] = df_pv['id'].astype(str)
-    return df_pv
+    df_pv_opponent = pd.read_csv(f'1. Division/{Modstander}/{Modstander}_pv_data.csv',usecols=df_pv_columns)
+    df_pv_opponent['label'] = (df_pv_opponent['label'] + ' ' + df_pv_opponent['date'])
+    df_pv_opponent['id'] = df_pv_opponent['id'].astype(str)
+    return df_pv_opponent
 
 @st.cache_data(experimental_allow_widgets=True)
 @st.cache_resource(experimental_allow_widgets=True)

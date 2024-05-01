@@ -53,7 +53,7 @@ def Match_evaluation ():
     df_possession['label'] = (df_possession['label'] + ' ' + df_possession['date']).astype(str)
     df_possession = df_possession[df_possession['label'] == Kampvalg]
     df_possession['id'] = df_possession['id'].astype(str)
-    df_possession = df_possession[['team_name','id','eventId','typeId','timeMin','timeSec','outcome','x','y','playerName','sequenceId','possessionId','keyPass','q_qualifierId','q_value','label']].astype(str)
+    df_possession = df_possession.astype(str)
     df_pv = df_pv[['team_name','playerName','id','possessionValue.pvValue','possessionValue.pvAdded']].astype(str)
 
     df_possession_pv = pd.merge(df_possession,df_pv,how='outer')

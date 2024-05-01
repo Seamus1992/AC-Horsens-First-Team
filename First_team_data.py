@@ -568,7 +568,7 @@ def Opposition_analysis ():
     with col1:
         selected_opponent = load_modstander()
     
-    df_pv = load_pv()
+    df_pv = load_pv_opponent()
     df_xg = load_xg()
     df_possession_modstander = load_modstander_possession_data(selected_opponent)
     
@@ -582,9 +582,6 @@ def Opposition_analysis ():
     with col2:
         Kampvalg = st.multiselect('Choose matches (last 5 per default)', Kampe_labels, default=Kampe_labels[:5])
 
-    df_possession = df_possession[df_possession['label'].isin(Kampvalg)]
-    df_possession_id = df_possession[df_possession['q_qualifierId'].isin([6.0,9.0,26.0,25.0,24.0,107.0])]
-    df_possession = df_possession[~df_possession['id'].isin(df_possession_id['id'])]
     df_possession_modstander = df_possession[df_possession['team_name'] == selected_opponent]
     df_possession_modstander = df_possession_modstander[df_possession_modstander['label'].isin(Kampvalg)]
 

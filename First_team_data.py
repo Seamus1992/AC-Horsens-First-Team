@@ -233,7 +233,6 @@ def Match_evaluation ():
     df_xg_spiller = df_xg_spiller.sort_values(ascending=False)
 
     df_assist = df_possession.copy()
-    st.dataframe(df_assist)
     df_assist = df_assist[df_assist['team_name'].astype(str) == Modstander]
     try:
         df_assist['assist'] = df_assist['assist'].astype(float)

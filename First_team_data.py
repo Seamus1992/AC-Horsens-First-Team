@@ -617,7 +617,7 @@ def Opposition_analysis ():
     df_possession_modstander = df_possession_modstander[df_possession_modstander['team_name'] == selected_opponent]
     df_possession_modstander = df_possession_modstander[df_possession_modstander['label'].isin(Kampvalg)]
 
-    df_xg_plot = df_xg_modstander[df_xg_modstander['q_qualifierId'].astype(int) == 321.0]
+    df_xg_plot = df_xg_modstander
     df_xg_plot = df_xg_plot[df_xg_plot['q_value'].astype(float) > 0.0]
 
     col1,col2 = st.columns(2)

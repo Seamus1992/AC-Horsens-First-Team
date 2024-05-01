@@ -44,7 +44,9 @@ def Match_evaluation ():
     df_possession_away = df_possession_stats['away'].mean()
     df_possession_stats_summary = pd.DataFrame({'home': [df_possession_home], 'away': [df_possession_away]})
     first_home_team = df_possession_stats['home_team'].iloc[0]
+    first_home_team = first_home_team.str.replace(' ','_')
     first_away_team = df_possession_stats['away_team'].iloc[0]
+    first_away_team = first_away_team.str.replace(' ','_')
     df_possession_stats = df_possession_stats.rename(columns={'home': first_home_team, 'away': first_away_team})
     df_possession_stats_summary = df_possession_stats_summary.rename(columns={'home': first_home_team, 'away': first_away_team})
     df_possession_stats = df_possession_stats.drop_duplicates()

@@ -72,6 +72,7 @@ def Match_evaluation ():
     team_name = 'Horsens'    
     df_pv = load_pv()
     df_xg = load_xg()
+    st.dataframe(df_xg)
     df_possession_stats = load_possession_stats()
     df_possession = load_possession_data()
 
@@ -125,7 +126,6 @@ def Match_evaluation ():
     df_possession_pv_hold = df_possession_pv_hold.groupby(['team_name','label'])['PvTotal'].sum().reset_index()
 
     df_xg_hold = df_xg[df_xg['label'] == Kampvalg]
-    st.dataframe(df_xg_hold)
     df_xg_hold['q_value'] = df_xg_hold['q_value'].astype(float)
     df_xg_hold = df_xg_hold.rename(columns={'q_value': 'Open play xG'})
     df_xg_agg = df_xg_hold[['team_name','Open play xG','periodId','timeMin','timeSec']]

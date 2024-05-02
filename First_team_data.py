@@ -778,7 +778,6 @@ def Opposition_analysis ():
     df_assist = df_possession_modstander.copy()
     df_assist = df_assist[df_assist['label'].isin(Kampvalg)]
     df_assist = df_assist[df_assist['team_name'] != selected_opponent]
-    df_assist['assist'] = df_assist['assist'].astype(float)
     df_assist = df_assist[df_assist['assist'] == 1]
     df_assist = df_assist.drop_duplicates('id')
     df_assist_spiller = df_assist.groupby('playerName')['assist'].sum()

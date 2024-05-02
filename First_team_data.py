@@ -440,6 +440,7 @@ def Match_evaluation ():
         sc = pitch.scatter(x, y, ax=ax)
         interceptions_df = interceptions_df.set_index('playerName')
         st.pyplot(fig)    
+        plt.close(fig)
 
     st.title('Against ' + Modstander)
     #Modstanders modstandere

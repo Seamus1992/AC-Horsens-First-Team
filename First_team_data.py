@@ -783,6 +783,8 @@ def Opposition_analysis ():
     df_assist_spiller = df_assist.groupby('playerName')['assist'].sum()
     df_assist_spiller = df_assist_spiller.sort_values(ascending=False)
 
+    df_possession_modstander = load_modstander_possession_data(selected_opponent)
+
     df_possession_modstander = df_possession_modstander[df_possession_modstander['label'].isin(Kampvalg)]
 
     df_possession_modstander = df_possession_modstander[df_possession_modstander['team_name'] == selected_opponent]

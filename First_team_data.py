@@ -762,7 +762,7 @@ def Opposition_analysis ():
 
     df_keypass = df_possession_modstander[df_possession_modstander['team_name'] != selected_opponent]
     df_keypass = df_keypass[df_keypass['label'].isin(Kampvalg)]
-    df_keypass = df_keypass[df_keypass['q_qualifierId'] == '210.0']
+    df_keypass = df_keypass[df_keypass['q_qualifierId'] == 210.0]
     df_keypass = df_keypass.drop_duplicates('id')
     df_keypass_spiller = df_keypass['playerName'].value_counts()
     df_keypass_spiller = df_keypass_spiller.sort_values(ascending=False)

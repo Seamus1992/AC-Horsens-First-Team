@@ -124,8 +124,7 @@ def Match_evaluation ():
     df_pv_agg['culmulativpv'] = df_pv_agg.groupby(['team_name','label'])['PvTotal'].cumsum()
     df_possession_pv_hold = df_possession_pv_hold.groupby(['team_name','label'])['PvTotal'].sum().reset_index()
 
-    df_xg_hold = df_xg_hold[df_xg_hold['label'] == Kampvalg]
-    st.dataframe(df_xg_hold)
+    df_xg_hold = df_xg[df_xg['label'] == Kampvalg]
     df_xg_hold['q_value'] = df_xg_hold['q_value'].astype(float)
     df_xg_hold = df_xg_hold.rename(columns={'q_value': 'Open play xG'})
     df_xg_agg = df_xg_hold[['team_name','Open play xG','periodId','timeMin','timeSec']]

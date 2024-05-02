@@ -32,8 +32,6 @@ def load_modstander():
 def load_possession_stats():
     df_possession_stats = pd.read_csv(r'1. Division/possession_stats_all 1. Division.csv')
     df_possession_stats['label'] = (df_possession_stats['label'] + ' ' + df_possession_stats['date'])
-    df_possession_stats['team_name'].str.replace(' ', '_')
-
     return df_possession_stats
 
 @st.cache_data()

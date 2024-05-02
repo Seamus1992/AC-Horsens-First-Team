@@ -127,11 +127,12 @@ def Match_evaluation ():
     df_xg_hold = df_xg[df_xg['label'] == Kampvalg]
     df_xg_hold['q_value'] = df_xg_hold['q_value'].astype(float)
     df_xg_hold = df_xg_hold.rename(columns={'q_value': 'Open play xG'})
+    st.dataframe(df_xg_hold)
+
     df_xg_agg = df_xg_hold[['team_name','Open play xG','periodId','timeMin','timeSec']]
     df_xg_agg.loc[:,'timeMin'] = df_xg_agg['timeMin'].astype(int)
     df_xg_agg.loc[:,'timeSec'] = df_xg_agg['timeSec'].astype(int)
     df_xg_agg = df_xg_agg.sort_values(by=['timeMin', 'timeSec'])
-    st.dataframe(df_xg_agg)
 
     df_xg_agg = df_xg_agg[df_xg_agg['Open play xG'].astype(float) > 0]
     df_xg_agg['culmulativxg'] = df_xg_agg.groupby('team_name')['Open play xG'].cumsum()

@@ -131,9 +131,10 @@ def Match_evaluation ():
     df_xg_agg.loc[:,'timeMin'] = df_xg_agg['timeMin'].astype(int)
     df_xg_agg.loc[:,'timeSec'] = df_xg_agg['timeSec'].astype(int)
     df_xg_agg = df_xg_agg.sort_values(by=['timeMin', 'timeSec'])
+    st.dataframe(df_xg_agg)
+
     df_xg_agg = df_xg_agg[df_xg_agg['Open play xG'].astype(float) > 0]
     df_xg_agg['culmulativxg'] = df_xg_agg.groupby('team_name')['Open play xG'].cumsum()
-    st.dataframe(df_xg_agg)
     df_xg_hold = df_xg_hold.groupby(['team_name','label'])['Open play xG'].sum().reset_index()
     df_holdsummary = df_xg_hold.merge(df_possession_pv_hold)
     df_xa = df_possession[df_possession['label'] == Kampvalg]

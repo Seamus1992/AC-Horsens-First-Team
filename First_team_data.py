@@ -758,6 +758,7 @@ def Opposition_analysis ():
 
     st.title('Against ' + selected_opponent)
     #Modstanders modstandere
+    df_possession_modstander = load_modstander_possession_data(selected_opponent)
 
     df_keypass = df_possession_modstander[df_possession_modstander['team_name'] != selected_opponent]
     df_keypass = df_keypass[df_keypass['label'].isin(Kampvalg)]
@@ -775,6 +776,7 @@ def Opposition_analysis ():
     df_xg_spiller = df_xg_modstander.groupby('playerName')['q_value'].sum()
     df_xg_spiller = df_xg_spiller.sort_values(ascending=False)
 
+
     df_assist = df_possession_modstander.copy()
     df_assist = df_assist[df_assist['label'].isin(Kampvalg)]
     df_assist = df_assist[df_assist['team_name'] != selected_opponent]
@@ -783,12 +785,9 @@ def Opposition_analysis ():
     df_assist_spiller = df_assist.groupby('playerName')['assist'].sum()
     df_assist_spiller = df_assist_spiller.sort_values(ascending=False)
 
-    df_possession_modstander = load_modstander_possession_data(selected_opponent)
 
     df_possession_modstander = df_possession_modstander[df_possession_modstander['label'].isin(Kampvalg)]
-
     df_possession_modstander = df_possession_modstander[df_possession_modstander['team_name'] == selected_opponent]
-    df_possession_modstander = df_possession_modstander[df_possession_modstander['label'].isin(Kampvalg)]
 
     df_xg_plot = df_xg_modstander[df_xg_modstander['q_qualifierId'].astype(int) == 321]
     df_xg_plot = df_xg_plot[df_xg_plot['q_value'].astype(float) > 0.0]

@@ -72,7 +72,6 @@ def Match_evaluation ():
     team_name = 'Horsens'    
     df_pv = load_pv()
     df_xg = load_xg()
-    st.dataframe(df_xg)
     df_possession_stats = load_possession_stats()
     df_possession = load_possession_data()
 

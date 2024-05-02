@@ -124,7 +124,6 @@ def Match_evaluation ():
     df_pv_agg['culmulativpv'] = df_pv_agg.groupby(['team_name','label'])['PvTotal'].cumsum()
     df_possession_pv_hold = df_possession_pv_hold.groupby(['team_name','label'])['PvTotal'].sum().reset_index()
 
-    df_xg_hold = df_xg[df_xg['q_qualifierId'] == 321]
     df_xg_hold = df_xg_hold[df_xg_hold['label'] == Kampvalg]
     df_xg_hold['q_value'] = df_xg_hold['q_value'].astype(float)
     df_xg_hold = df_xg_hold.rename(columns={'q_value': 'Open play xG'})
@@ -277,7 +276,6 @@ def Match_evaluation ():
 
     df_xg_modstander = df_xg[df_xg['team_name'].astype(str) == Modstander]
     df_xg_modstander = df_xg_modstander[df_xg_modstander['label']==Kampvalg]
-    df_xg_modstander = df_xg_modstander[df_xg_modstander['q_qualifierId'].astype(int) == 321]
     df_xg_modstander = df_xg_modstander[df_xg_modstander['q_value'].astype(float) > 0]
     df_xg_modstander['q_value'] = df_xg_modstander['q_value'].astype(float)
     df_xg_spiller = df_xg_modstander.groupby('playerName')['q_value'].sum()

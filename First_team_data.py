@@ -759,7 +759,7 @@ def Opposition_analysis ():
     st.title('Against ' + selected_opponent)
     #Modstanders modstandere
 
-    df_keypass = df_possession[df_possession['team_name'] != selected_opponent]
+    df_keypass = df_possession_modstander[df_possession_modstander['team_name'] != selected_opponent]
     df_keypass = df_keypass[df_keypass['label'].isin(Kampvalg)]
     df_keypass = df_keypass[df_keypass['q_qualifierId'] == 210.0]
     df_keypass = df_keypass.drop_duplicates('id')
@@ -775,7 +775,7 @@ def Opposition_analysis ():
     df_xg_spiller = df_xg_modstander.groupby('playerName')['q_value'].sum()
     df_xg_spiller = df_xg_spiller.sort_values(ascending=False)
 
-    df_assist = df_possession.copy()
+    df_assist = df_possession_modstander.copy()
     df_assist = df_assist[df_assist['label'].isin(Kampvalg)]
     df_assist = df_assist[df_assist['team_name'] != selected_opponent]
     df_assist['assist'] = df_assist['assist'].astype(float)
@@ -784,9 +784,9 @@ def Opposition_analysis ():
     df_assist_spiller = df_assist.groupby('playerName')['assist'].sum()
     df_assist_spiller = df_assist_spiller.sort_values(ascending=False)
 
-    df_possession = df_possession[df_possession['label'].isin(Kampvalg)]
+    df_possession_modstander = df_possession_modstander[df_possession_modstander['label'].isin(Kampvalg)]
 
-    df_possession_modstander = df_possession[df_possession['team_name'] == selected_opponent]
+    df_possession_modstander = df_possession_modstander[df_possession_modstander['team_name'] == selected_opponent]
     df_possession_modstander = df_possession_modstander[df_possession_modstander['label'].isin(Kampvalg)]
 
     df_xg_plot = df_xg_modstander[df_xg_modstander['q_qualifierId'].astype(int) == 321]
@@ -852,15 +852,15 @@ def Opposition_analysis ():
         st.pyplot(fig)
         
     #sorterer for standardsituationer
-    df_possession['q_qualifierId'] = df_possession['q_qualifierId'].astype(float)
-    filtered_ids = df_possession[df_possession['q_qualifierId'].isin([22,23])]['id']
+    df_possession_modstander['q_qualifierId'] = df_possession_modstander['q_qualifierId'].astype(float)
+    filtered_ids = df_possession_modstander[df_possession_modstander['q_qualifierId'].isin([22,23])]['id']
     # Filter out all rows with the filtered 'id' values
-    filtered_data = df_possession[df_possession['id'].isin(filtered_ids)]
+    filtered_data = df_possession_modstander[df_possession_modstander['id'].isin(filtered_ids)]
     #erobringer til store chancer
     df_store_chancer = filtered_data[(filtered_data['q_qualifierId'] == 321)]
     df_store_chancer = df_store_chancer[df_store_chancer['q_value'].astype(float) > 0.01]
     store_chancer_sequencer = df_store_chancer[['label','sequenceId']]
-    store_chancer_sequencer = store_chancer_sequencer.merge(df_possession)
+    store_chancer_sequencer = store_chancer_sequencer.merge(df_possession_modstander)
     store_chancer_sequencer = store_chancer_sequencer.drop_duplicates(subset='sequenceId', keep='first')
     x = store_chancer_sequencer['x'].astype(float)
     y = store_chancer_sequencer['y'].astype(float)

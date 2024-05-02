@@ -39,7 +39,6 @@ def load_xg():
     df_xg = pd.read_csv(r'1. Division/Horsens/Horsens_xg_data.csv')
     df_xg['label'] = (df_xg['label'] + ' ' + df_xg['date'])
     df_xg['team_name'].str.replace(' ', '_')
-
     return df_xg
 
 @st.cache_data()

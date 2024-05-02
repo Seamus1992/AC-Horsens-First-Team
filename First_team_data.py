@@ -11,7 +11,7 @@ def load_possession_data():
     df_possession_columns = ['team_name','id','eventId','typeId','timeMin','timeSec','outcome','x','y','playerName','sequenceId','possessionId','keyPass','assist','q_qualifierId','q_value','label','date']
     df_possession = pd.read_csv(r'1. Division/Horsens/Horsens_possession_data.csv',usecols=df_possession_columns)
     df_possession['label'] = (df_possession['label'] + ' ' + df_possession['date']).astype(str)
-    df_possession['team_name'].str.replace(' ', '_', inplace=True)
+    df_possession['team_name'].str.replace(' ', '_')
     return df_possession
 
 @st.cache_data()
@@ -19,7 +19,7 @@ def load_modstander_possession_data(Modstander):
     df_possession_modstander_columns = ['team_name','id','eventId','typeId','timeMin','timeSec','outcome','x','y','playerName','sequenceId','possessionId','keyPass','assist','q_qualifierId','q_value','label','date']
     df_possession_modstander = pd.read_csv(f'1. Division/{Modstander}/{Modstander}_possession_data.csv',usecols=df_possession_modstander_columns)
     df_possession_modstander['label'] = (df_possession_modstander['label'] + ' ' + df_possession_modstander['date']).astype(str)
-    df_possession_modstander['team_name'].str.replace(' ', '_', inplace=True)
+    df_possession_modstander['team_name'].str.replace(' ', '_')
 
     return df_possession_modstander
 
@@ -32,7 +32,7 @@ def load_modstander():
 def load_possession_stats():
     df_possession_stats = pd.read_csv(r'1. Division/possession_stats_all 1. Division.csv')
     df_possession_stats['label'] = (df_possession_stats['label'] + ' ' + df_possession_stats['date'])
-    df_possession_stats['team_name'].str.replace(' ', '_', inplace=True)
+    df_possession_stats['team_name'].str.replace(' ', '_')
 
     return df_possession_stats
 
@@ -40,7 +40,7 @@ def load_possession_stats():
 def load_xg():
     df_xg = pd.read_csv(r'1. Division/Horsens/Horsens_xg_data.csv')
     df_xg['label'] = (df_xg['label'] + ' ' + df_xg['date'])
-    df_xg['team_name'].str.replace(' ', '_', inplace=True)
+    df_xg['team_name'].str.replace(' ', '_')
 
     return df_xg
 
@@ -48,7 +48,7 @@ def load_xg():
 def load_xg_opponent(Modstander):
     df_xg_opponent = pd.read_csv(f'1. Division/{Modstander}/{Modstander}_xg_data.csv')
     df_xg_opponent['label'] = (df_xg_opponent['label'] + ' ' + df_xg_opponent['date'])
-    df_xg_opponent['team_name'].str.replace(' ', '_', inplace=True)
+    df_xg_opponent['team_name'].str.replace(' ', '_')
     return df_xg_opponent
 
 @st.cache_data()
@@ -57,7 +57,7 @@ def load_pv():
     df_pv = pd.read_csv(r'1. Division/Horsens/Horsens_pv_data.csv',usecols=df_pv_columns)
     df_pv['label'] = (df_pv['label'] + ' ' + df_pv['date'])
     df_pv['id'] = df_pv['id'].astype(str)
-    df_pv['team_name'].str.replace(' ', '_', inplace=True)
+    df_pv['team_name'].str.replace(' ', '_')
     return df_pv
 
 @st.cache_data()
@@ -66,7 +66,7 @@ def load_pv_opponent(Modstander):
     df_pv_opponent = pd.read_csv(f'1. Division/{Modstander}/{Modstander}_pv_data.csv',usecols=df_pv_columns)
     df_pv_opponent['label'] = (df_pv_opponent['label'] + ' ' + df_pv_opponent['date'])
     df_pv_opponent['id'] = df_pv_opponent['id'].astype(str)
-    df_pv_opponent['team_name'].str.replace(' ', '_', inplace=True)
+    df_pv_opponent['team_name'].str.replace(' ', '_')
     return df_pv_opponent
 
 @st.cache_data(experimental_allow_widgets=True)

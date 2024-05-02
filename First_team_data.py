@@ -262,6 +262,7 @@ def Match_evaluation ():
 
     st.title('Passes and pv')
     st.pyplot(fig)
+    plt.close(fig)
 
     df_keypass = df_possession[df_possession['team_name'] == Modstander]
     df_keypass = df_keypass[df_keypass['label'] == Kampvalg]

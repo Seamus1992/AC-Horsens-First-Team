@@ -9,6 +9,12 @@ import plotly.express as px
 st.set_page_config(layout='wide')
 
 @st.cache_data()
+def load_match_stats():
+    match_stats = pd.read_csv(r'1. Division/matchstats_all 1. Division.csv')
+    match_stats['label'] = (match_stats['label'] + ' ' + match_stats['date'])
+    return match_stats
+
+@st.cache_data()
 def load_possession_data():
     df_possession_columns = ['team_name','id','eventId','typeId','timeMin','timeSec','outcome','x','y','playerName','sequenceId','possessionId','keyPass','assist','q_qualifierId','q_value','label','date']
     df_possession = pd.read_csv(r'1. Division/Horsens/Horsens_possession_data.csv',usecols=df_possession_columns)
@@ -42,6 +48,13 @@ def load_xg():
     df_xg['label'] = (df_xg['label'] + ' ' + df_xg['date'])
     df_xg['team_name'].str.replace(' ', '_')
     return df_xg
+
+@st.cache_data()
+def load_all_xg():
+    xg = pd.read_csv(r'1. Division/Horsens/Horsens_xg_data.csv')
+    xg['label'] = (xg['label'] + ' ' + xg['date'])
+    xg['team_name'].str.replace(' ', '_')
+    return xg
 
 @st.cache_data()
 def load_xg_opponent(Modstander):
@@ -581,8 +594,8 @@ def Match_evaluation ():
 st.cache_data(experimental_allow_widgets=True)
 st.cache_resource(experimental_allow_widgets=True)
 def Team_development ():
-    xg = pd.read_csv(r'1. Division/xg_all 1. Division.csv')
-    match_stats = pd.read_csv(r'1. Division/matchstats_all 1. Division.csv')
+    xg = load_all_xg()
+    match_stats = load_match_stats()
 
     match_stats['label'] = match_stats['label'] + ' ' + match_stats['date']
     xg['label'] = xg['label'] + ' ' + xg['date']

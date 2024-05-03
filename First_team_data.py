@@ -575,9 +575,9 @@ def Match_evaluation ():
         st.pyplot(fig)        
 
 def Team_development ():
-    xg = pd.read_csv(r'xg_all 1. Division.csv')
+    xg = pd.read_csv(r'1. Division\xg_all 1. Division.csv')
 
-    match_stats = pd.read_csv(r'matchstats_all 1. Division.csv')
+    match_stats = pd.read_csv(r'1. Division\matchstats_all 1. Division.csv')
 
     match_stats['label'] = match_stats['label'] + ' ' + match_stats['date']
     xg['label'] = xg['label'] + ' ' + xg['date']
@@ -633,10 +633,7 @@ def Team_development ():
     st.plotly_chart(fig,use_container_width=True)
 
 
-    df = pd.read_excel(r'Data evaluering.xlsx')
-    st.dataframe(df,hide_index=True)
-
-    possession_stats = pd.read_csv(r'possession_stats_all 1. Division.csv')
+    possession_stats = pd.read_csv(r'1. Division\possession_stats_all 1. Division.csv')
 
     possession_stats = possession_stats[(possession_stats['away_team'] == 'Horsens') | (possession_stats['home_team'] == 'Horsens')]
     possession_stats = possession_stats[possession_stats['type'] == 'territorialThird']

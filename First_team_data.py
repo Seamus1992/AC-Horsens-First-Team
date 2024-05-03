@@ -242,7 +242,8 @@ def Match_evaluation ():
     df_xa_player = df_possession_pv[['playerName','318.0']]
     df_xa_player['318.0'] = df_xa_player['318.0'].astype(float)
     df_xa_player = df_xa_player.groupby('playerName')['318.0'].sum()
-    st.dataframe(df_xa_player)
+    df_xa_player = df_xa_player[df_xa_player['playerName'] != 'nan']
+
     df_possession_pv = df_possession_pv[df_possession_pv['playerName'] != 'nan']
     player_pv_df = df_possession_pv.groupby('playerName')['PvTotal'].sum()
     players = df_possession_pv['playerName'].astype(str).drop_duplicates()
@@ -253,7 +254,8 @@ def Match_evaluation ():
     for name, ax in zip(players, axs['pitch'].flat[:len(players)]):
         player_df = df_possession_pv.loc[df_possession_pv["playerName"] == name]
         PV_score = player_pv_df[name]  # Fetch PV score for the player
-        ax.text(60,110,f"{name} ({PV_score:.3f} PV)",ha='center',va='center', fontsize=8, color='white')
+        xa_score = df_xa_player
+        ax.text(60,110,f"{name} ({PV_score:.3f} PV) ({xa_score} xA)",ha='center',va='center', fontsize=8, color='white')
 
         for i in player_df.index:
             x = player_df['x'].astype(float)[i]

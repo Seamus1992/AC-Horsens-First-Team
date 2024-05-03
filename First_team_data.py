@@ -1086,8 +1086,10 @@ def League_stats():
     
 Data_types = {
     'Match evaluation' : Match_evaluation,
+    'Team development' : Team_development,
     'Opposition analysis' : Opposition_analysis,
     'League stats': League_stats
 }
+
 selected_data = st.sidebar.radio('Choose data type',list(Data_types.keys()))
 Data_types[selected_data]()

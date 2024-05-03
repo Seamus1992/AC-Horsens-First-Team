@@ -574,6 +574,8 @@ def Match_evaluation ():
         interceptions_df = interceptions_df.set_index('playerName')
         st.pyplot(fig)        
 
+st.cache_data(experimental_allow_widgets=True)
+st.cache_resource(experimental_allow_widgets=True)
 def Team_development ():
     xg = pd.read_csv(r'1. Division\xg_all 1. Division.csv')
     match_stats = pd.read_csv(r'1. Division\matchstats_all 1. Division.csv')

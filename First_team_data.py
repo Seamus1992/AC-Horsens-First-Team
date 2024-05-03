@@ -407,6 +407,7 @@ def Match_evaluation ():
     with col2:
         st.write('Assists')
         st.pyplot(fig)
+        plt.close(fig)
 
     df_possession_modstander = df_possession[df_possession['team_name'] == Modstander]
     df_possession_modstander = df_possession_modstander[df_possession_modstander['label'] == Kampvalg]
@@ -439,6 +440,8 @@ def Match_evaluation ():
     with col1:
         st.write('Ball recoveries/interceptions that lead to a chance (0,01 xg)')
         st.pyplot(fig)
+        plt.close(fig)
+
     store_chancer_sequencer_spillere = store_chancer_sequencer.value_counts('playerName').reset_index()
     store_chancer_sequencer_spillere.columns = ['playerName', 'Number']
 

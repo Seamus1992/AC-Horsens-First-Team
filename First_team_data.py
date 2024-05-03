@@ -255,7 +255,7 @@ def Match_evaluation ():
         player_df = df_possession_pv.loc[df_possession_pv["playerName"] == name]
         PV_score = player_pv_df[name]  # Fetch PV score for the player
         xa_score = df_xa_player[name]
-        ax.text(60,110,f"{name} ({PV_score:.3f} PV) ({xa_score:.5f} xA)",ha='right',va='center', fontsize=8, color='white')
+        ax.text(50,110,f"{name} ({PV_score:.3f} PV) ({xa_score:.5f} xA)",ha='center',va='center', fontsize=8, color='white')
 
         for i in player_df.index:
             x = player_df['x'].astype(float)[i]

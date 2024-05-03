@@ -249,7 +249,7 @@ def Match_evaluation ():
     for name, ax in zip(players, axs['pitch'].flat[:len(players)]):
         player_df = df_possession_pv.loc[df_possession_pv["playerName"] == name]
         PV_score = player_pv_df[name]  # Fetch PV score for the player
-        ax.text(20,103,f"{name} ({PV_score:.3f} PV)",ha='center',va='center', fontsize=8, color='black')
+        ax.text(60,-10,f"{name} ({PV_score:.3f} PV)",ha='center',va='center', fontsize=8, color='white')
 
         for i in player_df.index:
             x = player_df['x'].astype(float)[i]

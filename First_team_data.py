@@ -254,7 +254,7 @@ def Match_evaluation ():
     for name, ax in zip(players, axs['pitch'].flat[:len(players)]):
         player_df = df_possession_pv.loc[df_possession_pv["playerName"] == name]
         PV_score = player_pv_df[name]  # Fetch PV score for the player
-        xa_score = df_xa_player
+        xa_score = df_xa_player[name]
         ax.text(60,110,f"{name} ({PV_score:.3f} PV) ({xa_score} xA)",ha='center',va='center', fontsize=8, color='white')
 
         for i in player_df.index:
@@ -266,7 +266,7 @@ def Match_evaluation ():
             ax.arrow(x, y, dx_pass, dy_pass, color=arrow_color, length_includes_head=True, head_width=1, head_length=0.8)
             pitch.scatter(player_df['x'].astype(float)[i], player_df['y'].astype(float)[i], color=arrow_color, ax=ax)
 
-    st.title('Passes and pv')
+    st.title('Passes,pv amd xA')
     st.pyplot(fig)
     plt.close(fig)
 

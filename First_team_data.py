@@ -239,7 +239,7 @@ def Match_evaluation ():
     df_possession_pv_pivoted = df_possession_pv.pivot(index='id', columns='q_qualifierId', values='q_value').reset_index()
     df_possession_pv = df_possession_pv_pivoted.merge(df_possession_pv)
     df_possession_pv = df_possession_pv.drop_duplicates('id')
-    df_xa_player = df_possession_pv[['playerName','318']]
+    df_xa_player = df_possession_pv[['playerName',318]]
     df_xa_player['318'] = df_xa_player['318'].astype(float)
     df_xa_player = df_xa_player.groupby('playerName')
     st.dataframe(df_xa_player)

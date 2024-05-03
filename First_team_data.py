@@ -576,7 +576,6 @@ def Match_evaluation ():
 
 def Team_development ():
     xg = pd.read_csv(r'1. Division\xg_all 1. Division.csv')
-
     match_stats = pd.read_csv(r'1. Division\matchstats_all 1. Division.csv')
 
     match_stats['label'] = match_stats['label'] + ' ' + match_stats['date']

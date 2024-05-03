@@ -239,6 +239,7 @@ def Match_evaluation ():
     df_possession_pv_pivoted = df_possession_pv.pivot(index='id', columns='q_qualifierId', values='q_value').reset_index()
     df_possession_pv = df_possession_pv_pivoted.merge(df_possession_pv)
     df_possession_pv = df_possession_pv.drop_duplicates('id')
+    st.dataframe(df_possession_pv)
     df_possession_pv = df_possession_pv[df_possession_pv['playerName'] != 'nan']
     player_pv_df = df_possession_pv.groupby('playerName')['PvTotal'].sum()
     players = df_possession_pv['playerName'].astype(str).drop_duplicates()

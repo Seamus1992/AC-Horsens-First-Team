@@ -242,8 +242,8 @@ def Match_evaluation ():
     df_possession_pv = df_possession_pv[df_possession_pv['playerName'] != 'nan']
     player_pv_df = df_possession_pv.groupby('playerName')['PvTotal'].sum()
     players = df_possession_pv['playerName'].astype(str).drop_duplicates()
-    pitch = Pitch(pitch_type='opta', line_color='white', pitch_color='grass',pad_top=0)
-    fig, axs = pitch.grid(ncols=4, nrows=4, grid_height=0.95, title_height=0.006, axis=False, title_space=0.004, endnote_space=0.001,endnote_height=0.004)
+    pitch = Pitch(pitch_type='opta', line_color='white', pitch_color='grass',pad_top=20)
+    fig, axs = pitch.grid(ncols=4, nrows=4, grid_height=0.85, title_height=0.00, axis=False, title_space=0.04, endnote_space=0.01)
     plt.figure()
 
     for name, ax in zip(players, axs['pitch'].flat[:len(players)]):
@@ -257,7 +257,7 @@ def Match_evaluation ():
             dx_pass = player_df['140.0'].astype(float)[i] - player_df['x'].astype(float)[i]
             dy_pass = player_df['141.0'].astype(float)[i] - player_df['y'].astype(float)[i]
             arrow_color = 'red' if player_df['outcome'].astype(int)[i] == 0 else '#0dff00'
-            ax.arrow(x, y, dx_pass, dy_pass, color=arrow_color, length_includes_head=True, head_width=0.8, head_length=0.8)
+            ax.arrow(x, y, dx_pass, dy_pass, color=arrow_color, length_includes_head=True, head_width=1, head_length=0.8)
             pitch.scatter(player_df['x'].astype(float)[i], player_df['y'].astype(float)[i], color=arrow_color, ax=ax)
 
     st.title('Passes and pv')

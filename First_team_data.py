@@ -234,8 +234,8 @@ def Match_evaluation ():
     df_possession_pv['possessionValue.pvValue'] = df_possession_pv['possessionValue.pvValue'].astype(float)
     df_possession_pv = df_possession_pv[df_possession_pv['label'] == Kampvalg]
     df_possession_pv = df_possession_pv[df_possession_pv['team_name'] == Modstander]
-    df_possession_pv_id = df_possession_pv[df_possession_pv['q_qualifierId'].isin(['6.0','9.0','26.0','25.0','24.0','107.0'])]
-    df_possession_pv = df_possession_pv[~df_possession_pv['id'].isin(df_possession_pv_id['id'])]
+    #df_possession_pv_id = df_possession_pv[df_possession_pv['q_qualifierId'].isin(['6.0','9.0','26.0','25.0','24.0','107.0'])]
+    #df_possession_pv = df_possession_pv[~df_possession_pv['id'].isin(df_possession_pv_id['id'])]
     df_possession_pv_pivoted = df_possession_pv.pivot(index='id', columns='q_qualifierId', values='q_value').reset_index()
     df_possession_pv = df_possession_pv_pivoted.merge(df_possession_pv)
     df_possession_pv = df_possession_pv.drop_duplicates('id')

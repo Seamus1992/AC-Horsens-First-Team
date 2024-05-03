@@ -274,8 +274,8 @@ def Match_evaluation ():
             dx_pass = player_df['140.0'].astype(float)[i] - player_df['x'].astype(float)[i]
             dy_pass = player_df['141.0'].astype(float)[i] - player_df['y'].astype(float)[i]
             arrow_color = 'red' if player_df['outcome'].astype(int)[i] == 0 else '#0dff00'
-            ax.arrow(x, y, dx_pass, dy_pass, color=arrow_color, length_includes_head=True, head_width=0.2, head_length=0.2)
-            pitch.scatter(player_df['x'].astype(float)[i], player_df['y'].astype(float)[i], color=arrow_color, ax=ax)
+            ax.arrow(x, y, dx_pass, dy_pass, color=arrow_color, length_includes_head=True, head_width=0.5, head_length=0.5)
+            pitch.scatter(player_df['x'].astype(float)[i], player_df['y'].astype(float)[i], color=arrow_color,s=10, ax=ax)
 
     st.title('Passes, pv and xA')
     st.pyplot(fig)

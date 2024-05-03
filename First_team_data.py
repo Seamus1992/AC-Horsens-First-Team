@@ -242,7 +242,7 @@ def Match_evaluation ():
     df_xa_player = df_possession_pv[['playerName','318']]
     df_xa_player['318'] = df_xa_player['318'].astype(float)
     df_xa_player = df_xa_player.groupby('playerName')
-    st.dataframe(df_possession_pv)
+    st.dataframe(df_xa_player)
     df_possession_pv = df_possession_pv[df_possession_pv['playerName'] != 'nan']
     player_pv_df = df_possession_pv.groupby('playerName')['PvTotal'].sum()
     players = df_possession_pv['playerName'].astype(str).drop_duplicates()

@@ -4293,32 +4293,176 @@ id,contestantId,team_name,playerName,playerId,q_qualifierId,q_value,match_id,lab
 2679918631,7gkglopz9cjsysn2u6sbhuvc5,Vendsyssel,R. Frantsen,27gr6h19dyehzbcu0z0wsz5xx,321,0.05603616684675217,d4llwbagig12qp0wok8iyirkk,Vendsyssel vs Hobro,2024-04-28
 2679927859,b2vft81kyjurzbmekvgrqwr64,Hobro,E. Søgaard,cflwegqpzch8y30pb3dhigqnd,321,0.21869982779026031,d4llwbagig12qp0wok8iyirkk,Vendsyssel vs Hobro,2024-04-28
 2679931161,7gkglopz9cjsysn2u6sbhuvc5,Vendsyssel,O. Jebali,18vvlxsaoloypja4fdddj687o,321,0.03721527010202408,d4llwbagig12qp0wok8iyirkk,Vendsyssel vs Hobro,2024-04-28
-2681398873,6wwwud48qahpwrfxs20334qk5,Fredericia,F. Carstensen,2of6xfvdgpsrqehwxrc39kcq2,321,0.04640313982963562,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
+2681398873,6wwwud48qahpwrfxs20334qk5,Fredericia,F. Carstensen,2of6xfvdgpsrqehwxrc39kcq2,321,0.05980799347162247,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
 2681398413,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,D. Wilkins,5q4p56lg1vjsqo824aql0e1d6,321,0.025711432099342346,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
 2681400845,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,M. Agger,adg5dfvzxjrzlz1n2jsfeyx3o,321,0.14593875408172607,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
-2681401109,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,M. Agger,adg5dfvzxjrzlz1n2jsfeyx3o,321,0.019041545689105988,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
-2681401335,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,M. Agger,adg5dfvzxjrzlz1n2jsfeyx3o,321,0.177632674574852,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
+2681401109,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,M. Agger,adg5dfvzxjrzlz1n2jsfeyx3o,321,0.02248764969408512,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
+2681401335,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,M. Agger,adg5dfvzxjrzlz1n2jsfeyx3o,321,0.4215254783630371,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
 2681403297,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,S. Emini,5x8064b3yr7txk0czddfjtffu,321,0.020327914506196976,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
-2681405019,6wwwud48qahpwrfxs20334qk5,Fredericia,S. Berger,8ngloyr6r0m71p8kgpfe69bvu,321,0.029433345422148705,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
+2681405019,6wwwud48qahpwrfxs20334qk5,Fredericia,S. Berger,8ngloyr6r0m71p8kgpfe69bvu,321,0.05589621141552925,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
 2681405313,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,J. Gallegos,6gh4z3yubnpypzoakjom1rj3e,321,0.34835463762283325,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
 2681405513,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,M. Soulas,6rd849oap6uh93wdwjk8590q1,321,0.026523470878601074,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
 2681405527,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,K. Ingason,a8opuarwq9byw73nhfgvo9nca,321,0.19682276248931885,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
 2681406083,6wwwud48qahpwrfxs20334qk5,Fredericia,J. Juelsgård,ei3xmwfz8dah5e4lcbu4w98t1,321,0.02369547262787819,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
 2681406451,6wwwud48qahpwrfxs20334qk5,Fredericia,S. Berger,8ngloyr6r0m71p8kgpfe69bvu,321,0.026163002476096153,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
-2681406675,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,M. Soulas,6rd849oap6uh93wdwjk8590q1,321,0.011741003952920437,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
-2681406873,6wwwud48qahpwrfxs20334qk5,Fredericia,S. Berger,8ngloyr6r0m71p8kgpfe69bvu,321,0.08876276761293411,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
-2681408393,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,M. Soulas,6rd849oap6uh93wdwjk8590q1,321,0.22604873776435852,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
+2681406675,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,M. Soulas,6rd849oap6uh93wdwjk8590q1,321,0.009186026640236378,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
+2681406873,6wwwud48qahpwrfxs20334qk5,Fredericia,S. Berger,8ngloyr6r0m71p8kgpfe69bvu,321,0.0907147228717804,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
+2681408393,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,M. Soulas,6rd849oap6uh93wdwjk8590q1,321,0.23787671327590942,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
 2681410077,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,S. Emini,5x8064b3yr7txk0czddfjtffu,321,0.03439408168196678,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
-2681410843,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,T. Sommer,5jdkdvxssuc8gvzwwrq5bs76y,321,0.10937287658452988,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
-2681411131,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,M. Agger,adg5dfvzxjrzlz1n2jsfeyx3o,321,0.021433815360069275,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
-2681415477,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,D. Grétarsson,czpstoiy12awqpasz573ckp91,321,0.01174131315201521,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
+2681410843,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,T. Sommer,5jdkdvxssuc8gvzwwrq5bs76y,321,0.08371704816818237,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
+2681411131,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,M. Agger,adg5dfvzxjrzlz1n2jsfeyx3o,321,0.023314492776989937,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
+2681415477,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,D. Grétarsson,czpstoiy12awqpasz573ckp91,321,0.016309192404150963,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
 2681417441,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,S. Emini,5x8064b3yr7txk0czddfjtffu,321,0.06690774857997894,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
-2681416707,6wwwud48qahpwrfxs20334qk5,Fredericia,C. Gammelgaard,1hbucfyn2l3bxcw5r4zcb1dlg,321,0.058846764266490936,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
-2681416925,6wwwud48qahpwrfxs20334qk5,Fredericia,S. Berger,8ngloyr6r0m71p8kgpfe69bvu,321,0.03141054883599281,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
-2681420253,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,T. Klysner,d88feog3dgv09oxbzn15xqesq,321,0.05726191774010658,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
-2681421687,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,T. Klysner,d88feog3dgv09oxbzn15xqesq,321,0.6420375108718872,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
+2681416707,6wwwud48qahpwrfxs20334qk5,Fredericia,C. Gammelgaard,1hbucfyn2l3bxcw5r4zcb1dlg,321,0.03259679675102234,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
+2681416925,6wwwud48qahpwrfxs20334qk5,Fredericia,S. Berger,8ngloyr6r0m71p8kgpfe69bvu,321,0.021851832047104836,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
+2681420253,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,T. Klysner,d88feog3dgv09oxbzn15xqesq,321,0.08372543752193451,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
+2681421687,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,T. Klysner,d88feog3dgv09oxbzn15xqesq,321,0.6652657985687256,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
 2681422735,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,T. Kløve,ozsu77pdl1qshegexnbjfqvp,321,0.1492902636528015,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
 2681423253,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,S. Andreasen,4qyfoq5fjiochtj89w426lm21,321,0.04218431934714317,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
-2681424489,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,S. Andreasen,4qyfoq5fjiochtj89w426lm21,321,0.1011740192770958,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
-2681424529,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,S. Andreasen,4qyfoq5fjiochtj89w426lm21,321,0.28907835483551025,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
-2681421087,6wwwud48qahpwrfxs20334qk5,Fredericia,F. Carstensen,2of6xfvdgpsrqehwxrc39kcq2,321,0.021322384476661682,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
+2681424489,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,S. Andreasen,4qyfoq5fjiochtj89w426lm21,321,0.14540338516235352,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
+2681424529,aljua8crr0vkwit0j3m59jw9j,SønderjyskE,S. Andreasen,4qyfoq5fjiochtj89w426lm21,321,0.39269575476646423,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
+2681421087,6wwwud48qahpwrfxs20334qk5,Fredericia,F. Carstensen,2of6xfvdgpsrqehwxrc39kcq2,321,0.03638682886958122,d5bsbyw5pftsnp5oksx1jh0yc,SønderjyskE vs Fredericia,2024-05-02
+2681668391,9p2s410bvc59jz238ugicc3fn,Næstved,J. Christiansen,2nhzk67r9ib0mumm20bpgxlux,321,0.015007591806352139,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681669881,ajtb177oqwawkdwbqhldmq6mx,B 93,F. Isaki,86mx27krl6c613x6e3t9g3cic,321,0.021678393706679344,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681670041,ajtb177oqwawkdwbqhldmq6mx,B 93,R. Minerba,38shfw53eg5qtvem3d3ou04r8,321,0.0212547704577446,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681669391,9p2s410bvc59jz238ugicc3fn,Næstved,L. Bust,6gmm4awyvlf9p7jr9dvnmp0tm,321,0.020416438579559326,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681669479,9p2s410bvc59jz238ugicc3fn,Næstved,J. Christiansen,2nhzk67r9ib0mumm20bpgxlux,321,0.019646139815449715,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681671021,ajtb177oqwawkdwbqhldmq6mx,B 93,N. Thomsen,4a0jmv6qmwn01iuqp1mhnyzth,321,0.12421561032533646,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681671853,9p2s410bvc59jz238ugicc3fn,Næstved,F. Christensen,86elyas9hffkzucaq158gfnit,321,0.09780214726924896,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681673387,9p2s410bvc59jz238ugicc3fn,Næstved,F. Christensen,86elyas9hffkzucaq158gfnit,321,0.11445841938257217,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681674451,ajtb177oqwawkdwbqhldmq6mx,B 93,J. Erenbjerg,a6z9meo0yksv97ntwe0q2k650,321,0.05009419471025467,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681674481,ajtb177oqwawkdwbqhldmq6mx,B 93,D. Thøgersen,bvc80w5ai425plu54nhgx5fxl,321,0.037144772708415985,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681674039,9p2s410bvc59jz238ugicc3fn,Næstved,F. Christensen,86elyas9hffkzucaq158gfnit,321,0.011538168415427208,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681675225,9p2s410bvc59jz238ugicc3fn,Næstved,K. Ayer,5lcd3t0so5nozfdfw9zuri63u,321,0.1804823875427246,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681675483,9p2s410bvc59jz238ugicc3fn,Næstved,J. Christiansen,2nhzk67r9ib0mumm20bpgxlux,321,0.023583143949508667,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681678007,ajtb177oqwawkdwbqhldmq6mx,B 93,O. Addo,kqj7nh6pqmqbt0abyyu0fcpg,321,0.03910316154360771,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681681597,ajtb177oqwawkdwbqhldmq6mx,B 93,S. Clemmensen,as7qhgi67gngq0nb3zmwg8jro,321,0.023031538352370262,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681694375,9p2s410bvc59jz238ugicc3fn,Næstved,M. Mølvadgaard,24dnlh5ep1kag3tivpwu832sp,321,0.006219680421054363,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681695783,9p2s410bvc59jz238ugicc3fn,Næstved,N. Girmai Netabay,9469qatlpe6rdqko8c6ha4out,321,0.03751754388213158,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681697983,9p2s410bvc59jz238ugicc3fn,Næstved,M. Mølvadgaard,24dnlh5ep1kag3tivpwu832sp,321,0.07061490416526794,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681698867,9p2s410bvc59jz238ugicc3fn,Næstved,M. Carlson,b5r9e8cyb3ds82vcy387j717t,321,0.03795885294675827,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681701293,9p2s410bvc59jz238ugicc3fn,Næstved,L. Bust,6gmm4awyvlf9p7jr9dvnmp0tm,321,0.01237846165895462,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681700229,ajtb177oqwawkdwbqhldmq6mx,B 93,F. Isaki,86mx27krl6c613x6e3t9g3cic,321,0.031779758632183075,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681705091,9p2s410bvc59jz238ugicc3fn,Næstved,K. Ayer,5lcd3t0so5nozfdfw9zuri63u,321,0.014756609685719013,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681704377,ajtb177oqwawkdwbqhldmq6mx,B 93,J. Erenbjerg,a6z9meo0yksv97ntwe0q2k650,321,0.07044661790132523,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681706193,ajtb177oqwawkdwbqhldmq6mx,B 93,F. Isaki,86mx27krl6c613x6e3t9g3cic,321,0.04053502529859543,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681726851,9p2s410bvc59jz238ugicc3fn,Næstved,M. Ladefoged,bdxcd38y99nrbv72uh2v4fhg4,321,0.055509574711322784,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681729995,9p2s410bvc59jz238ugicc3fn,Næstved,M. Ladefoged,bdxcd38y99nrbv72uh2v4fhg4,321,0.0536787211894989,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681733631,ajtb177oqwawkdwbqhldmq6mx,B 93,J. Erenbjerg,a6z9meo0yksv97ntwe0q2k650,321,0.028155719861388206,579zcgdzkase2g4t2bmgubzf8,Næstved vs B 93,2024-05-03
+2681681127,7gkglopz9cjsysn2u6sbhuvc5,Vendsyssel,L. Jensen,139g7ilwvcpl519v3scnweg2d,321,0.011235424317419529,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681683445,b8oqgvx1ijeyn6y1cn6929ix4,Kolding,P. Ngongo,1nn1wc14k9zd3wtu73loj7kes,321,0.06245110183954239,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681683449,b8oqgvx1ijeyn6y1cn6929ix4,Kolding,M. Jespersen,7nt9il7b9vvtgfco15bdpfpx,321,0.0407983660697937,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681684123,b8oqgvx1ijeyn6y1cn6929ix4,Kolding,A. Njai,f1ba9g771s0zeel0titcj3omi,321,0.01981731876730919,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681684455,b8oqgvx1ijeyn6y1cn6929ix4,Kolding,A. Nørager,8ewvm6ux4yvpwgrzjkc1chqwa,321,0.022597018629312515,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681687275,7gkglopz9cjsysn2u6sbhuvc5,Vendsyssel,C. Lange,1w8gujxthv0lfjrn98paa1uga,321,0.022216930985450745,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681687605,7gkglopz9cjsysn2u6sbhuvc5,Vendsyssel,O. Jebali,18vvlxsaoloypja4fdddj687o,321,0.07826776057481766,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681690889,7gkglopz9cjsysn2u6sbhuvc5,Vendsyssel,C. Lange,1w8gujxthv0lfjrn98paa1uga,321,0.0574265718460083,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681690909,7gkglopz9cjsysn2u6sbhuvc5,Vendsyssel,L. Jensen,139g7ilwvcpl519v3scnweg2d,321,0.3457048237323761,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681692561,7gkglopz9cjsysn2u6sbhuvc5,Vendsyssel,O. Øhlenschlæger,7j35sfip0xb51mpa91wzikrh0,321,0.5615907311439514,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681695943,7gkglopz9cjsysn2u6sbhuvc5,Vendsyssel,O. Buch,y4dl1rer075c9wz6zhx7skbt,321,0.04774857684969902,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681695311,b8oqgvx1ijeyn6y1cn6929ix4,Kolding,P. Ngongo,1nn1wc14k9zd3wtu73loj7kes,321,0.20863550901412964,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681699695,b8oqgvx1ijeyn6y1cn6929ix4,Kolding,T. Mikkelsen,3l0wq19mq865qi29ndtb0axn9,321,0.23651625216007233,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681701387,7gkglopz9cjsysn2u6sbhuvc5,Vendsyssel,F. Børsting,egwhlgopjtjkop7ozy7ltk1cl,321,0.10041499882936478,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681700325,b8oqgvx1ijeyn6y1cn6929ix4,Kolding,A. Njai,f1ba9g771s0zeel0titcj3omi,321,0.02996414341032505,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681702401,b8oqgvx1ijeyn6y1cn6929ix4,Kolding,T. Mikkelsen,3l0wq19mq865qi29ndtb0axn9,321,0.07359351962804794,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681716755,7gkglopz9cjsysn2u6sbhuvc5,Vendsyssel,O. Buch,y4dl1rer075c9wz6zhx7skbt,321,0.05267273634672165,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681716895,7gkglopz9cjsysn2u6sbhuvc5,Vendsyssel,O. Øhlenschlæger,7j35sfip0xb51mpa91wzikrh0,321,0.10919229686260223,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681720069,7gkglopz9cjsysn2u6sbhuvc5,Vendsyssel,O. Buch,y4dl1rer075c9wz6zhx7skbt,321,0.03187701106071472,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681730515,b8oqgvx1ijeyn6y1cn6929ix4,Kolding,A. Beck,dyzzo6n83rg4fpvmqqa69moes,321,0.10041499882936478,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681751485,b8oqgvx1ijeyn6y1cn6929ix4,Kolding,M. Vestergård,f58yr2jmfp8kpgprfxbokt1t6,321,0.02147180773317814,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681757591,b8oqgvx1ijeyn6y1cn6929ix4,Kolding,P. Ngongo,1nn1wc14k9zd3wtu73loj7kes,321,0.04659039154648781,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681765269,b8oqgvx1ijeyn6y1cn6929ix4,Kolding,C. Vestergaard,3xz0h3d6r2qgmv9egms8yaz56,321,0.09560245275497437,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681767807,7gkglopz9cjsysn2u6sbhuvc5,Vendsyssel,C. Lange,1w8gujxthv0lfjrn98paa1uga,321,0.052435580641031265,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681769077,7gkglopz9cjsysn2u6sbhuvc5,Vendsyssel,L. Jensen,139g7ilwvcpl519v3scnweg2d,321,0.5444265007972717,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2681776845,7gkglopz9cjsysn2u6sbhuvc5,Vendsyssel,L. Jensen,139g7ilwvcpl519v3scnweg2d,321,0.04688350111246109,d5owe2wlh5vcqcmgpkj3vqxas,Vendsyssel vs Kolding,2024-05-03
+2683018319,4d5ca1j5czw1oo6zu727ggxp,Helsingør,M. Etim,1fjkjzsei9slx2t4zhsqdkve1,321,0.03910316154360771,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683020127,a9vw7ikerpr4cuweeeka5aneg,Horsens,S. Becher,2xewnia49fvj3u2x3y8tfq2ju,321,0.07054509222507477,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683026437,a9vw7ikerpr4cuweeeka5aneg,Horsens,J. Ankersen,4mxciw9jsj9l437fd7bv78p91,321,0.055177975445985794,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683034451,a9vw7ikerpr4cuweeeka5aneg,Horsens,M. Lassen,duahzgqspyuy2gu31u3s8ky96,321,0.054486606270074844,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683028205,4d5ca1j5czw1oo6zu727ggxp,Helsingør,M. Etim,1fjkjzsei9slx2t4zhsqdkve1,321,0.035552702844142914,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683041133,a9vw7ikerpr4cuweeeka5aneg,Horsens,S. Becher,2xewnia49fvj3u2x3y8tfq2ju,321,0.015772772952914238,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683041191,a9vw7ikerpr4cuweeeka5aneg,Horsens,A. Ludwig,61vr9xr91fr4g6ayzga5vn9w5,321,0.04442716762423515,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683037471,4d5ca1j5czw1oo6zu727ggxp,Helsingør,S. Yatéké,9ircna8pbskreztmy1wiqwx9m,321,0.024915698915719986,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683044331,4d5ca1j5czw1oo6zu727ggxp,Helsingør,M. Etim,1fjkjzsei9slx2t4zhsqdkve1,321,0.49427568912506104,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683046899,4d5ca1j5czw1oo6zu727ggxp,Helsingør,E. Andersson,dsn7m5pm574argz1d7ofgjmj9,321,0.03911278396844864,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683056569,a9vw7ikerpr4cuweeeka5aneg,Horsens,S. Becher,2xewnia49fvj3u2x3y8tfq2ju,321,0.21995633840560913,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683050935,4d5ca1j5czw1oo6zu727ggxp,Helsingør,M. Christensen,a8zxp4qf5nw7eumulk3z3d15g,321,0.013644167222082615,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683077391,a9vw7ikerpr4cuweeeka5aneg,Horsens,S. Becher,2xewnia49fvj3u2x3y8tfq2ju,321,0.07246939837932587,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683078479,a9vw7ikerpr4cuweeeka5aneg,Horsens,S. Reese,4bkqvwlmbwul0s8lbbq6mifp,321,0.0806194320321083,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683053921,4d5ca1j5czw1oo6zu727ggxp,Helsingør,M. Etim,1fjkjzsei9slx2t4zhsqdkve1,321,0.048526279628276825,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683081671,a9vw7ikerpr4cuweeeka5aneg,Horsens,J. Madsen,eso2tbbpnxu9qvx6zy07m5jx0,321,0.9609193801879883,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683112431,a9vw7ikerpr4cuweeeka5aneg,Horsens,S. Becher,2xewnia49fvj3u2x3y8tfq2ju,321,0.13144467771053314,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683119173,a9vw7ikerpr4cuweeeka5aneg,Horsens,E. Just,b9g3gwxlao9u6y4elz1sdukmh,321,0.07041656970977783,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683132941,a9vw7ikerpr4cuweeeka5aneg,Horsens,E. Just,b9g3gwxlao9u6y4elz1sdukmh,321,0.12771393358707428,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683145143,a9vw7ikerpr4cuweeeka5aneg,Horsens,O. Mandrup,9ik2uhlguua62ftde1gbv1dlg,321,0.10227861255407333,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683113457,4d5ca1j5czw1oo6zu727ggxp,Helsingør,Y. Agnero,8uzx6yb66zjn0ke2rwqlg7wus,321,0.3039984107017517,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683141229,4d5ca1j5czw1oo6zu727ggxp,Helsingør,M. Etim,1fjkjzsei9slx2t4zhsqdkve1,321,0.03545936197042465,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683147545,4d5ca1j5czw1oo6zu727ggxp,Helsingør,Y. Agnero,8uzx6yb66zjn0ke2rwqlg7wus,321,0.04962119460105896,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683162373,4d5ca1j5czw1oo6zu727ggxp,Helsingør,S. Ylätupa,ersburboye1ic6pxc36ytm4et,321,0.09318430721759796,56jfxhw38u9qvsn9kboxn9puc,Helsingør vs Horsens,2024-05-05
+2683083521,b2vft81kyjurzbmekvgrqwr64,Hobro,R. Gyamfi,efubck8twu1elbhlomltnjjtg,321,0.053651925176382065,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683087023,b2vft81kyjurzbmekvgrqwr64,Hobro,M. Kristensen,bp232fgjrfyok2471ec7u1tcl,321,0.20738549530506134,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683111295,b2vft81kyjurzbmekvgrqwr64,Hobro,R. Gyamfi,efubck8twu1elbhlomltnjjtg,321,0.061137791723012924,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683113585,36g6ifzjliec1jqnbtf7yesme,AaB,R. Odada,8bfew6mf9m26cj07fq32uf2wa,321,0.018266240134835243,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683114883,36g6ifzjliec1jqnbtf7yesme,AaB,O. Ross,5lz41celw55rz3zh8pohclw5w,321,0.03207159787416458,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683123437,b2vft81kyjurzbmekvgrqwr64,Hobro,M. Kristensen,bp232fgjrfyok2471ec7u1tcl,321,0.04094474017620087,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683117729,36g6ifzjliec1jqnbtf7yesme,AaB,M. Widell,3q4tnk1z46lop4rbdpjtfoc2c,321,0.018095599487423897,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683125385,b2vft81kyjurzbmekvgrqwr64,Hobro,V. Rasmussen,dwuxps3jv2852642q000wep6,321,0.015463131479918957,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683125535,b2vft81kyjurzbmekvgrqwr64,Hobro,O. Klitten,e19g5bz7s9wqcvj8mttztxi0a,321,0.11620146781206131,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683118661,36g6ifzjliec1jqnbtf7yesme,AaB,J. Adedeji,4sgxth7onhb5mu29bgyupby3u,321,0.03420480340719223,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683119519,36g6ifzjliec1jqnbtf7yesme,AaB,M. Jørgensen,1arzd8hqj73byhduozscqz5uy,321,0.1429254561662674,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683121999,36g6ifzjliec1jqnbtf7yesme,AaB,J. Adedeji,4sgxth7onhb5mu29bgyupby3u,321,0.11764998733997345,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683127833,36g6ifzjliec1jqnbtf7yesme,AaB,O. Ross,5lz41celw55rz3zh8pohclw5w,321,0.022224146872758865,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683128089,36g6ifzjliec1jqnbtf7yesme,AaB,K. Jørgensen,de0dokhb6u6hts2hu5aupgiga,321,0.05547870695590973,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683131751,36g6ifzjliec1jqnbtf7yesme,AaB,M. Widell,3q4tnk1z46lop4rbdpjtfoc2c,321,0.028143804520368576,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683134137,36g6ifzjliec1jqnbtf7yesme,AaB,R. Thelander,cw6s5hf1tytvb98vjuosz9r6d,321,0.020483698695898056,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683141479,b2vft81kyjurzbmekvgrqwr64,Hobro,R. Gyamfi,efubck8twu1elbhlomltnjjtg,321,0.15033431351184845,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683152297,b2vft81kyjurzbmekvgrqwr64,Hobro,M. Kristensen,bp232fgjrfyok2471ec7u1tcl,321,0.03664155676960945,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683148637,36g6ifzjliec1jqnbtf7yesme,AaB,O. Ross,5lz41celw55rz3zh8pohclw5w,321,0.06852830201387405,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683150531,36g6ifzjliec1jqnbtf7yesme,AaB,M. Jørgensen,1arzd8hqj73byhduozscqz5uy,321,0.07676541060209274,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683184891,b2vft81kyjurzbmekvgrqwr64,Hobro,M. Kristensen,bp232fgjrfyok2471ec7u1tcl,321,0.015956230461597443,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683185293,b2vft81kyjurzbmekvgrqwr64,Hobro,M. Kristensen,bp232fgjrfyok2471ec7u1tcl,321,0.025622859597206116,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683178189,36g6ifzjliec1jqnbtf7yesme,AaB,O. Ross,5lz41celw55rz3zh8pohclw5w,321,0.09268350899219513,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683196375,36g6ifzjliec1jqnbtf7yesme,AaB,M. Widell,3q4tnk1z46lop4rbdpjtfoc2c,321,0.2660342752933502,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683196413,36g6ifzjliec1jqnbtf7yesme,AaB,M. Jørgensen,1arzd8hqj73byhduozscqz5uy,321,0.16453802585601807,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683209383,b2vft81kyjurzbmekvgrqwr64,Hobro,V. Rasmussen,dwuxps3jv2852642q000wep6,321,0.024058176204562187,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683200261,36g6ifzjliec1jqnbtf7yesme,AaB,O. Ross,5lz41celw55rz3zh8pohclw5w,321,0.04760165140032768,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683216117,36g6ifzjliec1jqnbtf7yesme,AaB,L. Kramer,7yst1mucy7jynmpzu1thox2i,321,0.08598857372999191,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683216487,36g6ifzjliec1jqnbtf7yesme,AaB,S. Otoa,dq2eqqywinhsh9ijg8amqyp78,321,0.01930333860218525,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683218155,36g6ifzjliec1jqnbtf7yesme,AaB,M. Jørgensen,1arzd8hqj73byhduozscqz5uy,321,0.03701072186231613,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683220477,36g6ifzjliec1jqnbtf7yesme,AaB,J. Adedeji,4sgxth7onhb5mu29bgyupby3u,321,0.021123990416526794,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683236877,b2vft81kyjurzbmekvgrqwr64,Hobro,M. Kristensen,bp232fgjrfyok2471ec7u1tcl,321,0.05564034357666969,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683224289,36g6ifzjliec1jqnbtf7yesme,AaB,M. Bomholt,ejixz16616b7krftxyzv9yiac,321,0.02247544191777706,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683228315,36g6ifzjliec1jqnbtf7yesme,AaB,M. Jørgensen,1arzd8hqj73byhduozscqz5uy,321,0.20503365993499756,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683253891,b2vft81kyjurzbmekvgrqwr64,Hobro,L. Klitten,ea2x4o6ufsqoz2zz7tqcnvo16,321,0.023037301376461983,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683242487,36g6ifzjliec1jqnbtf7yesme,AaB,M. Jørgensen,1arzd8hqj73byhduozscqz5uy,321,0.0401308573782444,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683256697,36g6ifzjliec1jqnbtf7yesme,AaB,N. Helenius,rv6r0bwbl75er38wklyfpsr9,321,0.026676464825868607,d4yltp0f9xtldjhtebz8pjndg,AaB vs Hobro,2024-05-05
+2683191527,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,A. Justinussen,uiyol728wan4mxco2foplknp,321,0.01928887329995632,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683192899,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,J. Witt,5z7y55t2o577r8ki3i5855as,321,0.10479341447353363,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683195355,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,A. Justinussen,uiyol728wan4mxco2foplknp,321,0.022043410688638687,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683200555,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,M. Bay,bop31qof3lon7u6rvmb68ktzp,321,0.02569434978067875,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683203821,8cfkisxf1fkxdqtt6tx1tup48,HB Køge,C. Jørgensen,9fvf8z6p8ok0n5vu999ysfywa,321,0.07506972551345825,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683209923,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,S. Pingel,3epwf56ozg73hueacwmckk0r9,321,0.053460557013750076,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683212837,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,N. Schmidt,5dlh0fa9yo6z283w9p58xmnoq,321,0.09565294533967972,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683214371,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,T. Arndal,1n4eldqa7h9jvcx1693zqu06i,321,0.23451468348503113,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683215515,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,L. Bøje-Larsen,elsygne5tjybbxrqgehtovnro,321,0.04964571073651314,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683243499,8cfkisxf1fkxdqtt6tx1tup48,HB Køge,M. Jensen,619s1phj5bkgkug3aszc1y9cl,321,0.02207692340016365,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683227481,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,M. Bruhn,8gqvlydur0v4cpmz1ozqkejh0,321,0.038326337933540344,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683271803,8cfkisxf1fkxdqtt6tx1tup48,HB Køge,M. Jensen,619s1phj5bkgkug3aszc1y9cl,321,0.03108210675418377,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683232975,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,S. Pingel,3epwf56ozg73hueacwmckk0r9,321,0.0414418950676918,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683273203,8cfkisxf1fkxdqtt6tx1tup48,HB Køge,C. Jørgensen,9fvf8z6p8ok0n5vu999ysfywa,321,0.1628151386976242,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683233903,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,S. Sharif,9lsylzgf7e3i5zb0fshnxo6xg,321,0.2432590126991272,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683233941,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,S. Sharif,9lsylzgf7e3i5zb0fshnxo6xg,321,0.2618172764778137,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683242121,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,A. Justinussen,uiyol728wan4mxco2foplknp,321,0.01897791214287281,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683269545,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,M. Bruhn,8gqvlydur0v4cpmz1ozqkejh0,321,0.21798643469810486,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683285467,8cfkisxf1fkxdqtt6tx1tup48,HB Køge,Y. Dhaflaoui,98zlz2sscsf6vb7d52ici074k,321,0.04540219530463219,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683275883,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,M. Bay,bop31qof3lon7u6rvmb68ktzp,321,0.04696226119995117,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683279021,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,M. Bruhn,8gqvlydur0v4cpmz1ozqkejh0,321,0.033627912402153015,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683291091,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,T. Arndal,1n4eldqa7h9jvcx1693zqu06i,321,0.20578287541866302,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683291359,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,S. Pingel,3epwf56ozg73hueacwmckk0r9,321,0.09764811396598816,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683309833,8cfkisxf1fkxdqtt6tx1tup48,HB Køge,C. Jensen,74m58jsznzu8l89b8h7rkh1bd,321,0.07400218397378922,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683293227,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,A. Justinussen,uiyol728wan4mxco2foplknp,321,0.045563045889139175,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683296313,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,S. Pingel,3epwf56ozg73hueacwmckk0r9,321,0.59735506772995,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683302711,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,S. Pingel,3epwf56ozg73hueacwmckk0r9,321,0.24707187712192535,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683305815,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,S. Sharif,9lsylzgf7e3i5zb0fshnxo6xg,321,0.012050651013851166,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683312179,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,S. Pingel,3epwf56ozg73hueacwmckk0r9,321,0.049378279596567154,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05
+2683312619,aqtkb4mgrz8c6iqfufj6qjbv9,Hillerød,A. Ahmad,4csz412vb3lquessbnf999ct0,321,0.021296484395861626,56wlq0ol5y553gxgh42oy426s,HB Køge vs Hillerød,2024-05-05

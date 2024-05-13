@@ -154,8 +154,8 @@ def Match_evaluation ():
     st.dataframe(df_holdsummary,hide_index=True)
     col1,col2,col3,col4 = st.columns(4)
 
-    cols_to_average = df_possession_stats.columns[-5:]
-    st.write(df_possession_stats.columns)
+    cols_to_average = df_possession_stats.columns[[6, 7, 8]]
+    df_possession_stats[cols_to_average] = df_possession_stats[cols_to_average].apply(pd.to_numeric, errors='coerce')
     st.write(cols_to_average)
     time_column = 'interval'
 

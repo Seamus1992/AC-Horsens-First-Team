@@ -110,6 +110,8 @@ def Match_evaluation ():
     
     
     df_possession['id'] = df_possession['id'].astype(str)
+    df_possession = df_possession[(df_possession[['9.0', '24.0', '25.0', '26.0']] != True).all(axis=1)]
+
     df_possession = df_possession.astype(str)
     df_pv = df_pv[['team_name','playerName','id','possessionValue.pvValue','possessionValue.pvAdded']].astype(str)
 

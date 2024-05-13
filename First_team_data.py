@@ -40,7 +40,7 @@ def load_xg():
     df_xg = pd.read_csv(r'DNK_1_Division_2023_2024/Horsens/Horsens_xg_data.csv')
     df_xg['label'] = (df_xg['label'] + ' ' + df_xg['date'])
     df_xg['team_name'].str.replace(' ', '_')
-    df_xg = df_xg[['label','team_name','321','periodId','timeMin','timeSec']]
+    df_xg = df_xg[['label','team_name','321','periodId','timeMin','timeSec','9','24','25','26']]
     return df_xg
 
 def load_all_xg():

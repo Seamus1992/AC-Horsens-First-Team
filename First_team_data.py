@@ -10,7 +10,7 @@ st.set_page_config(layout='wide')
 
 @st.cache_data()
 def load_match_stats():
-    match_stats = pd.read_csv(r'1. Division/matchstats_all 1. Division.csv')
+    match_stats = pd.read_csv(r'DNK_1_Division_2023_2024/matchstats_all DNK_1_Division_2023_2024.csv')
     match_stats['label'] = (match_stats['label'] + ' ' + match_stats['date'])
     return match_stats
 
@@ -36,7 +36,7 @@ def load_modstander():
 
 @st.cache_data()
 def load_possession_stats():
-    df_possession_stats = pd.read_csv(r'1. Division/possession_stats_all 1. Division.csv')
+    df_possession_stats = pd.read_csv(r'DNK_1_Division_2023_2024/possession_stats_all DNK_1_Division_2023_2024.csv')
     df_possession_stats['label'] = (df_possession_stats['label'] + ' ' + df_possession_stats['date'])
     return df_possession_stats
 

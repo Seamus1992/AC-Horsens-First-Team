@@ -320,6 +320,7 @@ def Match_evaluation ():
         st.write('Xg plot '+ Modstander)
         st.pyplot(fig)
 
+    df_xg_plot_store_chancer = df_xg.copy()
     df_xg_plot_store_chancer = df_xg_plot_store_chancer[df_xg_plot_store_chancer['321'].astype(float) > 0.2]
 
 

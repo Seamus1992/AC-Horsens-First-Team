@@ -40,7 +40,7 @@ def load_xg():
     df_xg = pd.read_csv(r'DNK_1_Division_2023_2024/Horsens/Horsens_xg_data.csv')
     df_xg['label'] = (df_xg['label'] + ' ' + df_xg['date'])
     df_xg['team_name'].str.replace(' ', '_')
-    df_xg = df_xg[['label','team_name','321','periodId','timeMin','timeSec','9','24','25','26']]
+    df_xg = df_xg[['playerName','label','team_name','321','periodId','timeMin','timeSec','9','24','25','26']]
     return df_xg
 
 def load_all_xg():
@@ -280,9 +280,9 @@ def Match_evaluation ():
 
     df_xg_modstander = df_xg[df_xg['team_name'].astype(str) == Modstander]
     df_xg_modstander = df_xg_modstander[df_xg_modstander['label']==Kampvalg]
-    df_xg_modstander = df_xg_modstander[df_xg_modstander['321'].astype(float) > 0]
-    df_xg_modstander['321'] = df_xg_modstander['321'].astype(float)
-    df_xg_spiller = df_xg_modstander.groupby('playerName')['321'].sum()
+    df_xg_modstander = df_xg_modstander[df_xg_modstander['321.0'].astype(float) > 0]
+    df_xg_modstander['321.0'] = df_xg_modstander['321.0'].astype(float)
+    df_xg_spiller = df_xg_modstander.groupby('playerName')['321.0'].sum()
     df_xg_spiller = df_xg_spiller.sort_values(ascending=False)
 
     df_assist = df_possession.copy()

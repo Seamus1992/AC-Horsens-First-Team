@@ -266,9 +266,9 @@ def Match_evaluation ():
     plt.close(fig)
 
     df_keypass = df_possession[df_possession['team_name'] == Modstander]
-    st.dataframe(df_keypass)
     df_keypass = df_keypass[df_keypass['label'] == Kampvalg]
-    df_keypass = df_keypass[df_keypass['210.0'] == True]
+    df_keypass = df_keypass[df_keypass['210.0'] != 'nan']
+    st.dataframe(df_keypass)
     df_keypass = df_keypass.drop_duplicates('id')
     df_keypass_spiller = df_keypass['playerName'].value_counts()
     df_keypass_spiller = df_keypass_spiller.sort_values(ascending=False)

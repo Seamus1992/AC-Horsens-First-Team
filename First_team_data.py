@@ -395,14 +395,8 @@ def Match_evaluation ():
 
     df_possession_modstander = df_possession[df_possession['team_name'] == Modstander]
     df_possession_modstander = df_possession_modstander[df_possession_modstander['label'] == Kampvalg]
-    #sorterer for standardsituationer
-    df_possession_modstander['q_qualifierId'] = df_possession_modstander['q_qualifierId'].astype(float)
-    filtered_ids = df_possession_modstander[df_possession_modstander['q_qualifierId'].isin([22,23])]['id']
     # Filter out all rows with the filtered 'id' values
-    filtered_data = df_possession_modstander[df_possession_modstander['id'].isin(filtered_ids)]
-    #erobringer til store chancer
-    df_store_chancer = filtered_data[(filtered_data['q_qualifierId'] == 321)]
-    df_store_chancer = df_store_chancer[df_store_chancer['q_value'].astype(float) > 0.01]
+    df_store_chancer = df_possession_modstander[df_possession_modstander['321'].astype(float) > 0.01]
 
     store_chancer_sequencer = df_store_chancer[['label','sequenceId']]
     store_chancer_sequencer = store_chancer_sequencer.merge(df_possession_modstander)

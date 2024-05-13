@@ -268,7 +268,6 @@ def Match_evaluation ():
     df_keypass = df_possession[df_possession['team_name'] == Modstander]
     df_keypass = df_keypass[df_keypass['label'] == Kampvalg]
     df_keypass = df_keypass[df_keypass['210.0'] != 'nan']
-    st.dataframe(df_keypass)
     df_keypass = df_keypass.drop_duplicates('id')
     df_keypass_spiller = df_keypass['playerName'].value_counts()
     df_keypass_spiller = df_keypass_spiller.sort_values(ascending=False)
@@ -296,7 +295,7 @@ def Match_evaluation ():
     except KeyError:
         df_assist = pd.DataFrame()
     df_xg_plot = df_xg.copy()
-    df_xg_plot = df_xg_plot[df_xg_plot['team_name' == Modstander]]
+    df_xg_plot = df_xg_plot[df_xg_plot['team_name'] == Modstander]
     df_xg_plot = df_xg_plot[df_xg_plot['321'].astype(float) > 0.0]
 
     col1,col2 = st.columns(2)

@@ -16,7 +16,7 @@ def load_match_stats():
 
 @st.cache_data()
 def load_possession_data():
-    df_possession = pd.read_csv(r'DNK_1_Division_2023_2024\Horsens\Horsens_possession_data.csv')
+    df_possession = pd.read_csv(r'DNK_1_Division_2023_2024/Horsens/Horsens_possession_data.csv')
     df_possession['label'] = (df_possession['label'] + ' ' + df_possession['date']).astype(str)
     df_possession['team_name'].str.replace(' ', '_')
     return df_possession
@@ -42,14 +42,14 @@ def load_possession_stats():
 
 @st.cache_data()
 def load_xg():
-    df_xg = pd.read_csv(r'DNK_1_Division_2023_2024\Horsens\Horsens_xg_data.csv')
+    df_xg = pd.read_csv(r'DNK_1_Division_2023_2024/Horsens/Horsens_xg_data.csv')
     df_xg['label'] = (df_xg['label'] + ' ' + df_xg['date'])
     df_xg['team_name'].str.replace(' ', '_')
     return df_xg
 
 @st.cache_data()
 def load_all_xg():
-    xg = pd.read_csv(r'DNK_1_Division_2023_2024\Horsens\Horsens_xg_data.csv')
+    xg = pd.read_csv(r'DNK_1_Division_2023_2024/Horsens/Horsens_xg_data.csv')
     xg['label'] = (xg['label'] + ' ' + xg['date'])
     xg['team_name'].str.replace(' ', '_')
     return xg
@@ -63,7 +63,7 @@ def load_xg_opponent(Modstander):
 
 @st.cache_data()
 def load_pv():
-    df_pv = pd.read_csv(r'DNK_1_Division_2023_2024\Horsens\Horsens_pv_data.csv')
+    df_pv = pd.read_csv(r'DNK_1_Division_2023_2024/Horsens/Horsens_pv_data.csv')
     df_pv['label'] = (df_pv['label'] + ' ' + df_pv['date'])
     df_pv['id'] = df_pv['id'].astype(str)
     df_pv['team_name'].str.replace(' ', '_')

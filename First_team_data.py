@@ -71,6 +71,11 @@ def load_pv_opponent(Modstander):
     df_pv_opponent['team_name'].str.replace(' ', '_')
     return df_pv_opponent
 
+if st.button("Clear All"):
+    # Clears all st.cache_resource caches:
+    st.cache_resource.clear()
+    st.cache_data.clear()
+
 @st.cache_data(experimental_allow_widgets=True)
 @st.cache_resource(experimental_allow_widgets=True)
 def Match_evaluation ():

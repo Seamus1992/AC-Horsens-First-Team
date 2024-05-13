@@ -156,7 +156,6 @@ def Match_evaluation ():
 
     cols_to_average = df_possession_stats.columns[[6, 7, 8]]
     df_possession_stats[cols_to_average] = df_possession_stats[cols_to_average].apply(pd.to_numeric, errors='coerce')
-    st.write(cols_to_average)
     time_column = 'interval'
 
     # Calculate sliding average

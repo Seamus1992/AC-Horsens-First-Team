@@ -8,20 +8,17 @@ import plotly.express as px
 
 st.set_page_config(layout='wide')
 
-@st.cache_data()
 def load_match_stats():
     match_stats = pd.read_csv(r'DNK_1_Division_2023_2024/matchstats_all DNK_1_Division_2023_2024.csv')
     match_stats['label'] = (match_stats['label'] + ' ' + match_stats['date'])
     return match_stats
 
-@st.cache_data()
 def load_possession_data():
     df_possession = pd.read_csv(r'DNK_1_Division_2023_2024/Horsens/Horsens_possession_data.csv')
     df_possession['label'] = (df_possession['label'] + ' ' + df_possession['date']).astype(str)
     df_possession['team_name'].str.replace(' ', '_')
     return df_possession
 
-@st.cache_data()
 def load_modstander_possession_data(Modstander):
     df_possession_modstander = pd.read_csv(f'1. Division/{Modstander}/{Modstander}_possession_data.csv')
     df_possession_modstander['label'] = (df_possession_modstander['label'] + ' ' + df_possession_modstander['date']).astype(str)
@@ -34,34 +31,29 @@ def load_modstander():
     Modstander = st.selectbox('Choose opponent',team_names)
     return Modstander
 
-@st.cache_data()
 def load_possession_stats():
     df_possession_stats = pd.read_csv(r'DNK_1_Division_2023_2024/possession_stats_all DNK_1_Division_2023_2024.csv')
     df_possession_stats['label'] = (df_possession_stats['label'] + ' ' + df_possession_stats['date'])
     return df_possession_stats
 
-@st.cache_data()
 def load_xg():
     df_xg = pd.read_csv(r'DNK_1_Division_2023_2024/Horsens/Horsens_xg_data.csv')
     df_xg['label'] = (df_xg['label'] + ' ' + df_xg['date'])
     df_xg['team_name'].str.replace(' ', '_')
     return df_xg
 
-@st.cache_data()
 def load_all_xg():
     xg = pd.read_csv(r'DNK_1_Division_2023_2024/Horsens/Horsens_xg_data.csv')
     xg['label'] = (xg['label'] + ' ' + xg['date'])
     xg['team_name'].str.replace(' ', '_')
     return xg
 
-@st.cache_data()
 def load_xg_opponent(Modstander):
     df_xg_opponent = pd.read_csv(f'DNK_1_Division_2023_2024/{Modstander}/{Modstander}_xg_data.csv')
     df_xg_opponent['label'] = (df_xg_opponent['label'] + ' ' + df_xg_opponent['date'])
     df_xg_opponent['team_name'].str.replace(' ', '_')
     return df_xg_opponent
 
-@st.cache_data()
 def load_pv():
     df_pv = pd.read_csv(r'DNK_1_Division_2023_2024/Horsens/Horsens_pv_data.csv')
     df_pv['label'] = (df_pv['label'] + ' ' + df_pv['date'])
@@ -69,7 +61,6 @@ def load_pv():
     df_pv['team_name'].str.replace(' ', '_')
     return df_pv
 
-@st.cache_data()
 def load_pv_opponent(Modstander):
     df_pv_opponent = pd.read_csv(f'DNK_1_Division_2023_2024/{Modstander}/{Modstander}_pv_data.csv')
     df_pv_opponent['label'] = (df_pv_opponent['label'] + ' ' + df_pv_opponent['date'])

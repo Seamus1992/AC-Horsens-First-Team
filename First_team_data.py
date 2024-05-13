@@ -155,9 +155,7 @@ def Match_evaluation ():
     st.dataframe(df_holdsummary,hide_index=True)
     col1,col2,col3,col4 = st.columns(4)
 
-    st.dataframe(df_possession_stats)
-    df_possession_stats = pd.to_numeric(df_possession_stats)
-    cols_to_average = df_possession_stats.columns[-6:]
+    cols_to_average = df_possession_stats.columns[-2:]
     time_column = 'interval'
 
     # Calculate sliding average

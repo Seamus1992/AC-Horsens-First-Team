@@ -147,8 +147,8 @@ def Match_evaluation ():
     df_xa_agg = df_xa_agg[df_xa_agg['xA'].astype(float) > 0]
     df_xa_agg['culmulativxa'] = df_xa_agg.groupby('team_name')['xA'].cumsum()
 
-    df_xa_hold = df_xa.groupby(['team_name','label'])['q_value'].sum().reset_index()
-    df_xa_hold = df_xa_hold.rename(columns={'q_value': 'xA'})
+    df_xa_hold = df_xa.groupby(['team_name','label'])['318.0'].sum().reset_index()
+    df_xa_hold = df_xa_hold.rename(columns={'318.0': 'xA'})
     df_holdsummary = df_xa_hold.merge(df_holdsummary)
     df_holdsummary = df_possession_stats_summary.merge(df_holdsummary)
     df_holdsummary = df_holdsummary[['team_name','label','xA','Open play xG','PvTotal','terr_poss']]
@@ -156,7 +156,7 @@ def Match_evaluation ():
     col1,col2,col3,col4 = st.columns(4)
 
     cols_to_average = df_possession_stats.columns[-3:]
-    time_column = 'type.1'
+    time_column = 'interval_type'
 
     # Calculate sliding average
     sliding_average = df_possession_stats[cols_to_average].rolling(window=2).mean()

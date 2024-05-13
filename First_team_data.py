@@ -90,7 +90,7 @@ def Match_evaluation ():
 
     df_pv = df_pv[df_pv['label'] == Kampvalg]
     df_xg = df_xg[df_xg['label'] == Kampvalg]
-    columns_to_check = [9, 24, 25, 26]
+    columns_to_check = ['9','24','25','26']
     df_xg = df_xg[~df_xg.iloc[:, columns_to_check].any(axis=1)]
     
     df_possession_stats = df_possession_stats[df_possession_stats['label'] == Kampvalg]

@@ -396,7 +396,7 @@ def Match_evaluation ():
     df_possession_modstander = df_possession[df_possession['team_name'] == Modstander]
     df_possession_modstander = df_possession_modstander[df_possession_modstander['label'] == Kampvalg]
     # Filter out all rows with the filtered 'id' values
-    df_store_chancer = df_possession_modstander[df_possession_modstander['321'].astype(float) > 0.01]
+    df_store_chancer = df_possession_modstander[df_possession_modstander['321.0'].astype(float) > 0.01]
 
     store_chancer_sequencer = df_store_chancer[['label','sequenceId']]
     store_chancer_sequencer = store_chancer_sequencer.merge(df_possession_modstander)

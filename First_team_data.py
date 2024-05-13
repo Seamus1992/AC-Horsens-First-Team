@@ -71,13 +71,6 @@ def load_pv_opponent(Modstander):
     df_pv_opponent['team_name'].str.replace(' ', '_')
     return df_pv_opponent
 
-if st.button("Clear All"):
-    # Clears all st.cache_resource caches:
-    st.cache_resource.clear()
-    st.cache_data.clear()
-
-@st.cache_data(experimental_allow_widgets=True)
-@st.cache_resource(experimental_allow_widgets=True)
 def Match_evaluation ():
     team_name = 'Horsens'    
     df_pv = load_pv()
@@ -583,8 +576,6 @@ def Match_evaluation ():
         interceptions_df = interceptions_df.set_index('playerName')
         st.pyplot(fig)        
 
-st.cache_data(experimental_allow_widgets=True)
-st.cache_resource(experimental_allow_widgets=True)
 def Team_development ():
     xg = load_all_xg()
     match_stats = load_match_stats()
@@ -694,8 +685,6 @@ def Team_development ():
     # Display Plotly chart using Streamlit
     st.plotly_chart(fig,use_container_width=True)
 
-st.cache_data(experimental_allow_widgets=True)
-st.cache_resource(experimental_allow_widgets=True)
 def Opposition_analysis ():
     import streamlit as st
     import pandas as pd
@@ -997,8 +986,6 @@ def Opposition_analysis ():
         st.pyplot(fig)
     store_chancer_sequencer_spillere = store_chancer_sequencer.value_counts('playerName')
 
-st.cache_data(experimental_allow_widgets=True)
-st.cache_resource(experimental_allow_widgets=True)
 def League_stats():
     matchstats_columns = ['contestantId','label', 'date','attAssistSetplay','touches','totalLongBalls', 'duelLost', 'aerialLost', 'successfulOpenPlayPass', 'totalContest', 'duelWon', 'penAreaEntries', 'accurateBackZonePass', 'possWonDef3rd', 'wonContest', 'accurateFwdZonePass', 'openPlayPass', 'totalBackZonePass', 'minsPlayed', 'fwdPass', 'finalThirdEntries', 'ballRecovery', 'totalFwdZonePass', 'successfulFinalThirdPasses', 'totalFinalThirdPasses', 'attAssistOpenplay', 'aerialWon', 'totalAttAssist', 'possWonMid3rd', 'interception', 'totalCrossNocorner', 'interceptionWon', 'attOpenplay', 'touchesInOppBox', 'attemptsIbox', 'totalThroughBall', 'possWonAtt3rd', 'accurateCrossNocorner', 'bigChanceCreated', 'accurateThroughBall', 'totalLayoffs', 'accurateLayoffs', 'totalFastbreak', 'shotFastbreak']
     matchstats_df = pd.read_csv(r'1. Division/matchstats_all 1. Division.csv', usecols=matchstats_columns)

@@ -280,9 +280,9 @@ def Match_evaluation ():
 
     df_xg_modstander = df_xg[df_xg['team_name'].astype(str) == Modstander]
     df_xg_modstander = df_xg_modstander[df_xg_modstander['label']==Kampvalg]
-    df_xg_modstander = df_xg_modstander[df_xg_modstander['321.0'].astype(float) > 0]
-    df_xg_modstander['321.0'] = df_xg_modstander['321.0'].astype(float)
-    df_xg_spiller = df_xg_modstander.groupby('playerName')['321.0'].sum()
+    df_xg_modstander = df_xg_modstander[df_xg_modstander['321'].astype(float) > 0]
+    df_xg_modstander['321'] = df_xg_modstander['321'].astype(float)
+    df_xg_spiller = df_xg_modstander.groupby('playerName')['321'].sum()
     df_xg_spiller = df_xg_spiller.sort_values(ascending=False)
 
     df_assist = df_possession.copy()

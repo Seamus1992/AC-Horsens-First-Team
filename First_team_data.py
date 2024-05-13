@@ -295,6 +295,7 @@ def Match_evaluation ():
         df_assist_spiller = df_assist_spiller.sort_values(ascending=False)
     except KeyError:
         df_assist = pd.DataFrame()
+    st.dataframe(df_xg)
     df_xg_plot = df_xg[df_xg['team_name' == Modstander]]
     df_xg_plot = df_xg_plot[df_xg_plot['321'].astype(float) > 0.0]
 

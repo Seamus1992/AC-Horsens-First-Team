@@ -89,7 +89,7 @@ def Match_evaluation ():
 
     df_pv = df_pv[df_pv['label'] == Kampvalg]
     df_xg = df_xg[df_xg['label'] == Kampvalg]
-    df_xg = df_xg[(df_xg[['9', '24', '25', '26']] != True).all(axis=1)]
+    df_xg = df_xg[(df_xg[['6','9', '24', '25', '26']] != True).all(axis=1)]
     df_possession_stats = df_possession_stats[df_possession_stats['label'] == Kampvalg]
     df_possession = df_possession[df_possession['label'] == Kampvalg]
 
@@ -110,7 +110,7 @@ def Match_evaluation ():
     
     
     df_possession['id'] = df_possession['id'].astype(str)
-    df_possession = df_possession[(df_possession[['9.0', '24.0', '25.0', '26.0']] != True).all(axis=1)]
+    df_possession = df_possession[(df_possession[['6.0','9.0', '24.0', '25.0', '26.0']] != True).all(axis=1)]
 
     df_possession = df_possession.astype(str)
     df_pv = df_pv[['team_name','playerName','id','possessionValue.pvValue','possessionValue.pvAdded']].astype(str)

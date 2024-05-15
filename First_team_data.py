@@ -1014,7 +1014,7 @@ def League_stats():
         (matchstats_df['date'] >= selected_start_date) & (matchstats_df['date'] <= selected_end_date)
     ]    
     
-    xg_df = pd.read_csv(r'1. Division/xg_all 1. Division.csv')
+    xg_df = pd.read_csv(r'DNK_1_Division_2023_2024/xg_all DNK_1_Division_2023_2024.csv')
     xg_df_openplay_id = xg_df[xg_df['q_qualifierId'].isin([6.0,9.0,26.0,25.0,24.0,107.0])]
     xg_df_openplay = xg_df[~xg_df['id'].isin(xg_df_openplay_id['id'])]
     xg_df_openplay = xg_df_openplay[xg_df_openplay['q_qualifierId'] == 321]

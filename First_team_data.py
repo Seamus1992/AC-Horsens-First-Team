@@ -984,7 +984,7 @@ def Opposition_analysis ():
 
 def League_stats():
     matchstats_columns = ['contestantId','label', 'date','attAssistSetplay','touches','totalLongBalls', 'duelLost', 'aerialLost', 'successfulOpenPlayPass', 'totalContest', 'duelWon', 'penAreaEntries', 'accurateBackZonePass', 'possWonDef3rd', 'wonContest', 'accurateFwdZonePass', 'openPlayPass', 'totalBackZonePass', 'minsPlayed', 'fwdPass', 'finalThirdEntries', 'ballRecovery', 'totalFwdZonePass', 'successfulFinalThirdPasses', 'totalFinalThirdPasses', 'attAssistOpenplay', 'aerialWon', 'totalAttAssist', 'possWonMid3rd', 'interception', 'totalCrossNocorner', 'interceptionWon', 'attOpenplay', 'touchesInOppBox', 'attemptsIbox', 'totalThroughBall', 'possWonAtt3rd', 'accurateCrossNocorner', 'bigChanceCreated', 'accurateThroughBall', 'totalLayoffs', 'accurateLayoffs', 'totalFastbreak', 'shotFastbreak']
-    matchstats_df = pd.read_csv(r'1. Division/matchstats_all 1. Division.csv', usecols=matchstats_columns)
+    matchstats_df = pd.read_csv(r'DNK_1_Division_2023_2024/matchstats_all DNK_1_Division_2023_2024.csv', usecols=matchstats_columns)
     matchstats_df = matchstats_df.rename(columns={'player_matchName': 'playerName'})
     matchstats_df = matchstats_df.groupby(['contestantId','label', 'date']).sum().reset_index()
     matchstats_df['label'] = np.where(matchstats_df['label'].notnull(), 1, matchstats_df['label'])

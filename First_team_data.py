@@ -1015,13 +1015,10 @@ def League_stats():
     ]    
     
     xg_df = pd.read_csv(r'DNK_1_Division_2023_2024/xg_all DNK_1_Division_2023_2024.csv')
-    xg_df_openplay_id = xg_df[xg_df['q_qualifierId'].isin([6.0,9.0,26.0,25.0,24.0,107.0])]
-    xg_df_openplay = xg_df[~xg_df['id'].isin(xg_df_openplay_id['id'])]
-    xg_df_openplay = xg_df_openplay[xg_df_openplay['q_qualifierId'] == 321]
-    xg_df_openplay['q_value'] = xg_df_openplay['q_value'].astype(float)
+    xg_df_openplay = xg_df[xg_df['321'] > 0]
 
-    xg_df_openplay = xg_df_openplay.groupby(['contestantId', 'team_name', 'date'])['q_value'].sum().reset_index()
-    xg_df_openplay = xg_df_openplay.rename(columns={'q_value': 'open play xG'})
+    xg_df_openplay = xg_df_openplay.groupby(['contestantId', 'team_name', 'date'])['321'].sum().reset_index()
+    xg_df_openplay = xg_df_openplay.rename(columns={'321': 'open play xG'})
     xg_df_openplay['date'] = pd.to_datetime(xg_df_openplay['date'])
         
     matchstats_df = xg_df_openplay.merge(filtered_data)

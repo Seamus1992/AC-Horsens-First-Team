@@ -1040,8 +1040,9 @@ def League_stats():
     matchstats_df['Final third entries per match'] = matchstats_df['finalThirdEntries'] / matchstats_df['matches']
     matchstats_df['Final third pass accuracy %'] = matchstats_df['successfulFinalThirdPasses'] / matchstats_df['totalFinalThirdPasses']
     matchstats_df['Open play shot assists share'] = matchstats_df['attAssistOpenplay'] / matchstats_df['totalAttAssist']
-
-    cols_to_rank = matchstats_df.drop(columns=['contestantId','playerName','player_playerId','player_position','player_positionSide','player_subPosition','match_id', 'team_name','matches','minsPlayed']).columns
+    matchstats_df = matchstats_df.drop(columns=['contestantId','playerName','player_playerId','player_position','player_positionSide','player_subPosition'])
+    
+    cols_to_rank = matchstats_df.drop(columns=['contestantId', 'team_name','matches','minsPlayed']).columns
     ranked_df = matchstats_df.copy()  # Create a copy of the original DataFrame
     for col in cols_to_rank:
         ranked_df[col + '_rank'] = matchstats_df[col].rank(axis=0, ascending=False)

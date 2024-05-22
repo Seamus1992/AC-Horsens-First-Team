@@ -4,6 +4,7 @@ from fpdf import FPDF
 import matplotlib.pyplot as plt
 import os
 from datetime import datetime
+from datetime import date
 
 
 def load_data():
@@ -42,6 +43,35 @@ def load_data():
     squads = pd.read_csv('C:/Users/SéamusPeareBartholdy/Documents/GitHub/AC-Horsens-First-Team/DNK_1_Division_2023_2024/squads DNK_1_Division_2023_2024.csv')
     
     return df_xg, df_xa, df_pv, df_possession_stats, df_xa_agg, df_xg_agg, df_pv_agg, df_xg_all, df_possession_xa, df_pv_all, df_matchstats, squads
+
+def create_stacked_bar_chart(win_prob, draw_prob, loss_prob, title, filename):
+    fig, ax = plt.subplots(figsize=(8, 2))
+    
+    # Define the colors for each segment
+    colors = ['green', 'yellow', 'red']
+    segments = [win_prob, draw_prob, loss_prob]
+    labels = ['Win', 'Draw', 'Loss']
+    
+    # Plot the stacked bar segments
+    left = 0
+    for seg, color, label in zip(segments, colors, labels):
+        ax.barh(0, seg, left=left, color=color, height=0.5, label=label)
+        left += seg
+    
+    # Add text annotations for each segment
+    left = 0
+    for seg, color, label in zip(segments, colors, labels):
+        ax.text(left + seg / 2, 0, f"{label}: {seg:.2f}", ha='center', va='center', fontsize=10, color='black', fontweight='bold')
+        left += seg
+    
+    # Formatting
+    ax.set_xlim(0, 1)
+    ax.set_yticks([])
+    ax.set_xticks([])
+    ax.axis('off')
+    plt.title(label=title, fontsize=12, fontweight='bold', y=1.2, va='top', loc='left')
+    plt.savefig(filename, bbox_inches='tight', dpi=300)  # Use high DPI for better quality
+    plt.close()
 
 def create_bar_chart(value, title, filename, max_value, thresholds, annotations):
     fig, ax = plt.subplots(figsize=(8, 2))
@@ -109,6 +139,52 @@ def generate_possession_chart(df_possession_stats, filename):
     plt.savefig(filename, bbox_inches='tight', dpi=300)
     plt.close()
 
+def sliding_average_plot(df, window_size=3, filename=None):
+    # Sort the DataFrame by 'date'
+    df_sorted = df.sort_values(by='date')
+
+    # Calculate the sliding average and cumulative average
+    sliding_average = df_sorted['expected_points'].rolling(window=window_size).mean()
+    cumulative_average = df_sorted['expected_points'].expanding().mean()
+
+    # Create the plot
+    fig, ax = plt.subplots(figsize=(12, 6))
+    
+    # Adjust the subplot to give more room for the x-axis labels
+    fig.subplots_adjust(bottom=0.3)
+
+    # Plot the sliding average line
+    ax.plot(df_sorted['label'], sliding_average, color='blue', label='2-game rolling average')
+    ax.plot(df_sorted['label'], cumulative_average, color='black', linestyle='--', label='Cumulative Average')
+
+    # Add horizontal lines and annotations
+    ax.axhline(y=1, color='red', linestyle='--', label='Relegation')
+    ax.axhline(y=1.3, color='yellow', linestyle='--', label='Top 6')
+    ax.axhline(y=1.8, color='green', linestyle='--', label='Promotion')
+
+    # Set y-axis limits
+    ax.set_ylim(0, 3)
+
+    # Add legend
+    ax.legend()
+
+    # Set labels and title
+    ax.set_title('Sliding Average of Expected Points over Labels')
+    ax.set_ylabel('Expected Points')
+
+    # Rotate x-axis labels for better readability
+    plt.xticks(df_sorted['label'], rotation=45, ha='right', fontsize=8)
+
+    # Show grid
+    ax.grid(True)
+    ax.set_xlim(df_sorted['label'].iloc[0], df_sorted['label'].iloc[-1])
+
+    # Save the plot to a file if filename is provided
+    if filename:
+        plt.savefig(filename, format='png', dpi=300, bbox_inches='tight')
+    else:
+        plt.show()
+
 def simulate_goals(values, num_simulations=10000):
     return np.random.binomial(1, values[:, np.newaxis], (len(values), num_simulations)).sum(axis=0)
 
@@ -142,9 +218,11 @@ def calculate_expected_points(df, value_column):
             away_values = match_df[match_df['team_name'] == away_team][value_column].values
             
             home_points, away_points, home_win_prob, draw_prob, away_win_prob = simulate_match(home_values, away_values)
+            match_date = match_df['date'].iloc[0]
             
             expected_points_list.append({
-                'label': label, 
+                'label': label,
+                'date' : match_date, 
                 'team_name': home_team, 
                 'expected_points': home_points, 
                 'win_probability': home_win_prob, 
@@ -152,7 +230,8 @@ def calculate_expected_points(df, value_column):
                 'loss_probability': away_win_prob
             })
             expected_points_list.append({
-                'label': label, 
+                'label': label,
+                'date' : match_date, 
                 'team_name': away_team, 
                 'expected_points': away_points, 
                 'win_probability': away_win_prob, 
@@ -429,7 +508,7 @@ def Process_data_spillere(df_possession_xa,df_pv_all,df_matchstats,df_xg_all,squ
         return df_backs
     
     def number6():
-        df_sekser = df_scouting[((df_scouting['player_position'] == 'Defensive Midfielder') | (df_scouting['player_position'] == 'Midfielder')) & df_scouting['player_positionSide'].str.contains('Centre')]
+        df_sekser = df_scouting[((df_scouting['player_position'] == 'Defensive Midfielder')) & df_scouting['player_positionSide'].str.contains('Centre')]
         df_sekser['minsPlayed'] = df_sekser['minsPlayed'].astype(int)
         df_sekser = df_sekser[df_sekser['minsPlayed'].astype(int) >= minutter_kamp]
 
@@ -594,7 +673,7 @@ def Process_data_spillere(df_possession_xa,df_pv_all,df_matchstats,df_xg_all,squ
         return df_otter
         
     def number10():
-        df_10 = df_scouting[((df_scouting['player_position'] == 'Midfielder') | (df_scouting['player_position'] == 'Attacking Midfielder')) & (df_scouting['player_positionSide'] == 'Centre')]
+        df_10 = df_scouting[((df_scouting['player_position'] == 'Attacking Midfielder')) & (df_scouting['player_positionSide'] == 'Centre')]
         df_10['minsPlayed'] = df_10['minsPlayed'].astype(int)
         df_10 = df_10[df_10['minsPlayed'].astype(int) >= minutter_kamp]
 
@@ -643,7 +722,13 @@ def Process_data_spillere(df_possession_xa,df_pv_all,df_matchstats,df_xg_all,squ
         return df_10
     
     def winger():
-        df_10 = df_scouting[((df_scouting['player_position'] == 'Midfielder') | (df_scouting['player_position'] == 'Attacking Midfielder')| (df_scouting['player_position'] == 'Striker')) & (df_scouting['player_positionSide'].str.contains('Right') | (df_scouting['player_positionSide'].str.contains('Left')))]
+        df_10 = df_scouting[
+            ((df_scouting['player_position'] == 'Midfielder') & 
+            (df_scouting['player_positionSide'].isin(['Right', 'Left']))) |
+            (((df_scouting['player_position'] == 'Attacking Midfielder') | 
+            (df_scouting['player_position'] == 'Striker')) & 
+            (df_scouting['player_positionSide'].str.contains('Right|Left')))
+        ]
         df_10['minsPlayed'] = df_10['minsPlayed'].astype(int)
         df_10 = df_10[df_10['minsPlayed'].astype(int) >= minutter_kamp]
 
@@ -840,7 +925,7 @@ def Process_data_spillere(df_possession_xa,df_pv_all,df_matchstats,df_xg_all,squ
         df_strikertotal = df_strikertotal.sort_values('Total score',ascending = False)
         return df_boksstriker
     return {
-        'balanced_central_defender': balanced_central_defender(),
+        'Central defender': balanced_central_defender(),
         'Fullbacks': fullbacks(),
         'Number 6' : number6(),
         'Number 8': number8(),
@@ -855,7 +940,7 @@ position_dataframes = Process_data_spillere(df_possession_xa, df_pv_all, df_matc
 
 #defending_central_defender_df = position_dataframes['defending_central_defender']
 #ball_playing_central_defender_df = position_dataframes['ball_playing_central_defender']
-balanced_central_defender_df = position_dataframes['balanced_central_defender']
+balanced_central_defender_df = position_dataframes['Central defender']
 fullbacks_df = position_dataframes['Fullbacks']
 number6_df = position_dataframes['Number 6']
 #number6_double_6_forward_df = position_dataframes['number6_double_6_forward']
@@ -876,15 +961,23 @@ expected_points_xa, total_expected_points_xa = calculate_expected_points(df_xa, 
 
 df_holdsummary = create_holdsummary(df_possession_stats_summary, df_xg, df_xa)
 # Merge the expected points from both xG and xA simulations
-merged_df = expected_points_xg.merge(expected_points_xa, on=['label', 'team_name'], suffixes=('_xg', '_xa'))
+merged_df = expected_points_xg.merge(expected_points_xa, on=['label','date', 'team_name'], suffixes=('_xg', '_xa'))
 merged_df['expected_points'] = (merged_df['expected_points_xg'] + merged_df['expected_points_xa']) / 2
 merged_df['win_probability'] = (merged_df['win_probability_xg'] + merged_df['win_probability_xa']) / 2
 merged_df['draw_probability'] = (merged_df['draw_probability_xg'] + merged_df['draw_probability_xa']) / 2
 merged_df['loss_probability'] = (merged_df['loss_probability_xg'] + merged_df['loss_probability_xa']) / 2
 merged_df = merged_df.merge(df_holdsummary,on=['label', 'team_name'])
+label_counts_per_team = merged_df.groupby('team_name')['label'].count().reset_index()
 horsens_df = merged_df[merged_df['team_name'] == 'Horsens']
+
+total_expected_points_combined = total_expected_points_xg.merge(total_expected_points_xa, on='team_name', suffixes=('_xg', '_xa'))
+total_expected_points_combined['Total expected points'] = (total_expected_points_combined['total_expected_points_xg'] + total_expected_points_combined['total_expected_points_xa']) / 2
+total_expected_points_combined = total_expected_points_combined[['team_name', 'Total expected points']]
+total_expected_points_combined = label_counts_per_team.merge(total_expected_points_combined)
+total_expected_points_combined ['Expected points per game'] = total_expected_points_combined['Total expected points'] / total_expected_points_combined['label']
+total_expected_points_combined = total_expected_points_combined.rename(columns={'label': 'matches'})
 # Function to create a PDF report for each game
-def create_pdf_report(game_data, df_xg_agg, df_xa_agg, merged_df, df_possession_stats, position_dataframes):
+def create_pdf_game_report(game_data, df_xg_agg, df_xa_agg, merged_df, df_possession_stats, position_dataframes):
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Arial", size=12)
@@ -904,7 +997,7 @@ def create_pdf_report(game_data, df_xg_agg, df_xa_agg, merged_df, df_possession_
     
     # Create bar charts for expected points and probabilities
     create_bar_chart(expected_points, 'Expected Points', 'bar_combined.png', 3.0, [1.0, 1.3, 1.8], ['Relegation','Top 6', 'Promotion'])
-    create_bar_chart(win_prob, 'Win Probability', 'bar_combined_win_prob.png', 1.0, [0.2, 0.4, 0.6], ['Low', 'Medium', 'High'])
+    create_stacked_bar_chart(win_prob, draw_prob, loss_prob, 'Win/Draw/Loss Probabilities', 'bar_combined_win_prob.png')
     
     # Add bar charts to PDF side by side
     pdf.image('bar_combined.png', x=10, y=25, w=90, h=30)
@@ -929,7 +1022,7 @@ def create_pdf_report(game_data, df_xg_agg, df_xa_agg, merged_df, df_possession_
     # Add a summary table
     pdf.set_xy(5, 115)
     pdf.set_font_size(6)
-    pdf.cell(20, 5, 'Summary', 0, 1, 'L')
+    pdf.cell(20, 5, 'Summary', 0, 1, 'C')
     pdf.set_font("Arial", size=6)
     pdf.cell(20, 5, 'Team', 1)
     pdf.cell(20, 5, 'xA', 1)
@@ -958,7 +1051,7 @@ def create_pdf_report(game_data, df_xg_agg, df_xa_agg, merged_df, df_possession_
         else:
             filtered_df = filtered_df
         filtered_df = filtered_df.round(2)
-        
+        filtered_df['Total score'] = filtered_df['Total score'].astype(float)
         pdf.set_font("Arial", size=6)
         pdf.cell(190, 4, txt=f"Position Report: {position}", ln=True, align='C')
         pdf.ln(2)
@@ -974,17 +1067,60 @@ def create_pdf_report(game_data, df_xg_agg, df_xa_agg, merged_df, df_possession_
         pdf.cell(last_col_width, 4, txt=headers[-1], border=1)
         pdf.ln(4)
 
-    # Add table content
+        # Add table content
         for index, row in filtered_df.iterrows():
+            total_score = row['Total score']
+            if total_score < 4:
+                fill_color = (255, 0, 0)  # Red
+            elif 4 <= total_score <= 6:
+                fill_color = (255, 255, 0)  # Yellow
+            else:
+                fill_color = (0, 255, 0)  # Green
+
+            pdf.set_fill_color(*fill_color)
+
+            # Add all cells for the row
             for value in row.values[:-1]:
-                pdf.cell(col_width, 4, txt=str(value), border=1)
-            pdf.cell(last_col_width, 4, txt=str(row.values[-1]), border=1)
-            pdf.ln(4)    
+                pdf.cell(col_width, 4, txt=str(value), border=1, fill=True)
+            pdf.cell(last_col_width, 4,txt=str(row.values[-1]), border=1, fill=True)
+            pdf.ln(4)       
     pdf.output(f"Match reports/Match_Report_{label}.pdf")
     print(f'{label} report created')
 # Generate a PDF report for each game involving Horsens
-for index, row in horsens_df.iterrows():
-    create_pdf_report(row, df_xg_agg, df_xa_agg, merged_df, df_possession_stats, position_dataframes)
+#for index, row in horsens_df.iterrows():
+    #create_pdf_game_report(row, df_xg_agg, df_xa_agg, merged_df, df_possession_stats, position_dataframes)
+
+def create_pdf_progress_report(horsens_df, total_expected_points_combined):
+    today = date.today()
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
+    # Add the team logo
+    pdf.image('C:/Users/SéamusPeareBartholdy/Documents/GitHub/AC-Horsens-First-Team/Logo.png', x=165, y=5, w=20, h=20)
+    pdf.set_xy(10, 10)
+    pdf.cell(140, 5, txt=f"Progress report: {today}", ln=True, align='L')
+
+    # Save the sliding average plot as an image
+    plt.figure(figsize=(12, 6))
+    sliding_average_plot(horsens_df, window_size=3, filename='sliding_average_plot.png')
+    plt.close()
+    pdf.image("sliding_average_plot.png", x=5, y=25, w=200)
+
+    # Generate the DataFrame summary table for total expected points
+    total_expected_points_combined = total_expected_points_combined.round(2)
+    total_expected_points_combined = total_expected_points_combined.sort_values(by='Expected points per game', ascending=False)
+    plt.figure(figsize=(12, 2))
+    plt.axis('off')
+    plt.table(cellText=total_expected_points_combined.values, colLabels=total_expected_points_combined.columns,cellLoc='left', loc='center')
+    plt.savefig("total_expected_points_table.png", format="png", bbox_inches='tight')
+    plt.close()
+    pdf.image("total_expected_points_table.png", x=5, y=130, w=200)
+
+    pdf.output(f"Progress reports/Progress_report_{today}.pdf")
+    print(f'{today} progress report created')
+
+
+create_pdf_progress_report(horsens_df,total_expected_points_combined)
 
 folder_path = 'C:/Users/SéamusPeareBartholdy/Documents/GitHub/AC-Horsens-First-Team/'
 
@@ -1000,12 +1136,3 @@ for file in files:
         # Remove the file
         os.remove(file_path)
         print(f"Deleted: {file_path}")
-        
-# Calculate total combined expected points for Horsens
-total_expected_points_combined = total_expected_points_xg.merge(total_expected_points_xa, on='team_name', suffixes=('_xg', '_xa'))
-total_expected_points_combined['total_expected_points'] = (total_expected_points_combined['total_expected_points_xg'] + total_expected_points_combined['total_expected_points_xa']) / 2
-total_expected_points_combined = total_expected_points_combined[['team_name', 'total_expected_points']]
-
-# Print the total combined expected points for Horsens
-print("/nTotal Combined Expected Points for Horsens:")
-print(total_expected_points_combined)

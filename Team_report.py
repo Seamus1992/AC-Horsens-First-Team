@@ -16,11 +16,16 @@ def load_data():
 
     df_pv = pd.read_csv('C:/Users/SéamusPeareBartholdy/Documents/GitHub/AC-Horsens-First-Team/DNK_1_Division_2023_2024/pv_all DNK_1_Division_2023_2024.csv')
 
+
     df_possession_stats = pd.read_csv('C:/Users/SéamusPeareBartholdy/Documents/GitHub/AC-Horsens-First-Team/DNK_1_Division_2023_2024/possession_stats_all DNK_1_Division_2023_2024.csv')
     df_possession_stats['label'] = df_possession_stats['label'] + ' ' + df_possession_stats['date']
 
     df_xa_agg = pd.read_csv('C:/Users/SéamusPeareBartholdy/Documents/GitHub/AC-Horsens-First-Team/DNK_1_Division_2023_2024/Horsens/Horsens_possession_data.csv')
     df_xa_agg['label'] = df_xa_agg['label'] + ' ' + df_xa_agg['date']
+
+    df_possession_data = pd.read_csv('C:/Users/SéamusPeareBartholdy/Documents/GitHub/AC-Horsens-First-Team/DNK_1_Division_2023_2024/Horsens/Horsens_possession_data.csv')
+    df_possession_data['label'] = df_possession_data['label'] + ' ' + df_possession_data['date']
+
 
     df_xg_agg = pd.read_csv('C:/Users/SéamusPeareBartholdy/Documents/GitHub/AC-Horsens-First-Team/DNK_1_Division_2023_2024/Horsens/Horsens_xg_data.csv')
     df_xg_agg['label'] = df_xg_agg['label'] + ' ' + df_xg_agg['date']
@@ -42,7 +47,7 @@ def load_data():
 
     squads = pd.read_csv('C:/Users/SéamusPeareBartholdy/Documents/GitHub/AC-Horsens-First-Team/DNK_1_Division_2023_2024/squads DNK_1_Division_2023_2024.csv')
     
-    return df_xg, df_xa, df_pv, df_possession_stats, df_xa_agg, df_xg_agg, df_pv_agg, df_xg_all, df_possession_xa, df_pv_all, df_matchstats, squads
+    return df_xg, df_xa, df_pv, df_possession_stats, df_xa_agg, df_possession_data, df_xg_agg, df_pv_agg, df_xg_all, df_possession_xa, df_pv_all, df_matchstats, squads
 
 def create_stacked_bar_chart(win_prob, draw_prob, loss_prob, title, filename):
     fig, ax = plt.subplots(figsize=(8, 2))
@@ -284,7 +289,29 @@ def preprocess_data(df_xg_agg, df_xa_agg, df_pv_agg, df_possession_stats):
 
     return df_xg_agg, df_xa_agg, df_pv_agg, df_possession_stats, df_possession_stats_summary
 
-def create_holdsummary(df_possession_stats_summary, df_xg, df_xa,df_matchstats):
+def calculate_ppda(df_possession_data):
+    df_ppda = df_possession_data[df_possession_data['typeId'].isin([1, 4, 7,8, 45])]
+    df_ppdabeyond40 = df_ppda[df_ppda['x'].astype(float) > 40]
+    df_ppdabeyond40_passes = df_ppdabeyond40[df_ppdabeyond40['typeId'] == 1]
+    df_ppdabeyond40_passestotal = df_ppdabeyond40_passes.groupby('label')['eventId'].count().reset_index()
+    df_ppdabeyond40_passestotal = df_ppdabeyond40_passestotal.rename(columns={'eventId': 'passes in game'})
+    df_ppdabeyond40_passesteams = df_ppdabeyond40_passes.groupby(['label','team_name'])['eventId'].count().reset_index()
+    df_ppdabeyond40_passesteams = df_ppdabeyond40_passesteams.rename(columns={'eventId': 'passes'})
+
+    df_ppdabeyond40_defactions = df_ppdabeyond40[df_ppdabeyond40['typeId'].isin([4, 7, 8, 45])]
+    df_ppdabeyond40_defactionstotal = df_ppdabeyond40_defactions.groupby('label')['eventId'].count().reset_index()
+    df_ppdabeyond40_defactionstotal = df_ppdabeyond40_defactionstotal.rename(columns={'eventId': 'defensive actions in game'})
+    df_ppdabeyond40_defactionsteams = df_ppdabeyond40_defactions.groupby(['label', 'team_name'])['eventId'].count().reset_index()
+    df_ppdabeyond40_defactionsteams = df_ppdabeyond40_defactionsteams.rename(columns={'eventId': 'defensive actions'})
+    df_ppdabeyond40total = df_ppdabeyond40_defactionstotal.merge(df_ppdabeyond40_passestotal)
+    df_ppdabeyond40 = df_ppdabeyond40_defactionsteams.merge(df_ppdabeyond40total)
+    df_ppdabeyond40 = df_ppdabeyond40.merge(df_ppdabeyond40_passesteams)
+    df_ppdabeyond40['opponents passes'] = df_ppdabeyond40['passes in game'] - df_ppdabeyond40['passes']
+    df_ppdabeyond40['PPDA'] = df_ppdabeyond40['opponents passes'] / df_ppdabeyond40['defensive actions']
+    df_ppda = df_ppdabeyond40[['label', 'team_name', 'PPDA']]
+    return df_ppda
+
+def create_holdsummary(df_possession_stats_summary, df_xg, df_xa,df_matchstats,df_ppda):
     df_possession_stats_summary = pd.melt(df_possession_stats_summary, id_vars=['home_team', 'away_team', 'label'], value_vars=['home_possession', 'away_possession'], var_name='possession_type', value_name='terr_poss')
     df_possession_stats_summary['team_name'] = df_possession_stats_summary.apply(lambda x: x['home_team'] if x['possession_type'] == 'home_possession' else x['away_team'], axis=1)
     df_possession_stats_summary.drop(['home_team', 'away_team', 'possession_type'], axis=1, inplace=True)
@@ -296,12 +323,11 @@ def create_holdsummary(df_possession_stats_summary, df_xg, df_xa,df_matchstats):
     df_xa_hold = df_xa_hold.rename(columns={'318.0': 'xA'})
     paentries = df_matchstats.groupby(['contestantId','label'])['penAreaEntries'].sum().reset_index()
 
-
-
     df_holdsummary = df_xa_hold.merge(df_xg_hold)
     df_holdsummary = df_holdsummary.merge(paentries)
     df_holdsummary = df_holdsummary.merge(df_possession_stats_summary)
-    df_holdsummary = df_holdsummary[['team_name', 'label', 'xA', 'xG', 'terr_poss','penAreaEntries']]
+    df_holdsummary = df_holdsummary.merge(df_ppda)
+    df_holdsummary = df_holdsummary[['team_name', 'label', 'xA', 'xG', 'terr_poss','penAreaEntries','PPDA']]
     
     return df_holdsummary
 
@@ -949,7 +975,7 @@ def Process_data_spillere(df_possession_xa,df_pv_all,df_matchstats,df_xg_all,squ
         'Classic striker': Classic_striker(),
     }
 
-df_xg, df_xa, df_pv, df_possession_stats, df_xa_agg, df_xg_agg, df_pv_agg, df_xg_all, df_possession_xa, df_pv_all, df_matchstats, squads = load_data()
+df_xg, df_xa, df_pv, df_possession_stats, df_xa_agg, df_possession_data, df_xg_agg, df_pv_agg, df_xg_all, df_possession_xa, df_pv_all, df_matchstats, squads = load_data()
 
 position_dataframes = Process_data_spillere(df_possession_xa, df_pv_all, df_matchstats, df_xg_all, squads)
 
@@ -967,15 +993,14 @@ classic_striker_df = position_dataframes['Classic striker']
 #targetman_df = position_dataframes['Targetman']
 #box_striker_df = position_dataframes['Boxstriker']
 df_xg_agg, df_xa_agg, df_pv_agg, df_possession_stats, df_possession_stats_summary = preprocess_data(df_xg_agg, df_xa_agg, df_pv_agg, df_possession_stats)
-
-# Calculate expected points based on xG
+df_ppda = calculate_ppda(df_possession_data)
 def process_data():
     expected_points_xg, total_expected_points_xg = calculate_expected_points(df_xg, '321')
 
     # Calculate expected points based on xA
     expected_points_xa, total_expected_points_xa = calculate_expected_points(df_xa, '318.0')
 
-    df_holdsummary = create_holdsummary(df_possession_stats_summary, df_xg, df_xa, df_matchstats)
+    df_holdsummary = create_holdsummary(df_possession_stats_summary, df_xg, df_xa, df_matchstats,df_ppda)
     # Merge the expected points from both xG and xA simulations
     merged_df = expected_points_xg.merge(expected_points_xa, on=['label','date', 'team_name'], suffixes=('_xg', '_xa'))
     merged_df['expected_points'] = (merged_df['expected_points_xg'] + merged_df['expected_points_xa']) / 2
@@ -995,7 +1020,6 @@ def process_data():
     return horsens_df, merged_df, total_expected_points_combined
 
 horsens_df, merged_df, total_expected_points_combined = process_data()
-
 def create_pdf_game_report(game_data, df_xg_agg, df_xa_agg, merged_df, df_possession_stats, position_dataframes):
     pdf = FPDF()
     pdf.add_page()
@@ -1047,7 +1071,8 @@ def create_pdf_game_report(game_data, df_xg_agg, df_xa_agg, merged_df, df_posses
     pdf.cell(20, 5, 'xA', 1)
     pdf.cell(20, 5, 'xG', 1)
     pdf.cell(30, 5, 'Territorial possession', 1)
-    pdf.cell(20, 5, 'Penalty area entries', 1)
+    pdf.cell(25, 5, 'Penalty area entries', 1)
+    pdf.cell(20, 5, 'PPDA', 1)
 
     pdf.ln()
 
@@ -1057,8 +1082,9 @@ def create_pdf_game_report(game_data, df_xg_agg, df_xa_agg, merged_df, df_posses
         pdf.cell(20, 5, f"{row['xA']:.2f}", 1)
         pdf.cell(20, 5, f"{row['xG']:.2f}", 1)
         pdf.cell(30, 5, f"{row['terr_poss']:.2f}", 1)
-        pdf.cell(20, 5, f"{row['penAreaEntries']:.0f}", 1)
-        
+        pdf.cell(25, 5, f"{row['penAreaEntries']:.0f}", 1)
+        pdf.cell(20, 5, f"{row['PPDA']:.2f}", 1)
+
         pdf.ln()
         
     for position, df in position_dataframes.items():

@@ -284,20 +284,24 @@ def preprocess_data(df_xg_agg, df_xa_agg, df_pv_agg, df_possession_stats):
 
     return df_xg_agg, df_xa_agg, df_pv_agg, df_possession_stats, df_possession_stats_summary
 
-def create_holdsummary(df_possession_stats_summary, df_xg, df_xa):
+def create_holdsummary(df_possession_stats_summary, df_xg, df_xa,df_matchstats):
     df_possession_stats_summary = pd.melt(df_possession_stats_summary, id_vars=['home_team', 'away_team', 'label'], value_vars=['home_possession', 'away_possession'], var_name='possession_type', value_name='terr_poss')
     df_possession_stats_summary['team_name'] = df_possession_stats_summary.apply(lambda x: x['home_team'] if x['possession_type'] == 'home_possession' else x['away_team'], axis=1)
     df_possession_stats_summary.drop(['home_team', 'away_team', 'possession_type'], axis=1, inplace=True)
     df_possession_stats_summary = df_possession_stats_summary[['team_name', 'label', 'terr_poss']]
-    df_xg_hold = df_xg.groupby(['team_name', 'label'])['321'].sum().reset_index()
+    df_xg_hold = df_xg.groupby(['team_name','contestantId', 'label'])['321'].sum().reset_index()
     df_xg_hold = df_xg_hold.rename(columns={'321': 'xG'})
 
-    df_xa_hold = df_xa.groupby(['team_name', 'label'])['318.0'].sum().reset_index()
+    df_xa_hold = df_xa.groupby(['team_name','contestantId', 'label'])['318.0'].sum().reset_index()
     df_xa_hold = df_xa_hold.rename(columns={'318.0': 'xA'})
+    paentries = df_matchstats.groupby(['contestantId','label'])['penAreaEntries'].sum().reset_index()
+
+
 
     df_holdsummary = df_xa_hold.merge(df_xg_hold)
+    df_holdsummary = df_holdsummary.merge(paentries)
     df_holdsummary = df_holdsummary.merge(df_possession_stats_summary)
-    df_holdsummary = df_holdsummary[['team_name', 'label', 'xA', 'xG', 'terr_poss']]
+    df_holdsummary = df_holdsummary[['team_name', 'label', 'xA', 'xG', 'terr_poss','penAreaEntries']]
     
     return df_holdsummary
 
@@ -971,7 +975,7 @@ def process_data():
     # Calculate expected points based on xA
     expected_points_xa, total_expected_points_xa = calculate_expected_points(df_xa, '318.0')
 
-    df_holdsummary = create_holdsummary(df_possession_stats_summary, df_xg, df_xa)
+    df_holdsummary = create_holdsummary(df_possession_stats_summary, df_xg, df_xa, df_matchstats)
     # Merge the expected points from both xG and xA simulations
     merged_df = expected_points_xg.merge(expected_points_xa, on=['label','date', 'team_name'], suffixes=('_xg', '_xa'))
     merged_df['expected_points'] = (merged_df['expected_points_xg'] + merged_df['expected_points_xa']) / 2
@@ -1043,6 +1047,7 @@ def create_pdf_game_report(game_data, df_xg_agg, df_xa_agg, merged_df, df_posses
     pdf.cell(20, 5, 'xA', 1)
     pdf.cell(20, 5, 'xG', 1)
     pdf.cell(30, 5, 'Territorial possession', 1)
+    pdf.cell(20, 5, 'Penalty area entries', 1)
 
     pdf.ln()
 
@@ -1052,6 +1057,8 @@ def create_pdf_game_report(game_data, df_xg_agg, df_xa_agg, merged_df, df_posses
         pdf.cell(20, 5, f"{row['xA']:.2f}", 1)
         pdf.cell(20, 5, f"{row['xG']:.2f}", 1)
         pdf.cell(30, 5, f"{row['terr_poss']:.2f}", 1)
+        pdf.cell(20, 5, f"{row['penAreaEntries']:.0f}", 1)
+        
         pdf.ln()
         
     for position, df in position_dataframes.items():

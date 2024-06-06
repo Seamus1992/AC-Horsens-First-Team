@@ -1007,7 +1007,7 @@ def process_data():
     merged_df['win_probability'] = (merged_df['win_probability_xg'] + merged_df['win_probability_xa']) / 2
     merged_df['draw_probability'] = (merged_df['draw_probability_xg'] + merged_df['draw_probability_xa']) / 2
     merged_df['loss_probability'] = (merged_df['loss_probability_xg'] + merged_df['loss_probability_xa']) / 2
-    merged_df = merged_df.merge(df_holdsummary,on=['label', 'team_name'])
+    merged_df = merged_df.merge(df_holdsummary,on=['label', 'team_name'],how='outer')
     label_counts_per_team = merged_df.groupby('team_name')['label'].count().reset_index()
     horsens_df = merged_df[merged_df['team_name'] == 'Horsens']
 

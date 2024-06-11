@@ -535,13 +535,9 @@ def Match_evaluation ():
         plt.close('all')
 
     #sorterer for standardsituationer
-    df_possession['q_qualifierId'] = df_possession['q_qualifierId'].astype(float)
-    filtered_ids = df_possession[df_possession['q_qualifierId'].isin([22,23])]['id']
-    # Filter out all rows with the filtered 'id' values
-    filtered_data = df_possession[df_possession['id'].isin(filtered_ids)]
     #erobringer til store chancer
-    df_store_chancer = filtered_data[(filtered_data['q_qualifierId'] == 321)]
-    df_store_chancer = df_store_chancer[df_store_chancer['q_value'].astype(float) > 0.01]
+    filtered_data = df_possession[(df_possession['22'] == True & df_possession['23'] == True)]
+    df_store_chancer = filtered_data[(filtered_data['321'].astype(float) > 0.01)]
     store_chancer_sequencer = df_store_chancer[['label','sequenceId']]
     store_chancer_sequencer = store_chancer_sequencer.merge(df_possession)
     store_chancer_sequencer = store_chancer_sequencer.drop_duplicates(subset='sequenceId', keep='first')

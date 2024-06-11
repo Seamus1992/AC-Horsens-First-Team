@@ -535,7 +535,7 @@ def Match_evaluation ():
     st.dataframe(df_possession)
     #sorterer for standardsituationer
     #erobringer til store chancer
-    filtered_data = df_possession[(df_possession['22.0'] == True) & (df_possession['23.0'] == True)]
+    filtered_data = df_possession[(df_possession['22.0'] == True) | (df_possession['23.0'] == True)]
     df_store_chancer = filtered_data[(filtered_data['321.0'].astype(float) > 0.01)]
     store_chancer_sequencer = df_store_chancer[['label','sequenceId']]
     store_chancer_sequencer = store_chancer_sequencer.merge(df_possession)

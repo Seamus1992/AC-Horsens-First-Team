@@ -263,7 +263,7 @@ def Match_evaluation ():
 
     st.title('Passes, pv and xA')
     st.pyplot(fig)
-    plt.close(fig)
+    plt.close('all')
 
     df_keypass = df_possession[df_possession['team_name'] == Modstander]
     df_keypass = df_keypass[df_keypass['label'] == Kampvalg]
@@ -319,6 +319,7 @@ def Match_evaluation ():
     with col1:
         st.write('Xg plot '+ Modstander)
         st.pyplot(fig)
+        plt.close('all')
 
     df_xg_plot_store_chancer = df_xg.copy()
     df_xg_plot_store_chancer = df_xg_plot_store_chancer[df_xg_plot_store_chancer['321'].astype(float) > 0.2]
@@ -419,6 +420,7 @@ def Match_evaluation ():
         st.write('Ball recoveries/interceptions that lead to a chance (0,01 xg)')
         st.pyplot(fig)
         plt.close(fig)
+        plt.close('all')
 
     store_chancer_sequencer_spillere = store_chancer_sequencer.value_counts('playerName').reset_index()
     store_chancer_sequencer_spillere.columns = ['playerName', 'Number']
@@ -437,7 +439,7 @@ def Match_evaluation ():
         sc = pitch.scatter(x, y, ax=ax)
         interceptions_df = interceptions_df.set_index('playerName')
         st.pyplot(fig)    
-        plt.close(fig)
+        plt.close('all')
 
     st.title('Against ' + Modstander)
     #Modstanders modstandere
@@ -491,6 +493,7 @@ def Match_evaluation ():
     with col1:
         st.write('Xg plot against '+ Modstander)
         st.pyplot(fig)
+        plt.close('all')
 
     df_xg_plot_store_chancer = df_xg_modstander[df_xg_modstander['q_qualifierId'].astype(int) == 321]
     df_xg_plot_store_chancer = df_xg_plot_store_chancer[df_xg_plot_store_chancer['q_value'].astype(float) > 0.2]
@@ -532,7 +535,8 @@ def Match_evaluation ():
     with col2:
         st.write('Assists against ' + Modstander)
         st.pyplot(fig)
-        
+        plt.close('all')
+
     #sorterer for standardsituationer
     df_possession['q_qualifierId'] = df_possession['q_qualifierId'].astype(float)
     filtered_ids = df_possession[df_possession['q_qualifierId'].isin([22,23])]['id']

@@ -476,7 +476,7 @@ def Match_evaluation ():
     col1,col2 = st.columns(2)
     x = df_xg_plot['x'].astype(float)
     y = df_xg_plot['y'].astype(float)
-    shot_xg = df_xg_plot['q_value'].astype(float)
+    shot_xg = df_xg_plot['321.0'].astype(float)
     player_names = df_xg_plot['playerName'].astype(str)
 
     min_size = 1  # Minimum dot size

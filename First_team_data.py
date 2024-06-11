@@ -470,7 +470,7 @@ def Match_evaluation ():
     df_possession = df_possession[df_possession['label'] == Kampvalg]
     df_possession_modstander = df_possession[df_possession['team_name'] != Modstander]
     df_possession_modstander = df_possession_modstander[df_possession_modstander['label'] == Kampvalg]
-    df_possession_modstander_xA = df_possession_modstander[df_possession_modstander['318'].astype(float) > 0.05]
+    df_possession_modstander_xA = df_possession_modstander[df_possession_modstander[318].astype(float) > 0.05]
 
     df_xg_plot = df_xg_modstander[df_xg_modstander['321'] > 0.0]
 

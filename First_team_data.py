@@ -471,12 +471,13 @@ def Match_evaluation ():
     df_possession_modstander = df_possession[df_possession['team_name'] != Modstander]
     df_possession_modstander = df_possession_modstander[df_possession_modstander['label'] == Kampvalg]
     df_possession_modstander_xA = df_possession_modstander[df_possession_modstander['318.0'].astype(float) > 0.05]
-    df_xg_plot = df_xg_modstander[df_xg_modstander[321.0] > 0.0]
+    st.dataframe(df_xg_modstander)
+    df_xg_plot = df_xg_modstander[df_xg_modstander['321'] > 0.0]
 
     col1,col2 = st.columns(2)
     x = df_xg_plot['x'].astype(float)
     y = df_xg_plot['y'].astype(float)
-    shot_xg = df_xg_plot['321.0'].astype(float)
+    shot_xg = df_xg_plot['321'].astype(float)
     player_names = df_xg_plot['playerName'].astype(str)
 
     min_size = 1  # Minimum dot size

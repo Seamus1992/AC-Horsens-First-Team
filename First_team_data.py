@@ -532,7 +532,6 @@ def Match_evaluation ():
         st.write('Assists against ' + Modstander)
         st.pyplot(fig)
         plt.close('all')
-    st.dataframe(df_possession)
     #sorterer for standardsituationer
     #erobringer til store chancer
     filtered_data = df_possession[(df_possession['22.0'] == True) | (df_possession['23.0'] == True)]

@@ -470,11 +470,9 @@ def Match_evaluation ():
     df_possession = df_possession[df_possession['label'] == Kampvalg]
     df_possession_modstander = df_possession[df_possession['team_name'] != Modstander]
     df_possession_modstander = df_possession_modstander[df_possession_modstander['label'] == Kampvalg]
-    df_possession_modstander_xA = df_possession_modstander[df_possession_modstander['q_qualifierId'].astype(float) == 318]
-    df_possession_modstander_xA = df_possession_modstander_xA[df_possession_modstander_xA['q_value'].astype(float) > 0.05]
+    df_possession_modstander_xA = df_possession_modstander[df_possession_modstander['318'].astype(float) > 0.05]
 
-    df_xg_plot = df_xg_modstander[df_xg_modstander['q_qualifierId'].astype(int) == 321]
-    df_xg_plot = df_xg_plot[df_xg_plot['q_value'].astype(float) > 0.0]
+    df_xg_plot = df_xg_modstander[df_xg_modstander['321'] > 0.0]
 
     col1,col2 = st.columns(2)
     x = df_xg_plot['x'].astype(float)
@@ -495,12 +493,11 @@ def Match_evaluation ():
         st.pyplot(fig)
         plt.close('all')
 
-    df_xg_plot_store_chancer = df_xg_modstander[df_xg_modstander['q_qualifierId'].astype(int) == 321]
-    df_xg_plot_store_chancer = df_xg_plot_store_chancer[df_xg_plot_store_chancer['q_value'].astype(float) > 0.2]
+    df_xg_plot_store_chancer = df_xg_plot_store_chancer[df_xg_plot_store_chancer['321'] > 0.2]
 
     x = df_xg_plot_store_chancer['x'].astype(float)
     y = df_xg_plot_store_chancer['y'].astype(float)
-    shot_xg = df_xg_plot_store_chancer['q_value'].astype(float)
+    shot_xg = df_xg_plot_store_chancer['321'].astype(float)
     player_names = df_xg_plot_store_chancer['playerName'].astype(str)
 
     min_size = 1  # Minimum dot size

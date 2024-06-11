@@ -452,10 +452,8 @@ def Match_evaluation ():
     df_xg_modstander = df_xg[df_xg['label'].str.contains(Modstander)]
     df_xg_modstander = df_xg_modstander[df_xg_modstander['label'] == Kampvalg]
     df_xg_modstander = df_xg_modstander[df_xg_modstander['team_name'] != Modstander]
-    df_xg_modstander = df_xg_modstander[df_xg_modstander['q_qualifierId'].astype(int) == 321]
-    df_xg_modstander = df_xg_modstander[df_xg_modstander['q_value'].astype(float) > 0]
-    df_xg_modstander['q_value'] = df_xg_modstander['q_value'].astype(float)
-    df_xg_spiller = df_xg_modstander.groupby('playerName')['q_value'].sum()
+    df_xg_modstander = df_xg_modstander[df_xg_modstander['321'].astype(float) >0
+    df_xg_spiller = df_xg_modstander.groupby('playerName')['321'].sum()
     df_xg_spiller = df_xg_spiller.sort_values(ascending=False)
 
     df_assist = df_possession.copy()

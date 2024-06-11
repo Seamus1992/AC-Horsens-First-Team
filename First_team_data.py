@@ -446,7 +446,7 @@ def Match_evaluation ():
 
     df_keypass = df_possession[df_possession['team_name'] != Modstander]
     df_keypass = df_keypass[df_keypass['label']== Kampvalg]
-    df_keypass = df_keypass[df_keypass['210.0'] == True]
+    df_keypass = df_keypass[df_keypass['210.0'].astype(float) > 0.0]
     df_keypass = df_keypass.drop_duplicates('id')
     df_keypass_spiller = df_keypass['playerName'].value_counts()
     df_keypass_spiller = df_keypass_spiller.sort_values(ascending=False)
@@ -471,7 +471,6 @@ def Match_evaluation ():
     df_possession_modstander = df_possession[df_possession['team_name'] != Modstander]
     df_possession_modstander = df_possession_modstander[df_possession_modstander['label'] == Kampvalg]
     df_possession_modstander_xA = df_possession_modstander[df_possession_modstander['318.0'].astype(float) > 0.05]
-    st.dataframe(df_xg_modstander)
     df_xg_plot = df_xg_modstander[df_xg_modstander['321'] > 0.0]
 
     col1,col2 = st.columns(2)
@@ -537,7 +536,7 @@ def Match_evaluation ():
     #sorterer for standardsituationer
     #erobringer til store chancer
     filtered_data = df_possession[(df_possession['22.0'] == True) & (df_possession['23.0'] == True)]
-    df_store_chancer = filtered_data[(filtered_data['321'].astype(float) > 0.01)]
+    df_store_chancer = filtered_data[(filtered_data['321.0'].astype(float) > 0.01)]
     store_chancer_sequencer = df_store_chancer[['label','sequenceId']]
     store_chancer_sequencer = store_chancer_sequencer.merge(df_possession)
     store_chancer_sequencer = store_chancer_sequencer.drop_duplicates(subset='sequenceId', keep='first')

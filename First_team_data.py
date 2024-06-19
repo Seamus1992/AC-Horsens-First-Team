@@ -130,10 +130,7 @@ def Dashboard():
     
     team_summary = df_xg_summary.merge(df_xA_summary, on=['team_name','label'])
     team_summary = team_summary.merge(df_passes, on=['team_name','label'])
-
     team_summary = team_summary.merge(df_packing_summary, on=['team_name', 'label'])
-    st.dataframe(team_summary)
-
     team_summary = team_summary.merge(df_spacecontrol, on=['team_name', 'label'])
     team_summary = team_summary.drop(columns='label')
     team_summary = team_summary.groupby('team_name').mean().reset_index()

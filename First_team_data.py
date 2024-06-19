@@ -93,7 +93,7 @@ def Dashboard():
     df_matchstats = load_match_stats()
     df_packing = load_packing_data()
     df_xA = load_xA()
-
+    st.dataframe(df_packing)
     st.title('Horsens First Team Dashboard')
     df_possession['date'] = pd.to_datetime(df_possession['date'])
     matches = df_possession['label'].unique()

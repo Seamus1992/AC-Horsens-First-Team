@@ -266,6 +266,7 @@ def Dashboard():
         plt.tight_layout()
         plt.show()
         
+        
         st.dataframe(df_matchstats, hide_index=True)
         df_possession = df_possession[~(df_possession[['6.0','107.0']] == True).any(axis=1)]
         df_passes_all = df_possession[df_possession['typeId'] == 1]

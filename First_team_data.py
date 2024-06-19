@@ -57,7 +57,7 @@ def load_xg():
     return df_xg
 @st.cache_data
 def load_all_xg():
-    xg = pd.read_csv(r'DNK_1_Division_2023_2024/Horsens/Horsens_xg_data.csv')
+    xg = pd.read_csv(r'DNK_1_Division_2023_2024/xg_all DNK_1_Division_2023_2024.csv')
     xg['label'] = (xg['label'] + ' ' + xg['date'])
     xg['team_name'].str.replace(' ', '_')
 
@@ -89,7 +89,7 @@ def load_xA():
     return df_xA
 
 @st.cache_data(experimental_allow_widgets=True)
-
+@st.cache_resource(experimental_allow_widgets=True)
 def Dashboard():
     df_xg = load_xg()
     df_pv = load_pv()
@@ -150,6 +150,19 @@ def Dashboard():
     team_summary = team_summary.round(2)
     st.dataframe(team_summary.style.format(precision=2), use_container_width=True,hide_index=True)
 
+    def xg(df_xg):
+        xg_all = load_all_xg()
+        st.dataframe(xg_all)
+        st.dataframe(df_xg)
+        
+    Data_types = {
+        'xG': xg,
+    }
+
+    col1,col2,col3 = st.columns(3)
+    with col1:
+        selected_data = st.multiselect.radio('Choose data type',list(Data_types.keys()))
+        Data_types[selected_data]()
 def Match_evaluation():
     team_name = 'Horsens'    
     df_pv = load_pv()

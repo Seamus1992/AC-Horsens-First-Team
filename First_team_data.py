@@ -91,7 +91,7 @@ def Dashboard():
     st.title('Horsens First Team Dashboard')
     df_possession['date'] = pd.to_datetime(df_possession['date'])
     matches = df_possession['label'].unique()
-    st.write(matches)
+    st.dataframe(matches)
     match_choice = st.multiselect('Choose a match', matches)
 
 

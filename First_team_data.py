@@ -168,11 +168,11 @@ def Dashboard():
         
         st.plotly_chart(fig)
         df_xg = df_xg[~(df_xg[['9','24', '25', '26']] == True).any(axis=1)]
-        df_xg = df_xg.sort_values(by=['team_name','timeMin', 'timeSec'])
+        df_xg = df_xg.sort_values(by=['team_name','timeMin'])
 
         df_xg['cumulative_xG'] = df_xg.groupby(['team_name', 'label'])['321'].cumsum()
         df_xg['team_name'] = df_xg['team_name'].apply(lambda x: x if x == 'Horsens' else 'Opponent')
-        df_xg = df_xg.sort_values(by=['team_name','timeMin', 'timeSec'])
+        df_xg = df_xg.sort_values(by=['team_name','timeMin'])
 
         st.dataframe(df_xg)
         fig = go.Figure()
@@ -180,7 +180,7 @@ def Dashboard():
         for team in df_xg['team_name'].unique():
             team_data = df_xg[df_xg['team_name'] == team]
             fig.add_trace(go.Scatter(
-                x=team_data['timeMin'] + team_data['timeSec'] / 60, 
+                x=team_data['timeMin'], 
                 y=team_data['cumulative_xG'], 
                 mode='lines',
                 name=team,

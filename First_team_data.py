@@ -152,6 +152,8 @@ def Dashboard():
 
     def xg(df_xg):
         xg_all = load_all_xg()
+        xg_all = xg_all[xg_all['label'].isin(match_choice)]
+        df_xg = df_xg[df_xg['label'].isin(match_choice)]
         st.dataframe(xg_all)
         st.dataframe(df_xg)
             

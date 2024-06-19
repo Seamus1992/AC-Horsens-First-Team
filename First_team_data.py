@@ -403,7 +403,7 @@ def Match_evaluation ():
         plt.close(fig)
 
     df_possession_modstander = df_possession[df_possession['team_name'] == Modstander]
-    df_possession_modstander = df_possession_modstander[df_possession_modstander['label'].isin(Kampvalg)])]
+    df_possession_modstander = df_possession_modstander[df_possession_modstander['label'].isin(Kampvalg)]
     # Filter out all rows with the filtered 'id' values
     df_store_chancer = df_possession_modstander[df_possession_modstander['321.0'].astype(float) > 0.01]
 
@@ -450,128 +450,6 @@ def Match_evaluation ():
         plt.close('all')
 
     st.title('Against ' + Modstander)
-    #Modstanders modstandere
-
-    df_keypass = df_possession[df_possession['team_name'] != Modstander]
-    df_keypass = df_keypass[df_keypass['label'.isin(Kampvalg)]
-    df_keypass = df_keypass[df_keypass['210.0'].astype(float) > 0.0]
-    df_keypass = df_keypass.drop_duplicates('id')
-    df_keypass_spiller = df_keypass['playerName'].value_counts()
-    df_keypass_spiller = df_keypass_spiller.sort_values(ascending=False)
-
-    df_xg_modstander = df_xg[df_xg['label'].str.contains(Modstander)]
-    df_xg_modstander = df_xg_modstander[df_xg_modstander['label'].isin(Kampvalg)]
-    df_xg_modstander = df_xg_modstander[df_xg_modstander['team_name'] != Modstander]
-    df_xg_modstander = df_xg_modstander[df_xg_modstander['321'].astype(float) >0]
-    df_xg_spiller = df_xg_modstander.groupby('playerName')['321'].sum()
-    df_xg_spiller = df_xg_spiller.sort_values(ascending=False)
-
-    df_assist = df_possession.copy()
-    df_assist = df_assist[df_assist['label'].str.contains(Modstander)]
-    df_assist = df_assist[df_assist['label'].isin(Kampvalg)]
-    df_assist = df_assist[df_assist['team_name'] != Modstander]
-    df_assist['assist'] = df_assist['assist'].astype(float)
-    df_assist = df_assist[df_assist['assist'] > 0]
-    df_assist_spiller = df_assist.groupby('playerName')['assist'].sum()
-    df_assist_spiller = df_assist_spiller.sort_values(ascending=False)
-
-    df_possession = df_possession[df_possession['label'].isin(Kampvalg)]
-    df_possession_modstander = df_possession[df_possession['team_name'] != Modstander]
-    df_possession_modstander = df_possession_modstander[df_possession_modstander['label'].isin(Kampvalg)])]
-    df_possession_modstander_xA = df_possession_modstander[df_possession_modstander['318.0'].astype(float) > 0.05]
-    df_xg_plot = df_xg_modstander[df_xg_modstander['321'] > 0.0]
-
-    col1,col2 = st.columns(2)
-    x = df_xg_plot['x'].astype(float)
-    y = df_xg_plot['y'].astype(float)
-    shot_xg = df_xg_plot['321'].astype(float)
-    player_names = df_xg_plot['playerName'].astype(str)
-
-    min_size = 1  # Minimum dot size
-    max_size = 50  # Maximum dot size
-    sizes = np.interp(shot_xg, (shot_xg.min(), shot_xg.max()), (min_size, max_size))
-
-    pitch = Pitch(pitch_type='opta',half=True, pitch_color='grass', line_color='white', stripe=True)
-    fig, ax = pitch.draw()
-    sc = pitch.scatter(x, y, ax=ax, s=sizes)
-
-    with col1:
-        st.write('Xg plot against '+ Modstander)
-        st.pyplot(fig)
-        plt.close('all')
-
-    df_xg_plot_store_chancer = df_xg_plot_store_chancer[df_xg_plot_store_chancer['321'] > 0.2]
-
-    x = df_xg_plot_store_chancer['x'].astype(float)
-    y = df_xg_plot_store_chancer['y'].astype(float)
-    shot_xg = df_xg_plot_store_chancer['321'].astype(float)
-    player_names = df_xg_plot_store_chancer['playerName'].astype(str)
-
-    min_size = 1  # Minimum dot size
-    max_size = 50  # Maximum dot size
-    sizes = np.interp(shot_xg, (shot_xg.min(), shot_xg.max()), (min_size, max_size))
-
-    pitch = Pitch(pitch_type='opta',half=True, pitch_color='grass', line_color='white', stripe=True)
-    fig, ax = pitch.draw()
-    sc = pitch.scatter(x, y, ax=ax, s=sizes)
-    with col2:
-        st.write('Xg plot big chances against ' + Modstander)
-        st.pyplot(fig)
-    
-    col1,col2 = st.columns(2)
-
-    x = df_keypass['x'].astype(float)
-    y = df_keypass['y'].astype(float)
-
-    pitch = Pitch(pitch_type='opta', pitch_color='grass', line_color='white', stripe=True)
-    fig, ax = pitch.draw()
-    sc = pitch.scatter(x, y, ax=ax)
-    with col1:
-        st.write('Shot assists against ' + Modstander)
-        st.pyplot(fig)
-
-    x = df_assist['x'].astype(float)
-    y = df_assist['y'].astype(float)
-
-    pitch = Pitch(pitch_type='opta', pitch_color='grass', line_color='white', stripe=True)
-    fig, ax = pitch.draw()
-    sc = pitch.scatter(x, y, ax=ax)
-    with col2:
-        st.write('Assists against ' + Modstander)
-        st.pyplot(fig)
-        plt.close('all')
-    #sorterer for standardsituationer
-    #erobringer til store chancer
-    filtered_data = df_possession[(df_possession['22.0'] == True) | (df_possession['23.0'] == True)]
-    df_store_chancer = filtered_data[(filtered_data['321.0'].astype(float) > 0.01)]
-    store_chancer_sequencer = df_store_chancer[['label','sequenceId']]
-    store_chancer_sequencer = store_chancer_sequencer.merge(df_possession)
-    store_chancer_sequencer = store_chancer_sequencer.drop_duplicates(subset='sequenceId', keep='first')
-    x = store_chancer_sequencer['x'].astype(float)
-    y = store_chancer_sequencer['y'].astype(float)
-    pitch = Pitch(pitch_type='opta', pitch_color='grass', line_color='white', stripe=True)
-    fig, ax = pitch.draw()
-    sc = pitch.scatter(x, y, ax=ax)
-    col1,col2 = st.columns(2)
-    with col1:
-        st.write('Interceptions/recoveries that lead to a chance against' + Modstander + ' (0,01 xg)')
-        st.pyplot(fig)
-    store_chancer_sequencer_spillere = store_chancer_sequencer.value_counts('playerName')
-
-    with col2:
-        st.write('All interceptions/recoveries against ' + Modstander)
-        interceptions_df = df_possession[(df_possession['typeId'].astype(int) == 8) | (df_possession['typeId'].astype(int) == 49)]
-        interceptions_df = interceptions_df[interceptions_df['label'].isin(Kampvalg)]
-        interceptions_df = interceptions_df[interceptions_df['team_name'] != Modstander]
-
-        x = interceptions_df['x'].astype(float)
-        y = interceptions_df['y'].astype(float)
-
-        pitch = Pitch(pitch_type='opta', pitch_color='grass', line_color='white', stripe=True)
-        fig, ax = pitch.draw()
-        sc = pitch.scatter(x, y, ax=ax)
-        interceptions_df = interceptions_df.set_index('playerName')
-        st.pyplot(fig)        
 
 def Team_development ():
     xg = load_all_xg()

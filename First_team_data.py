@@ -255,7 +255,7 @@ def Dashboard():
             team_data = df_matchstats[df_matchstats['team_name'] == team]
             line_size = 5 if team == 'Horsens' else 1  # Larger line for Horsens
             fig1.add_trace(go.Scatter(
-                x=team_data['label'],
+                x=team_data['date'],
                 y=team_data['rolling_openPlayPass'],
                 mode='lines',
                 name=team,
@@ -276,7 +276,7 @@ def Dashboard():
             team_data = df_matchstats[df_matchstats['team_name'] == team]
             line_size = 5 if team == 'Horsens' else 1  # Larger line for Horsens
             fig2.add_trace(go.Scatter(
-                x=team_data['label'],
+                x=team_data['date'],
                 y=team_data['rolling_successfulOpenPlayPass'],
                 mode='lines',
                 name=team,

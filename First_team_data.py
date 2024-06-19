@@ -8,6 +8,13 @@ import plotly.express as px
 
 st.set_page_config(layout='wide')
 
+@st.cache_data
+def load_packing_data():
+    df_packing = pd.read_csv(r'DNK_1_Division_2023_2024/Horsens/Horsens_packing_all DNK_1_Division_2023_2024.csv')
+    df_packing['label'] = (df_packing['label'] + ' ' + df_packing['date']).astype(str)
+    df_packing['team_name'].str.replace(' ', '_')
+    return df_packing    
+
 def load_match_stats():
     match_stats = pd.read_csv(r'DNK_1_Division_2023_2024/matchstats_all DNK_1_Division_2023_2024.csv')
     match_stats['label'] = (match_stats['label'] + ' ' + match_stats['date'])
@@ -70,6 +77,7 @@ def load_pv_opponent(Modstander):
     df_pv_opponent['team_name'].str.replace(' ', '_')
     return df_pv_opponent
 
+@st.cache_data
 def Match_evaluation ():
     team_name = 'Horsens'    
     df_pv = load_pv()
@@ -85,12 +93,12 @@ def Match_evaluation ():
     Kampe = Kampe.sort_values(by='date',ascending = False)
     Kampe_labels = Kampe['label'].unique()
 
-    Kampvalg = st.selectbox('Choose match',Kampe_labels)
+    Kampvalg = st.multiselect('Choose matches',Kampe_labels)
 
-    df_pv = df_pv[df_pv['label'] == Kampvalg]
-    df_xg = df_xg[df_xg['label'] == Kampvalg]
+    df_pv = df_pv[df_pv['label'].isin(Kampvalg)]
+    df_xg = df_xg[df_xg['label'].isin(Kampvalg)]
     df_xg = df_xg[(df_xg[['9', '24', '25', '26']] != True).all(axis=1)]
-    df_possession_stats = df_possession_stats[df_possession_stats['label'] == Kampvalg]
+    df_possession_stats = df_possession_stats[df_possession_stats['label'].isin(Kampvalg)]
     df_possession = df_possession[df_possession['label'] == Kampvalg]
 
     df_possession_stats = df_possession_stats[df_possession_stats['type'] == 'territorialThird']

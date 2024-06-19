@@ -124,11 +124,10 @@ def Dashboard():
     df_spacecontrol['Total Control Area %'] = df_spacecontrol['TotalControlArea'] / df_spacecontrol['TotalControlArea_match'] * 100
     df_spacecontrol['Center Control Area %'] = df_spacecontrol['CenterControlArea'] / df_spacecontrol['CenterControlArea_match'] * 100
     df_spacecontrol['Penalty Area Control %'] = df_spacecontrol['PenaltyAreaControl'] / df_spacecontrol['PenaltyAreaControl_match'] * 100
+    df_spacecontrol = df_spacecontrol[['Team', 'label', 'Total Control Area %', 'Center Control Area %', 'Penalty Area Control %']]
+    df_spacecontrol = df_spacecontrol.rename(columns={'Team': 'team_name'})
     st.dataframe(df_spacecontrol)
 
-    df_spacecontrol = df_spacecontrol.groupby(['Team', 'label']).sum().reset_index()
-    df_spacecontrol = df_spacecontrol.rename(columns={'Team': 'team_name'})
-    
     xA_map = df_xA[['contestantId','team_name']]
     df_matchstats = df_matchstats.merge(xA_map, on='contestantId', how='inner')
     df_matchstats = df_matchstats.drop_duplicates()

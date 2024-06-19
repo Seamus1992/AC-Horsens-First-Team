@@ -127,13 +127,13 @@ def Match_evaluation ():
     df_possession_pv['PvTotal'] = df_possession_pv['possessionValue.pvValue'].astype(float) + df_possession_pv['possessionValue.pvAdded'].astype(float)
     df_possession_pv_hold = df_possession_pv[df_possession_pv['label'].isin(Kampvalg)]
     df_possession_pv_hold = df_possession_pv_hold.drop_duplicates('id')
-    df_pv_agg = df_possession_pv_hold[['team_name','label','PvTotal','timeMin','timeSec']]
+    df_pv_agg = df_possession_pv_hold[['team_name','PvTotal','timeMin','timeSec']]
     df_pv_agg.loc[:, 'timeMin'] = df_pv_agg['timeMin'].astype(int)
     df_pv_agg.loc[:, 'timeSec'] = df_pv_agg['timeSec'].astype(int)
     df_pv_agg = df_pv_agg.sort_values(by=['timeMin', 'timeSec'])
     df_pv_agg = df_pv_agg[df_pv_agg['PvTotal'].astype(float) > 0]
-    df_pv_agg['culmulativpv'] = df_pv_agg.groupby(['team_name','label'])['PvTotal'].cumsum()
-    df_possession_pv_hold = df_possession_pv_hold.groupby(['team_name','label'])['PvTotal'].sum().reset_index()
+    df_pv_agg['culmulativpv'] = df_pv_agg.groupby(['team_name'])['PvTotal'].cumsum()
+    df_possession_pv_hold = df_possession_pv_hold.groupby(['team_name'])['PvTotal'].sum().reset_index()
 
     df_xg_hold = df_xg[df_xg['label'].isin(Kampvalg)]
     df_xg_hold = df_xg_hold.rename(columns={'321': 'Open play xG'})
@@ -144,7 +144,7 @@ def Match_evaluation ():
 
     df_xg_agg = df_xg_agg[df_xg_agg['Open play xG'].astype(float) > 0]
     df_xg_agg['culmulativxg'] = df_xg_agg.groupby('team_name')['Open play xG'].cumsum()
-    df_xg_hold = df_xg_hold.groupby(['team_name','label'])['Open play xG'].sum().reset_index()
+    df_xg_hold = df_xg_hold.groupby(['team_name'])['Open play xG'].sum().reset_index()
     df_holdsummary = df_xg_hold.merge(df_possession_pv_hold)
     df_xa = df_possession[df_possession['label'].isin(Kampvalg)]
     df_xa['318.0'] = df_xa['318.0'].astype(float)
@@ -156,11 +156,11 @@ def Match_evaluation ():
     df_xa_agg = df_xa_agg[df_xa_agg['xA'].astype(float) > 0]
     df_xa_agg['culmulativxa'] = df_xa_agg.groupby('team_name')['xA'].cumsum()
 
-    df_xa_hold = df_xa.groupby(['team_name','label'])['318.0'].sum().reset_index()
+    df_xa_hold = df_xa.groupby(['team_name'])['318.0'].sum().reset_index()
     df_xa_hold = df_xa_hold.rename(columns={'318.0': 'xA'})
     df_holdsummary = df_xa_hold.merge(df_holdsummary)
     df_holdsummary = df_possession_stats_summary.merge(df_holdsummary)
-    df_holdsummary = df_holdsummary[['team_name','label','xA','Open play xG','PvTotal','terr_poss']]
+    df_holdsummary = df_holdsummary[['team_name','xA','Open play xG','PvTotal','terr_poss']]
     st.dataframe(df_holdsummary,hide_index=True)
     col1,col2,col3,col4 = st.columns(4)
 

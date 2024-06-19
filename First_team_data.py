@@ -150,15 +150,21 @@ def Dashboard():
     team_summary = team_summary.round(2)
     st.dataframe(team_summary.style.format(precision=2), use_container_width=True,hide_index=True)
 
-    def xg(df_xg):
+    def xg():
+        df_xg = load_xg()
         xg_all = load_all_xg()
         xg_all = xg_all[xg_all['label'].isin(match_choice)]
         df_xg = df_xg[df_xg['label'].isin(match_choice)]
         st.dataframe(xg_all)
         st.dataframe(df_xg)
-            
+    
+    def passes():
+        df_possession = load_possession_data()
+        st.write(df_possession)
+        
     Data_types = {
-        'xG': xg(df_xg),
+        'xG': xg(),
+        'Passing':passes,
     }
 
     col1, col2, col3 = st.columns(3)

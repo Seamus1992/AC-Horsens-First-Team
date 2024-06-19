@@ -138,6 +138,7 @@ def Dashboard():
         xg_all = xg_all[['team_name','321','label']]
         xg_all = xg_all.groupby(['team_name','label']).sum().reset_index()
         xg_all['xG_match'] = xg_all.groupby('label')['321'].transform('sum')
+        xg_all['xG difference'] = xg_all['321'] - xg_all['xG_match'] + xg_all['321']
         
         st.dataframe(xg_all)
         st.dataframe(df_xg)

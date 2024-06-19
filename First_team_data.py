@@ -110,7 +110,7 @@ def Dashboard():
     df_xA = df_xA[df_xA['label'].isin(match_choice)]
     
     xA_map = df_xA[['contestantId','team_name']]
-    df_matchstats = df_matchstats.merge(xA_map, on='contestantId', how='left')
+    df_matchstats = df_matchstats.merge(xA_map, on='contestantId', how='inner')
     st.dataframe(df_matchstats)
     df_passes = df_matchstats[['team_name','successfulOpenPlayPass','openPlayPass']]
     df_passes = df_passes.groupby('team_name').sum().reset_index()

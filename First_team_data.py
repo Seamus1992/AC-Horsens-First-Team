@@ -122,9 +122,9 @@ def Dashboard():
     df_xg_summary = df_xg_summary.rename(columns={'321': 'xG'})
     
     
-    team_summary = df_xg_summary.merge(df_xA_summary, on='team_name')
+    team_summary = df_xg_summary.merge(df_xA_summary, on=['team_name','label'])
     st.dataframe(df_passes)
-    team_summary = team_summary.merge(df_passes, on='team_name')
+    team_summary = team_summary.merge(df_passes, on=['team_name','label'])
     st.dataframe(team_summary)
 
 def Match_evaluation():

@@ -229,7 +229,7 @@ def Dashboard():
             (df_passes['141'].astype(float) <= 78.9)
         ]        
         
-    
+        st.dataframe(df_passes)
         st.write(mid_third_pass_ends)
         
     Data_types = {

@@ -100,6 +100,8 @@ def Match_evaluation ():
     df_xg = df_xg[(df_xg[['9', '24', '25', '26']] != True).all(axis=1)]
     df_possession_stats = df_possession_stats[df_possession_stats['label'].isin(Kampvalg)]
     df_possession = df_possession[df_possession['label'].isin(Kampvalg)]
+    df_possession['id'] = df_possession['id'].astype(str)
+    df_possession = df_possession[(df_possession[['6.0','9.0', '24.0', '25.0', '26.0']] != True).all(axis=1)]
 
     df_possession_stats = df_possession_stats[df_possession_stats['type'] == 'territorialThird']
     df_possession_stats['home'] = df_possession_stats['home'].astype(float)
@@ -116,9 +118,6 @@ def Match_evaluation ():
     df_possession_stats_summary = df_possession_stats_summary.transpose().reset_index()
     df_possession_stats_summary = df_possession_stats_summary.rename(columns={'index':'team_name',0:'terr_poss'})
     
-    
-    df_possession['id'] = df_possession['id'].astype(str)
-    df_possession = df_possession[(df_possession[['6.0','9.0', '24.0', '25.0', '26.0']] != True).all(axis=1)]
 
     df_possession = df_possession.astype(str)
     df_pv = df_pv[['team_name','playerName','id','possessionValue.pvValue','possessionValue.pvAdded']].astype(str)
@@ -156,7 +155,7 @@ def Match_evaluation ():
     df_xa_agg = df_xa_agg[df_xa_agg['xA'].astype(float) > 0]
     df_xa_agg['culmulativxa'] = df_xa_agg.groupby('team_name')['xA'].cumsum()
 
-    df_xa_hold = df_xa.groupby(['team_name'])['318.0'].sum().reset_index()
+    df_xa_hold = df_xa.groupby(['team_name'])['318.0'].mean().reset_index()
     df_xa_hold = df_xa_hold.rename(columns={'318.0': 'xA'})
     df_holdsummary = df_xa_hold.merge(df_holdsummary)
     df_holdsummary = df_possession_stats_summary.merge(df_holdsummary)

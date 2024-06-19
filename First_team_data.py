@@ -68,6 +68,8 @@ def load_xA():
     df_xA['label'] = (df_xA['label'] + ' ' + df_xA['date']).astype(str)
     return df_xA
 
+@st.cache_resource(experimental_allow_widgets=True)
+@st.cache_data(experimental_allow_widgets=True)
 def Dashboard():
     df_xg = load_xg()
     df_pv = load_pv()
@@ -78,7 +80,7 @@ def Dashboard():
     df_xA = load_xA()
     df_spacecontrol = load_spacecontrol_data()
     
-    st.title('Horsens First Team Dashboard')
+    st.title('AC Horsens First Team Dashboard')
     df_possession['date'] = pd.to_datetime(df_possession['date'])
     matches = df_possession['label'].unique()
     matches = matches[::-1]

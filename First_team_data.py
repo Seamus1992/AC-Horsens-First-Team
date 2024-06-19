@@ -222,6 +222,8 @@ def Dashboard():
         df_possession = load_possession_data()
         df_possession = df_possession[df_possession['label'].isin(match_choice)]
         df_passes = df_possession[df_possession['typeId'] == 1]
+        st.dataframe(df_passes)
+
         mid_third_pass_ends = df_passes[
             (df_passes['140'].astype(float) >= 33.3) & 
             (df_passes['140'].astype(float) <= 66.3) & 
@@ -229,7 +231,6 @@ def Dashboard():
             (df_passes['141'].astype(float) <= 78.9)
         ]        
         
-        st.dataframe(df_passes)
         st.write(mid_third_pass_ends)
         
     Data_types = {

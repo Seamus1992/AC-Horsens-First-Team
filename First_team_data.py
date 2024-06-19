@@ -125,7 +125,7 @@ def Match_evaluation ():
 
     df_possession_pv = pd.merge(df_possession,df_pv,how='outer')
     df_possession_pv['PvTotal'] = df_possession_pv['possessionValue.pvValue'].astype(float) + df_possession_pv['possessionValue.pvAdded'].astype(float)
-    df_possession_pv_hold = df_possession_pv[df_possession_pv['label'] == Kampvalg]
+    df_possession_pv_hold = df_possession_pv[df_possession_pv['label'].isin(Kampvalg)]
     df_possession_pv_hold = df_possession_pv_hold.drop_duplicates('id')
     df_pv_agg = df_possession_pv_hold[['team_name','label','PvTotal','timeMin','timeSec']]
     df_pv_agg.loc[:, 'timeMin'] = df_pv_agg['timeMin'].astype(int)
@@ -135,7 +135,7 @@ def Match_evaluation ():
     df_pv_agg['culmulativpv'] = df_pv_agg.groupby(['team_name','label'])['PvTotal'].cumsum()
     df_possession_pv_hold = df_possession_pv_hold.groupby(['team_name','label'])['PvTotal'].sum().reset_index()
 
-    df_xg_hold = df_xg[df_xg['label'] == Kampvalg]
+    df_xg_hold = df_xg[df_xg['label'].isin(Kampvalg)]
     df_xg_hold = df_xg_hold.rename(columns={'321': 'Open play xG'})
     df_xg_agg = df_xg_hold[['team_name','Open play xG','periodId','timeMin','timeSec']]
     df_xg_agg.loc[:,'timeMin'] = df_xg_agg['timeMin'].astype(int)
@@ -146,7 +146,7 @@ def Match_evaluation ():
     df_xg_agg['culmulativxg'] = df_xg_agg.groupby('team_name')['Open play xG'].cumsum()
     df_xg_hold = df_xg_hold.groupby(['team_name','label'])['Open play xG'].sum().reset_index()
     df_holdsummary = df_xg_hold.merge(df_possession_pv_hold)
-    df_xa = df_possession[df_possession['label'] == Kampvalg]
+    df_xa = df_possession[df_possession['label'].isin(Kampvalg)]
     df_xa['318.0'] = df_xa['318.0'].astype(float)
     df_xa_agg = df_xa[['team_name','318.0','timeMin','timeSec']]
     df_xa_agg = df_xa_agg.rename(columns={'318.0': 'xA'})
@@ -240,7 +240,7 @@ def Match_evaluation ():
         st.pyplot(fig)
 
     df_possession_pv['possessionValue.pvValue'] = df_possession_pv['possessionValue.pvValue'].astype(float)
-    df_possession_pv = df_possession_pv[df_possession_pv['label'] == Kampvalg]
+    df_possession_pv = df_possession_pv[df_possession_pv['label'].isin(Kampvalg)]
     df_possession_pv = df_possession_pv[df_possession_pv['team_name'] == Modstander]
     df_xa_player = df_possession_pv[['playerName','318.0']]
     df_xa_player.loc[:, '318.0'] = df_xa_player['318.0'].astype(float)
@@ -274,7 +274,7 @@ def Match_evaluation ():
     plt.close('all')
 
     df_keypass = df_possession[df_possession['team_name'] == Modstander]
-    df_keypass = df_keypass[df_keypass['label'] == Kampvalg]
+    df_keypass = df_keypass[df_keypass['label'].isin(Kampvalg)]
     df_keypass = df_keypass[df_keypass['210.0'] != 'nan']
     df_keypass = df_keypass.drop_duplicates('id')
     df_keypass_spiller = df_keypass['playerName'].value_counts()
@@ -403,7 +403,7 @@ def Match_evaluation ():
         plt.close(fig)
 
     df_possession_modstander = df_possession[df_possession['team_name'] == Modstander]
-    df_possession_modstander = df_possession_modstander[df_possession_modstander['label'] == Kampvalg]
+    df_possession_modstander = df_possession_modstander[df_possession_modstander['label'].isin(Kampvalg)])]
     # Filter out all rows with the filtered 'id' values
     df_store_chancer = df_possession_modstander[df_possession_modstander['321.0'].astype(float) > 0.01]
 
@@ -436,7 +436,7 @@ def Match_evaluation ():
     with col2:
         st.write('All ball recoveries/interceptions')
         interceptions_df = df_possession[(df_possession['typeId'].astype(int) == 8) | (df_possession['typeId'].astype(int) == 49)]
-        interceptions_df = interceptions_df[interceptions_df['label'] == Kampvalg]
+        interceptions_df = interceptions_df[interceptions_df['label'].isin(Kampvalg)]
         interceptions_df = interceptions_df[interceptions_df['team_name'] == Modstander]
 
         x = interceptions_df['x'].astype(float)
@@ -453,14 +453,14 @@ def Match_evaluation ():
     #Modstanders modstandere
 
     df_keypass = df_possession[df_possession['team_name'] != Modstander]
-    df_keypass = df_keypass[df_keypass['label']== Kampvalg]
+    df_keypass = df_keypass[df_keypass['label'.isin(Kampvalg)]
     df_keypass = df_keypass[df_keypass['210.0'].astype(float) > 0.0]
     df_keypass = df_keypass.drop_duplicates('id')
     df_keypass_spiller = df_keypass['playerName'].value_counts()
     df_keypass_spiller = df_keypass_spiller.sort_values(ascending=False)
 
     df_xg_modstander = df_xg[df_xg['label'].str.contains(Modstander)]
-    df_xg_modstander = df_xg_modstander[df_xg_modstander['label'] == Kampvalg]
+    df_xg_modstander = df_xg_modstander[df_xg_modstander['label'].isin(Kampvalg)]
     df_xg_modstander = df_xg_modstander[df_xg_modstander['team_name'] != Modstander]
     df_xg_modstander = df_xg_modstander[df_xg_modstander['321'].astype(float) >0]
     df_xg_spiller = df_xg_modstander.groupby('playerName')['321'].sum()
@@ -468,16 +468,16 @@ def Match_evaluation ():
 
     df_assist = df_possession.copy()
     df_assist = df_assist[df_assist['label'].str.contains(Modstander)]
-    df_assist = df_assist[df_assist['label'] == Kampvalg]
+    df_assist = df_assist[df_assist['label'].isin(Kampvalg)]
     df_assist = df_assist[df_assist['team_name'] != Modstander]
     df_assist['assist'] = df_assist['assist'].astype(float)
     df_assist = df_assist[df_assist['assist'] > 0]
     df_assist_spiller = df_assist.groupby('playerName')['assist'].sum()
     df_assist_spiller = df_assist_spiller.sort_values(ascending=False)
 
-    df_possession = df_possession[df_possession['label'] == Kampvalg]
+    df_possession = df_possession[df_possession['label'].isin(Kampvalg)]
     df_possession_modstander = df_possession[df_possession['team_name'] != Modstander]
-    df_possession_modstander = df_possession_modstander[df_possession_modstander['label'] == Kampvalg]
+    df_possession_modstander = df_possession_modstander[df_possession_modstander['label'].isin(Kampvalg)])]
     df_possession_modstander_xA = df_possession_modstander[df_possession_modstander['318.0'].astype(float) > 0.05]
     df_xg_plot = df_xg_modstander[df_xg_modstander['321'] > 0.0]
 
@@ -561,7 +561,7 @@ def Match_evaluation ():
     with col2:
         st.write('All interceptions/recoveries against ' + Modstander)
         interceptions_df = df_possession[(df_possession['typeId'].astype(int) == 8) | (df_possession['typeId'].astype(int) == 49)]
-        interceptions_df = interceptions_df[interceptions_df['label'] == Kampvalg]
+        interceptions_df = interceptions_df[interceptions_df['label'].isin(Kampvalg)]
         interceptions_df = interceptions_df[interceptions_df['team_name'] != Modstander]
 
         x = interceptions_df['x'].astype(float)

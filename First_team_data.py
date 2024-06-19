@@ -160,6 +160,7 @@ def Dashboard():
     
     def passes():
         df_possession = load_possession_data()
+        df_possession = df_possession[df_possession['label'].isin(match_choice)]
         st.write(df_possession)
         
     Data_types = {

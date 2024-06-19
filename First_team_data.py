@@ -218,13 +218,15 @@ def Dashboard():
         
         st.pyplot(fig)
         
+    st.cache_data(experimental_allow_widgets=True)
+    st.cache_resource(experimental_allow_widgets=True)
     def passes():
         df_possession = load_possession_data()
         df_possession = df_possession[df_possession['label'].isin(match_choice)]
-        df_passes = df_possession[df_possession['team_name'] == 'Horsens']
-        df_passes = df_possession[df_possession['typeId'] == 1]
+        df_passes_horsens = df_possession[df_possession['team_name'] == 'Horsens']
+        df_passes_horsens = df_possession[df_possession['typeId'] == 1]
 
-        mid_third_pass_ends = df_passes[
+        mid_third_pass_ends = df_passes_horsens[
             (df_passes['140.0'].astype(float) >= 33.3) & 
             (df_passes['140.0'].astype(float) <= 66.3) & 
             (df_passes['141.0'].astype(float) >= 21.1) & 

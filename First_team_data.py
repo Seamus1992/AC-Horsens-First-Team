@@ -116,7 +116,7 @@ def Dashboard():
     df_passes = df_matchstats[['team_name','player_matchName','successfulOpenPlayPass','openPlayPass']]
     st.dataframe(df_passes)
 
-    df_passes = df_passes.groupby('player_matchName','team_name').mean().reset_index()
+    df_passes = df_passes.groupby('team_name').sum().reset_index()
 
     df_xA_summary = df_possession.groupby('team_name')['318.0'].sum().reset_index()
     df_xA_summary = df_xA_summary.rename(columns={'318.0': 'xA'})

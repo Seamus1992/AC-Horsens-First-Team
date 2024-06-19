@@ -171,7 +171,7 @@ def Dashboard():
         df_xg = df_xg.sort_values(by=['team_name','timeMin'])
 
         df_xg['team_name'] = df_xg['team_name'].apply(lambda x: x if x == 'Horsens' else 'Opponent')
-        df_xg['cumulative_xG'] = df_xg.groupby(['team_name', 'label'])['321'].cumsum()
+        df_xg['cumulative_xG'] = df_xg.groupby(['team_name', 'label'])['321'].cummax()
         df_xg = df_xg.sort_values(by=['team_name','timeMin'])
 
         fig = go.Figure()

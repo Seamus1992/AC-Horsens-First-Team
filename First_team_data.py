@@ -92,9 +92,16 @@ def Dashboard():
     df_possession['date'] = pd.to_datetime(df_possession['date'])
     matches = df_possession['label'].unique()
     matches = matches[::-1]  # Reverse the order
-    st.dataframe(matches)
     match_choice = st.multiselect('Choose a match', matches)
-
+    df_xg = df_xg[df_xg['label'].isin(match_choice)]
+    df_pv = df_pv[df_pv['label'].isin(match_choice)]
+    df_possession_stats = df_possession_stats[df_possession_stats['label'].isin(match_choice)]
+    df_packing = df_packing[df_packing['label'].isin(match_choice)]
+    df_matchstats = df_matchstats[df_matchstats['label'].isin(match_choice)]
+    df_possession = df_possession[df_possession['label'].isin(match_choice)]
+    
+    df_xg_summary = df_xg.groupby('team_name')['321'].sum
+    st.dataframe(df_xg_summary)
 
 def Match_evaluation():
     team_name = 'Horsens'    

@@ -234,33 +234,41 @@ def Dashboard():
     st.cache_resource(experimental_allow_widgets=True)
     def passes():
         
-        df_matchstats = load_match_stats(columns=['contestantId', 'label', 'successfulOpenPlayPass', 'openPlayPass'])
+        df_matchstats = load_match_stats(columns=['contestantId','date', 'label', 'successfulOpenPlayPass', 'openPlayPass'])
+        df_matchstats['date'] = pd.to_datetime(df_matchstats['date'])
         df_possession = load_possession_data()
         df_xA = load_xA()
         xA_map = df_xA[['contestantId', 'team_name']].drop_duplicates()
         df_matchstats = df_matchstats.merge(xA_map, on='contestantId')
-        df_matchstats = df_matchstats[['label', 'team_name', 'successfulOpenPlayPass', 'openPlayPass']]
-        df_matchstats = df_matchstats.groupby(['label', 'team_name']).sum().reset_index()
+        df_matchstats = df_matchstats[['label','date', 'team_name', 'successfulOpenPlayPass', 'openPlayPass']]
+        df_matchstats = df_matchstats.groupby(['label','date', 'team_name']).sum().reset_index()
         
+        df_matchstats = df_matchstats.sort_values('date')
+
+        # Beregn 3-kamps rullende gennemsnit for hver team
+        df_matchstats['rolling_openPlayPass'] = df_matchstats.groupby('team_name')['openPlayPass'].transform(lambda x: x.rolling(3, min_periods=1).mean())
+        df_matchstats['rolling_successfulOpenPlayPass'] = df_matchstats.groupby('team_name')['successfulOpenPlayPass'].transform(lambda x: x.rolling(3, min_periods=1).mean())
+
+        # Plot for openPlayPass med rullende gennemsnit
         fig1, ax1 = plt.subplots(figsize=(12, 6))
         for team in df_matchstats['team_name'].unique():
             team_data = df_matchstats[df_matchstats['team_name'] == team]
-            ax1.bar(team_data['label'], team_data['openPlayPass'], label=team)
+            ax1.plot(team_data['label'], team_data['rolling_openPlayPass'], label=team)
         ax1.set_xlabel('Label')
-        ax1.set_ylabel('Open Play Passes')
-        ax1.set_title('Open Play Passes by Team')
+        ax1.set_ylabel('Rolling Open Play Passes')
+        ax1.set_title('3-Game Rolling Average of Open Play Passes by Team')
         ax1.legend()
         ax1.set_xticklabels(team_data['label'], rotation=90)
         plt.tight_layout()
 
-        # Plot for successfulOpenPlayPass
+        # Plot for successfulOpenPlayPass med rullende gennemsnit
         fig2, ax2 = plt.subplots(figsize=(12, 6))
         for team in df_matchstats['team_name'].unique():
             team_data = df_matchstats[df_matchstats['team_name'] == team]
-            ax2.bar(team_data['label'], team_data['successfulOpenPlayPass'], label=team)
+            ax2.plot(team_data['label'], team_data['rolling_successfulOpenPlayPass'], label=team)
         ax2.set_xlabel('Label')
-        ax2.set_ylabel('Successful Open Play Passes')
-        ax2.set_title('Successful Open Play Passes by Team')
+        ax2.set_ylabel('Rolling Successful Open Play Passes')
+        ax2.set_title('3-Game Rolling Average of Successful Open Play Passes by Team')
         ax2.legend()
         ax2.set_xticklabels(team_data['label'], rotation=90)
         plt.tight_layout()

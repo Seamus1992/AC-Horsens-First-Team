@@ -115,7 +115,10 @@ def Dashboard():
     df_spacecontrol = df_spacecontrol[df_spacecontrol['label'].isin(match_choice)]
     df_spacecontrol = df_spacecontrol[df_spacecontrol['Type'] == 'Player']
     df_spacecontrol = df_spacecontrol[['Team','TotalControlArea','CenterControlArea','PenaltyAreaControl','label']]
+    df_spacecontrol[['TotalControlArea', 'CenterControlArea', 'PenaltyAreaControl']] = df_spacecontrol[['TotalControlArea', 'CenterControlArea', 'PenaltyAreaControl']].astype(float).round(2)
     df_spacecontrol = df_spacecontrol.groupby(['Team', 'label']).sum().reset_index()
+    df_spacecontrol = df_spacecontrol.rename(columns={'Team': 'team_name'})
+    df_spacecontrol = df_spacecontrol
     st.dataframe(df_spacecontrol)
     
     xA_map = df_xA[['contestantId','team_name']]

@@ -240,10 +240,10 @@ def Dashboard():
             (df_passes_horsens['y'].astype(float) >= 78.9)
         ]
         mid_third_pass_ends = mid_third_pass_ends[['team_name','playerName','eventId', '140.0', '141.0','x', 'y','label','date']]
-        mid_third_pass_ends = mid_third_pass_ends.sort_values(by=['date'], ascending=True)
         # Tæl forekomster af kombinationer af team_name og label
         team_counts = mid_third_pass_ends.groupby(['team_name','label']).size().reset_index(name='count')
         team_counts.columns = ['team_name', 'label', 'count']
+        team_counts = team_counts.sort_values(by=['count'], ascending=False)
 
         # Tæl forekomster af hver playerName
         player_counts = mid_third_pass_ends['playerName'].value_counts().reset_index(name='count')

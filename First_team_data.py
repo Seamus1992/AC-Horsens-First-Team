@@ -168,7 +168,6 @@ def Dashboard():
         
         st.plotly_chart(fig)
         df_xg = df_xg[~(df_xg[['9','24', '25', '26']] == True).any(axis=1)]
-        df_xg = df_xg.sort_values(by=['team_name','timeMin'])
 
         df_xg['team_name'] = df_xg['team_name'].apply(lambda x: x if x == 'Horsens' else 'Opponent')
         df_xg = df_xg.sort_values(by=['team_name','timeMin'])

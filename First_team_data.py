@@ -154,9 +154,7 @@ def Dashboard():
         xg_all = load_all_xg()
         st.dataframe(xg_all)
         st.dataframe(df_xg)
-    
-    xg(df_xg)
-    
+            
     Data_types = {
         'xG': xg,
     }

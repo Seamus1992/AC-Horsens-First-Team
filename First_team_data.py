@@ -175,7 +175,7 @@ def Dashboard():
         df_xg = df_xg.sort_values(by=['team_name','timeMin', 'timeSec'])
 
         st.dataframe(df_xg)
-        fig = go.figure()
+        fig = go.Figure()
         fig.add_trace(go.Scatter(
             x=team_data['timeMin'], 
             y=team_data['cumulative_xG'], 

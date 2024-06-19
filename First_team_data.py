@@ -174,7 +174,6 @@ def Dashboard():
         df_xg['team_name'] = df_xg['team_name'].apply(lambda x: x if x == 'Horsens' else 'Opponent')
         df_xg = df_xg.sort_values(by=['team_name','timeMin'])
 
-        st.dataframe(df_xg)
         fig = go.Figure()
         
         for team in df_xg['team_name'].unique():
@@ -195,6 +194,9 @@ def Dashboard():
         
         st.plotly_chart(fig)
     
+        df_xg_plot = df_xg[['playerName','team_name','x','y', '321']]
+        df_xg_plot = df_xg_plot[df_xg_plot['team_name'] == 'Horsens']
+        st.dataframe(df_xg_plot)
     def passes():
         df_possession = load_possession_data()
         df_possession = df_possession[df_possession['label'].isin(match_choice)]

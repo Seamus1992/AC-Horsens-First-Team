@@ -124,13 +124,16 @@ def Dashboard():
     df_xg_summary = df_xg.groupby(['team_name','label'])['321'].sum().reset_index()
     df_xg_summary = df_xg_summary.rename(columns={'321': 'xG'})
     df_packing_summary = df_packing[['team_name','label','bypassed_opponents','bypassed_defenders']]
+    df_packing_summary['team_name'] = df_packing_summary['team_name'].apply(lambda x: x if x == 'Horsens' else 'Opponent')
+
     df_packing_summary = df_packing_summary.groupby(['team_name','label']).sum().reset_index()
     
     team_summary = df_xg_summary.merge(df_xA_summary, on=['team_name','label'])
     team_summary = team_summary.merge(df_passes, on=['team_name','label'])
-    st.dataframe(team_summary)
 
     team_summary = team_summary.merge(df_packing_summary, on=['team_name', 'label'])
+    st.dataframe(team_summary)
+
     team_summary = team_summary.merge(df_spacecontrol, on=['team_name', 'label'])
     team_summary = team_summary.drop(columns='label')
     team_summary = team_summary.groupby('team_name').mean().reset_index()

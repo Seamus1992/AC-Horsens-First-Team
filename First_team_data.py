@@ -141,6 +141,7 @@ def Dashboard():
         xg_all_table = xg_all.groupby('team_name').sum().reset_index()
         xg_all_table = xg_all_table[['team_name', 'xG difference']]
         xg_all_table = xg_all_table.sort_values(by=['xG difference'], ascending=False)
+        xg_all_table['xG difference'] = xg_all_table['xG difference'].round(2)
         xg_all_table['xG difference rank'] = xg_all_table['xG difference'].rank(ascending=False)
         st.dataframe(xg_all_table)
 

@@ -176,12 +176,23 @@ def Dashboard():
 
         st.dataframe(df_xg)
         fig = go.Figure()
-        fig.add_trace(go.Scatter(
-            x=df_xg['timeMin'], 
-            y=df_xg['cumulative_xG'],
-            name=df_xg['team_name'].unique(),
-            mode='lines',
-        ))
+        
+        for team in df_xg['team_name'].unique():
+            team_data = df_xg[df_xg['team_name'] == team]
+            fig.add_trace(go.Scatter(
+                x=team_data['timeMin'] + team_data['timeSec'] / 60, 
+                y=team_data['cumulative_xG'], 
+                mode='lines',
+                name=team,
+            ))
+        
+        fig.update_layout(
+            title='Average Cumulative xG Over Time',
+            xaxis_title='Time (Minutes)',
+            yaxis_title='Average Cumulative xG',
+            template='plotly_white'
+        )
+        
         st.plotly_chart(fig)
     
     def passes():

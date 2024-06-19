@@ -179,8 +179,7 @@ def Dashboard():
         fig.add_trace(go.Scatter(
             x=df_xg['timeMin'], 
             y=df_xg['cumulative_xG'],
-            name=df_xg['team_name'].unique()[0],
-
+            name=df_xg['team_name'].unique(),
             mode='lines',
         ))
         st.plotly_chart(fig)

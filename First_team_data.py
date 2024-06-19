@@ -99,7 +99,7 @@ def Dashboard():
     df_packing = load_packing_data()
     df_xA = load_xA()
     df_spacecontrol = load_spacecontrol_data()
-
+    
     st.title('Horsens First Team Dashboard')
     df_possession['date'] = pd.to_datetime(df_possession['date'])
     matches = df_possession['label'].unique()
@@ -148,24 +148,32 @@ def Dashboard():
     team_summary = team_summary.drop(columns='label')
     team_summary = team_summary.groupby('team_name').mean().reset_index()
     team_summary = team_summary.round(2)
-    st.dataframe(team_summary.style.format(precision=2), use_container_width=True)
+    st.dataframe(team_summary.style.format(precision=2), use_container_width=True,hide_index=True)
+
+    def xg(df_xg):
+        xg_all = load_all_xg()
+        xg_all = xg_all[xg_all['label'].isin(match_choice)]
+        df_xg = df_xg[df_xg['label'].isin(match_choice)]
+        st.dataframe(xg_all)
+        st.dataframe(df_xg)
+            
+    Data_types = {
+        'xG': xg,
+    }
 
     col1, col2, col3 = st.columns(3)
-    
+
     with col1:
         selected_data1 = st.selectbox('Choose data type 1', list(Data_types.keys()))
         Data_types[selected_data1]()
-    
+
     with col2:
         selected_data2 = st.selectbox('Choose data type 2', list(Data_types.keys()))
         Data_types[selected_data2]()
-    
+
     with col3:
         selected_data3 = st.selectbox('Choose data type 3', list(Data_types.keys()))
         Data_types[selected_data3]()
-
-if __name__ == "__main__":
-    Dashboard()
 
 def Match_evaluation():
     team_name = 'Horsens'    

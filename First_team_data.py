@@ -105,7 +105,8 @@ def Dashboard():
     df_packing = df_packing[df_packing['label'].isin(match_choice)]
     df_matchstats = df_matchstats[df_matchstats['label'].isin(match_choice)]
     df_possession = df_possession[df_possession['label'].isin(match_choice)]
-
+    df_xA = df_xA[df_xA['label'].isin(match_choice)]
+    
     xA_map = df_xA[['contestantId','team_name']]
     df_matchstats = df_matchstats.merge(xA_map, on='contestantId', how='left')
 

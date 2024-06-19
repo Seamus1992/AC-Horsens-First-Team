@@ -24,7 +24,7 @@ def load_match_stats():
 def load_possession_data():
     df_possession = pd.read_csv(r'DNK_1_Division_2023_2024/Horsens/Horsens_possession_data.csv')
     df_possession['label'] = (df_possession['label'] + ' ' + df_possession['date']).astype(str)
-    df_possession['team_name'].str.replace(' ', '_')
+    #df_possession['team_name'].str.replace(' ', '_')
     return df_possession
 
 def load_modstander_possession_data(Modstander):
@@ -82,7 +82,7 @@ def load_pv_opponent(Modstander):
 def load_xA():
     df_xA = pd.read_csv(f'DNK_1_Division_2023_2024/xA_all DNK_1_Division_2023_2024.csv')
     df_xA['label'] = (df_xA['label'] + ' ' + df_xA['date']).astype(str)
-    df_xA['team_name'] = df_xA['team_name'].str.replace(' ', '_')
+    #df_xA['team_name'] = df_xA['team_name'].str.replace(' ', '_')
     return df_xA
 
 @st.cache_data(experimental_allow_widgets=True)

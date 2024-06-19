@@ -138,7 +138,7 @@ def Dashboard():
         xg_all['xG_match'] = xg_all.groupby('label')['321'].transform('sum')
         xg_all['xG difference'] = xg_all['321'] - xg_all['xG_match'] + xg_all['321']
         xg_all = xg_all.sort_values(by=['date'], ascending=True)
-        xg_all = xg_all.groupbu('team_name').mean().reset_index()
+        xg_all = xg_all.groupby('team_name').mean().reset_index()
         st.dataframe(xg_all)
 
         xg_all['xG rolling average'] = xg_all.groupby('team_name')['xG difference'].transform(lambda x: x.rolling(window=3, min_periods=1).mean())

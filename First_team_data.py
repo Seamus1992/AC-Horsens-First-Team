@@ -83,7 +83,7 @@ def Dashboard():
     st.title('Horsens First Team Dashboard')
     df_possession['date'] = pd.to_datetime(df_possession['date'])
     matches = df_possession['label'].unique()
-    matches = matches[::-1]  # Reverse the order
+    matches = matches[::-1]
     match_choice = st.multiselect('Choose a match', matches)
     df_xg = df_xg[df_xg['label'].isin(match_choice)]
     df_pv = df_pv[df_pv['label'].isin(match_choice)]
@@ -161,115 +161,6 @@ def Dashboard():
     with col3:
         selected_data3 = st.selectbox('Choose data type 3', list(Data_types.keys()))
         Data_types[selected_data3]()
-
-def Team_development ():
-    xg = load_all_xg()
-    match_stats = load_match_stats()
-
-    match_stats['label'] = match_stats['label'] + ' ' + match_stats['date']
-    xg['label'] = xg['label'] + ' ' + xg['date']
-    xg['xG'] = xg['q_value'].astype(float)
-    xg = xg.groupby(['label', 'team_name']).sum().reset_index()
-    regression = match_stats.groupby(['label', 'team_name'])['finalThirdEntries'].sum().reset_index()
-    regression = regression.merge(xg)
-
-    regression = regression.groupby(['label','team_name']).sum().reset_index()
-    fig = px.scatter(regression, x='finalThirdEntries', y='xG', title='Scatterplot of finalThirdEntries vs. expected goals')
-
-    # Fit a linear trendline using numpy polyfit
-    m, b = np.polyfit(regression['finalThirdEntries'], regression['xG'], 1)
-    fig.add_traces(go.Scatter(x=regression['finalThirdEntries'], y=m * regression['finalThirdEntries'] + b, 
-                            mode='lines', name='Trendline'))
-
-    # Update layout
-    fig.update_layout(xaxis_title='Final Third Entries', yaxis_title='Expected goals')
-
-    # Display the plot using Streamlit
-    st.plotly_chart(fig)
-
-    match_stats = match_stats[match_stats['team_name'] == 'Horsens']
-    match_stats = match_stats[['date','label','finalThirdEntries','possWonAtt3rd','totalFwdZonePass','fwdPass','duelWon','possWonMid3rd']]
-    match_stats['Interception opp half'] = match_stats['possWonMid3rd'] + match_stats['possWonAtt3rd']
-    match_stats = match_stats[['label','finalThirdEntries','Interception opp half','fwdPass','duelWon','totalFwdZonePass']]
-    match_stats = match_stats.groupby('label').sum().reset_index()
-
-    # Sort by date
-    match_stats['date'] = pd.to_datetime(match_stats['label'].str.split().str[-1])
-    match_stats = match_stats.sort_values('date')
-
-    numeric_columns = ['finalThirdEntries','Interception opp half','fwdPass','duelWon','totalFwdZonePass']
-    match_stats_rolling = match_stats[numeric_columns].rolling(window=5).mean()
-
-    # Reassign 'label' column to match_stats_rolling DataFrame
-    match_stats_rolling['label'] = match_stats['label']
-    match_stats_rolling = match_stats_rolling[['label','finalThirdEntries','Interception opp half','fwdPass','duelWon']]
-    # Create Plotly figure
-    fig = go.Figure()
-
-    # Adding traces for each statistic
-    for column in match_stats_rolling.columns[1:]:
-        fig.add_trace(go.Scatter(x=match_stats_rolling['label'], y=match_stats_rolling[column], mode='lines', name=column))
-
-    # Adding layout
-    fig.update_layout(title='5-Game Rolling Average Match Stats of Horsens',
-                    xaxis_title='Match',
-                    yaxis_title='Stat',
-                    legend=dict(x=0, y=1, traceorder='normal'))
-
-    # Display Plotly chart
-    st.plotly_chart(fig,use_container_width=True)
-
-
-    possession_stats = pd.read_csv(r'1. Division/possession_stats_all 1. Division.csv')
-
-    possession_stats = possession_stats[(possession_stats['away_team'] == 'Horsens') | (possession_stats['home_team'] == 'Horsens')]
-    possession_stats = possession_stats[possession_stats['type'] == 'territorialThird']
-
-    # Combine 'label' and 'date' to create a unique label for each match
-    possession_stats['label'] = possession_stats['label'] + ' ' + possession_stats['date']
-
-    # Select relevant columns
-    possession_stats = possession_stats[['label', 'home_team', 'away_team', 'overall.away', 'overall.home', 'overall.middle']]
-
-    # Define function to assign values to 'Horsens' and 'Opponent' columns
-    def assign_values(row):
-        if row['home_team'] == 'Horsens':
-            return row['overall.home'], row['overall.away']
-        elif row['away_team'] == 'Horsens':
-            return row['overall.away'], row['overall.home']
-        else:
-            return None, None
-
-    possession_stats['Horsens'], possession_stats['Opponent'] = zip(*possession_stats.apply(assign_values, axis=1))
-
-    # Drop duplicates to keep only the first occurrence of each match
-    possession_stats = possession_stats.drop_duplicates(keep='first')
-
-    # Sort by date
-    possession_stats['date'] = pd.to_datetime(possession_stats['label'].str.split().str[-1])
-    possession_stats = possession_stats.sort_values('date')
-
-    numeric_columns = ['overall.away', 'overall.home', 'overall.middle', 'Horsens', 'Opponent']
-    possession_stats_rolling = possession_stats[numeric_columns].rolling(window=5).mean()
-
-    # Reassign 'label' column to possession_stats_rolling DataFrame
-    possession_stats_rolling['label'] = possession_stats['label']
-
-    # Create Plotly figure
-    fig = go.Figure()
-
-    # Adding traces for 'Horsens' and 'Opponent' with 5-game rolling averages
-    fig.add_trace(go.Scatter(x=possession_stats_rolling['label'], y=possession_stats_rolling['Horsens'], mode='lines', name='Horsens (5-Game Rolling Avg)'))
-    fig.add_trace(go.Scatter(x=possession_stats_rolling['label'], y=possession_stats_rolling['Opponent'], mode='lines', name='Opponent (5-Game Rolling Avg)'))
-
-    # Adding layout
-    fig.update_layout(title='5-Game Rolling Average Territorial possession of Horsens vs. Opponent',
-                    xaxis_title='Match',
-                    yaxis_title='Territorial Possession',
-                    legend=dict(x=0, y=1, traceorder='normal'))
-
-    # Display Plotly chart using Streamlit
-    st.plotly_chart(fig,use_container_width=True)
 
 def League_stats():
     matchstats_df = pd.read_csv(r'DNK_1_Division_2023_2024/matchstats_all DNK_1_Division_2023_2024.csv')
@@ -366,7 +257,6 @@ def League_stats():
     
 Data_types = {
     'Dashboard': Dashboard,
-    'Team development' : Team_development,
     'League stats': League_stats
 }
 

@@ -82,7 +82,6 @@ def load_pv_opponent(Modstander):
 def load_xA():
     df_xA = pd.read_csv(f'DNK_1_Division_2023_2024/xA_all DNK_1_Division_2023_2024.csv')
     df_xA['label'] = (df_xA['label'] + ' ' + df_xA['date']).astype(str)
-    df_xA['team_name'] = df_xA['team_name'].str.replace(' ', '_')
     return df_xA
 
 @st.cache_data(experimental_allow_widgets=True)

@@ -227,10 +227,10 @@ def Dashboard():
         df_passes_horsens = df_possession[df_possession['typeId'] == 1]
 
         mid_third_pass_ends = df_passes_horsens[
-            (df_passes['140.0'].astype(float) >= 33.3) & 
-            (df_passes['140.0'].astype(float) <= 66.3) & 
-            (df_passes['141.0'].astype(float) >= 21.1) & 
-            (df_passes['141.0'].astype(float) <= 78.9)
+            (df_passes_horsens['140.0'].astype(float) >= 33.3) & 
+            (df_passes_horsens['140.0'].astype(float) <= 66.3) & 
+            (df_passes_horsens['141.0'].astype(float) >= 21.1) & 
+            (df_passes_horsens['141.0'].astype(float) <= 78.9)
         ]        
         
         st.write(mid_third_pass_ends)

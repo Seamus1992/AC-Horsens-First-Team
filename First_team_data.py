@@ -101,7 +101,7 @@ def Dashboard():
     df_possession = df_possession[df_possession['label'].isin(match_choice)]
 
     df_xA_summary = df_possession.groupby('team_name')['318.0'].sum().reset_index()
-    df_xA_summary = df_xg_summary.rename(columns={'318.0': 'xA'})
+    df_xA_summary = df_xA_summary.rename(columns={'318.0': 'xA'})
 
     df_xg_summary = df_xg.groupby('team_name')['321'].sum().reset_index()
     df_xg_summary = df_xg_summary.rename(columns={'321': 'xG'})

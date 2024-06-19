@@ -13,7 +13,6 @@ def load_packing_data():
     df_packing = pd.read_csv(r'DNK_1_Division_2023_2024/packing_all DNK_1_Division_2023_2024.csv')
     df_packing['label'] = (df_packing['label'] + ' ' + df_packing['date']).astype(str)
     df_packing = df_packing.rename(columns={'teamName': 'team_name'})
-    df_packing['team_name'].str.replace(' ', '_')
     return df_packing    
 
 def load_match_stats():
@@ -119,6 +118,8 @@ def Dashboard():
 
     df_xg_summary = df_xg.groupby(['team_name','label'])['321'].sum().reset_index()
     df_xg_summary = df_xg_summary.rename(columns={'321': 'xG'})
+    st.dataframe(df_packing)
+    df_packing_summary = df_packing.groupby(['team_name','label']).sum().reset_index()
     
     
     team_summary = df_xg_summary.merge(df_xA_summary, on=['team_name','label'])

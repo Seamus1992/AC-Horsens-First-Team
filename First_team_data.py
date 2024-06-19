@@ -249,12 +249,8 @@ def Dashboard():
         player_counts = mid_third_pass_ends['playerName'].value_counts().reset_index(name='count')
         player_counts.columns = ['playerName', 'count']
 
-        # Vis resultaterne i to kolonner
-        col1, col2 = st.columns([1,2])
-        with col1:
-            st.dataframe(player_counts,hide_index=True)
-        with col2:
-            st.dataframe(team_counts,hide_index=True)
+        st.dataframe(player_counts,hide_index=True)
+        st.dataframe(team_counts,hide_index=True)
         
     Data_types = {
         'xG': xg,

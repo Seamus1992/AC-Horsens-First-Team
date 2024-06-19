@@ -117,10 +117,11 @@ def Dashboard():
     df_spacecontrol = df_spacecontrol[['Team','TotalControlArea','CenterControlArea','PenaltyAreaControl','label']]
     df_spacecontrol[['TotalControlArea', 'CenterControlArea', 'PenaltyAreaControl']] = df_spacecontrol[['TotalControlArea', 'CenterControlArea', 'PenaltyAreaControl']].astype(float).round(2)
     df_spacecontrol['TotalControlArea_match'] = df_spacecontrol.groupby('label')['TotalControlArea'].sum()
+    st.dataframe(df_spacecontrol)
+
     df_spacecontrol = df_spacecontrol.groupby(['Team', 'label']).sum().reset_index()
     df_spacecontrol = df_spacecontrol.rename(columns={'Team': 'team_name'})
     df_spacecontrol = df_spacecontrol
-    st.dataframe(df_spacecontrol)
     
     xA_map = df_xA[['contestantId','team_name']]
     df_matchstats = df_matchstats.merge(xA_map, on='contestantId', how='inner')

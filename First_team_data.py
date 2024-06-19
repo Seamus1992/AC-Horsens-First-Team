@@ -89,6 +89,9 @@ def Dashboard():
     df_packing = load_packing_data()
 
     st.title('Horsens First Team Dashboard')
+    matches = df_possession['label'].unique()
+    match_choice = st.multiselect('Choose a match', matches)
+
 
 def Match_evaluation():
     team_name = 'Horsens'    

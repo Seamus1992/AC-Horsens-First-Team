@@ -147,8 +147,8 @@ def Dashboard():
     team_summary = team_summary.merge(df_spacecontrol, on=['team_name', 'label'])
     team_summary = team_summary.drop(columns='label')
     team_summary = team_summary.groupby('team_name').mean().reset_index()
-    st.dataframe(team_summary)
-
+    team_summary = team_summary.round(2)
+    st.dataframe(team_summary.style.set_precision(2), use_container_width=True)
 def Match_evaluation():
     team_name = 'Horsens'    
     df_pv = load_pv()

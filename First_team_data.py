@@ -146,6 +146,7 @@ def Dashboard():
         st.dataframe(xg_all_table,hide_index=True)
 
         xg_all['xG rolling average'] = xg_all.groupby('team_name')['xG difference'].transform(lambda x: x.rolling(window=3, min_periods=1).mean())
+        st.dataframe(xg_all, hide_index=True)
         fig = go.Figure()
         
         for team in xg_all['team_name'].unique():

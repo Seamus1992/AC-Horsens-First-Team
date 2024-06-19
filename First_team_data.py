@@ -249,29 +249,51 @@ def Dashboard():
         df_matchstats['rolling_openPlayPass'] = df_matchstats.groupby('team_name')['openPlayPass'].transform(lambda x: x.rolling(3, min_periods=1).mean())
         df_matchstats['rolling_successfulOpenPlayPass'] = df_matchstats.groupby('team_name')['successfulOpenPlayPass'].transform(lambda x: x.rolling(3, min_periods=1).mean())
 
-        # Plot for openPlayPass med rullende gennemsnit
-        fig1, ax1 = plt.subplots(figsize=(12, 6))
+        fig1 = go.Figure()
+
         for team in df_matchstats['team_name'].unique():
             team_data = df_matchstats[df_matchstats['team_name'] == team]
-            ax1.plot(team_data['date'], team_data['rolling_openPlayPass'], label=team)
-        ax1.set_ylabel('Open Play Passes')
-        ax1.set_title('3-Game Rolling Average of Open Play Passes by Team')
-        ax1.legend()
-        plt.tight_layout()
+            line_size = 5 if team == 'Horsens' else 1  # Larger line for Horsens
+            fig1.add_trace(go.Scatter(
+                x=team_data['label'],
+                y=team_data['rolling_openPlayPass'],
+                mode='lines',
+                name=team,
+                line=dict(width=line_size)
+            ))
+
+        fig1.update_layout(
+            title='3-Game Rolling Average of Open Play Passes Over Time',
+            xaxis_title='Label',
+            yaxis_title='3-Game Rolling Average Open Play Passes',
+            template='plotly_white'
+        )
 
         # Plot for successfulOpenPlayPass med rullende gennemsnit
-        fig2, ax2 = plt.subplots(figsize=(12, 6))
+        fig2 = go.Figure()
+
         for team in df_matchstats['team_name'].unique():
             team_data = df_matchstats[df_matchstats['team_name'] == team]
-            ax2.plot(team_data['date'], team_data['rolling_successfulOpenPlayPass'], label=team)
-        ax2.set_ylabel('Rolling Successful Open Play Passes')
-        ax2.set_title('3-Game Rolling Average of Successful Open Play Passes by Team')
-        ax2.legend()
-        plt.tight_layout()
+            line_size = 5 if team == 'Horsens' else 1  # Larger line for Horsens
+            fig2.add_trace(go.Scatter(
+                x=team_data['label'],
+                y=team_data['rolling_successfulOpenPlayPass'],
+                mode='lines',
+                name=team,
+                line=dict(width=line_size)
+            ))
+
+        fig2.update_layout(
+            title='3-Game Rolling Average of Successful Open Play Passes Over Time',
+            xaxis_title='Label',
+            yaxis_title='3-Game Rolling Average Successful Open Play Passes',
+            template='plotly_white'
+        )
 
         # Vis plots i Streamlit
-        st.pyplot(fig1)
-        st.pyplot(fig2)
+        st.plotly_chart(fig1)
+        st.plotly_chart(fig2)
+
         
         
         st.dataframe(df_matchstats, hide_index=True)

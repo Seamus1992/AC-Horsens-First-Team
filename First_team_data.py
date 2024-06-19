@@ -82,7 +82,7 @@ def load_pv_opponent(Modstander):
 def load_xA():
     df_xA = pd.read_csv(f'DNK_1_Division_2023_2024/xA_all DNK_1_Division_2023_2024.csv')
     df_xA['label'] = (df_xA['label'] + ' ' + df_xA['date']).astype(str)
-    #df_xA['team_name'] = df_xA['team_name'].str.replace(' ', '_')
+    df_xA['team_name'] = df_xA['team_name'].str.replace(' ', '_')
     return df_xA
 
 @st.cache_data(experimental_allow_widgets=True)
@@ -107,6 +107,7 @@ def Dashboard():
     df_packing = df_packing[df_packing['label'].isin(match_choice)]
     df_matchstats = df_matchstats[df_matchstats['label'].isin(match_choice)]
     df_possession = df_possession[df_possession['label'].isin(match_choice)]
+    st.dataframe(df_possession)
     df_xA = df_xA[df_xA['label'].isin(match_choice)]
     
     xA_map = df_xA[['contestantId','team_name']]

@@ -89,7 +89,7 @@ def Match_evaluation ():
     Hold = [team.replace(' ', '_') for team in Hold]
     Hold = sorted(Hold)
     Modstander = team_name
-    Kampe = df_pv[df_pv['team_name'].astype(str) == Modstander]
+    Kampe = df_possession[df_possession['team_name'].astype(str) == Modstander]
     Kampe = Kampe.sort_values(by='date',ascending = False)
     Kampe_labels = Kampe['label'].unique()
 

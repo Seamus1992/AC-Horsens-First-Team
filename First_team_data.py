@@ -236,7 +236,7 @@ def Dashboard():
         
         df_matchstats = load_match_stats(columns=['contestantId', 'label', 'successfulOpenPlayPass', 'openPlayPass'])
         df_possession = load_possession_data()
-        xA_map = df_xA[['contestantId','team_name']].unique()
+        xA_map = df_xA[['contestantId', 'team_name']].drop_duplicates()
         df_matchstats = df_matchstats.merge(xA_map, on='contestantId', how='left')
         st.dataframe(df_matchstats, hide_index=True)
         df_possession = df_possession[~(df_possession[['6.0','107.0']] == True).any(axis=1)]

@@ -238,7 +238,7 @@ def Dashboard():
 
         df_possession = df_possession[df_possession['label'].isin(match_choice)]
         df_passes_horsens = df_possession[df_possession['team_name'] == 'Horsens']
-        df_passes_horsens = (df_passes_horsens[df_passes_horsens['typeId'] == 1] & df_passes_horsens['outcome'] == 1)
+        df_passes_horsens = df_passes_horsens[(df_passes_horsens['typeId'] == 1) & (df_passes_horsens['outcome'] == 1)]
 
         mid_third_pass_ends = df_passes_horsens[
             (df_passes_horsens['140.0'].astype(float) >= 33.3) & 

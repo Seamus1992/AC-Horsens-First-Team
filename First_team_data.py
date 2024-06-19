@@ -140,6 +140,7 @@ def Dashboard():
         xg_all = xg_all.sort_values(by=['date'], ascending=True)
         xg_all_table = xg_all.groupby('team_name').sum().reset_index()
         xg_all_table = xg_all_table[['team_name', 'xG difference']]
+        xg_all_table = xg_all_table.sort_values(by=['xG difference'], ascending=False)
         st.dataframe(xg_all_table)
 
         xg_all['xG rolling average'] = xg_all.groupby('team_name')['xG difference'].transform(lambda x: x.rolling(window=3, min_periods=1).mean())

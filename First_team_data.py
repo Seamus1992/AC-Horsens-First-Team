@@ -167,7 +167,7 @@ def Dashboard():
         )
         
         st.plotly_chart(fig)
-
+        df_xg = df_xg[df_xg[['24','25','26']]!= True]
         st.dataframe(df_xg)
 
     

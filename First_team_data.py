@@ -263,7 +263,7 @@ def Dashboard():
             ))
 
         fig1.update_layout(
-            title='3-Game Rolling Average of Open Play Passes Over Time',
+            title='3-Game Rolling Average of Open Play Passes',
             xaxis_title='Date',
             yaxis_title='3-Game Rolling Average Open Play Passes',
             template='plotly_white'
@@ -284,7 +284,7 @@ def Dashboard():
             ))
 
         fig2.update_layout(
-            title='3-Game Rolling Average of Successful Open Play Passes Over Time',
+            title='3-Game Rolling Average of Successful Open Play Passes',
             xaxis_title='Date',
             yaxis_title='3-Game Rolling Average Successful Open Play Passes',
             template='plotly_white'

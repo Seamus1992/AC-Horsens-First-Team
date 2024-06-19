@@ -69,7 +69,6 @@ def load_xA():
     return df_xA
 
 @st.cache_resource(experimental_allow_widgets=True)
-@st.cache_data(experimental_allow_widgets=True)
 def Dashboard():
     df_xg = load_xg()
     df_pv = load_pv()

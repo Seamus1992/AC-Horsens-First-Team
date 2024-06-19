@@ -32,13 +32,6 @@ def load_possession_data():
     #df_possession['team_name'].str.replace(' ', '_')
     return df_possession
 @st.cache_data
-def load_modstander_possession_data(Modstander):
-    df_possession_modstander = pd.read_csv(f'1. Division/{Modstander}/{Modstander}_possession_data.csv')
-    df_possession_modstander['label'] = (df_possession_modstander['label'] + ' ' + df_possession_modstander['date']).astype(str)
-    df_possession_modstander['team_name'].str.replace(' ', '_')
-
-    return df_possession_modstander
-@st.cache_data
 def load_modstander():
     team_names = ['AaB','B_93','Fredericia','HB_Køge','Helsingør','Hillerød','Hobro','Horsens','Kolding','Næstved','SønderjyskE','Vendsyssel']  # Replace with your list of team names
     Modstander = st.selectbox('Choose opponent',team_names)
@@ -63,25 +56,12 @@ def load_all_xg():
 
     return xg
 @st.cache_data
-def load_xg_opponent(Modstander):
-    df_xg_opponent = pd.read_csv(f'DNK_1_Division_2023_2024/{Modstander}/{Modstander}_xg_data.csv')
-    df_xg_opponent['label'] = (df_xg_opponent['label'] + ' ' + df_xg_opponent['date'])
-    df_xg_opponent['team_name'].str.replace(' ', '_')
-    return df_xg_opponent
-@st.cache_data
 def load_pv():
     df_pv = pd.read_csv(r'DNK_1_Division_2023_2024/Horsens/Horsens_pv_data.csv')
     df_pv['label'] = (df_pv['label'] + ' ' + df_pv['date'])
     df_pv['id'] = df_pv['id'].astype(str)
     df_pv['team_name'].str.replace(' ', '_')
     return df_pv
-@st.cache_data
-def load_pv_opponent(Modstander):
-    df_pv_opponent = pd.read_csv(f'DNK_1_Division_2023_2024/{Modstander}/{Modstander}_pv_data.csv')
-    df_pv_opponent['label'] = (df_pv_opponent['label'] + ' ' + df_pv_opponent['date'])
-    df_pv_opponent['id'] = df_pv_opponent['id'].astype(str)
-    df_pv_opponent['team_name'].str.replace(' ', '_')
-    return df_pv_opponent
 @st.cache_data
 def load_xA():
     df_xA = pd.read_csv(f'DNK_1_Division_2023_2024/xA_all DNK_1_Division_2023_2024.csv')

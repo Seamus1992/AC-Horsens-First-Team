@@ -240,6 +240,32 @@ def Dashboard():
         df_matchstats = df_matchstats.merge(xA_map, on='contestantId')
         df_matchstats = df_matchstats[['label', 'team_name', 'successfulOpenPlayPass', 'openPlayPass']]
         df_matchstats = df_matchstats.groupby(['label', 'team_name']).sum().reset_index()
+        
+        plt.figure(figsize=(12, 6))
+        for team in df_matchstats['team_name'].unique():
+            team_data = df_matchstats[df_matchstats['team_name'] == team]
+            plt.bar(team_data['label'], team_data['openPlayPass'], label=team)
+        plt.xlabel('Label')
+        plt.ylabel('Open Play Passes')
+        plt.title('Open Play Passes by Team')
+        plt.legend()
+        plt.xticks(rotation=90)
+        plt.tight_layout()
+        plt.show()
+
+        # Plot for successfulOpenPlayPass
+        plt.figure(figsize=(12, 6))
+        for team in df_matchstats['team_name'].unique():
+            team_data = df_matchstats[df_matchstats['team_name'] == team]
+            plt.bar(team_data['label'], team_data['successfulOpenPlayPass'], label=team)
+        plt.xlabel('Label')
+        plt.ylabel('Successful Open Play Passes')
+        plt.title('Successful Open Play Passes by Team')
+        plt.legend()
+        plt.xticks(rotation=90)
+        plt.tight_layout()
+        plt.show()
+        
         st.dataframe(df_matchstats, hide_index=True)
         df_possession = df_possession[~(df_possession[['6.0','107.0']] == True).any(axis=1)]
         df_passes_all = df_possession[df_possession['typeId'] == 1]

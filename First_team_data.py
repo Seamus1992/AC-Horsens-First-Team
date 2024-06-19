@@ -177,8 +177,8 @@ def Dashboard():
         st.dataframe(df_xg)
         fig = go.Figure()
         fig.add_trace(go.Scatter(
-            x=team_data['timeMin'], 
-            y=team_data['cumulative_xG'], 
+            x=df_xg['timeMin'], 
+            y=df_xg['cumulative_xG'], 
             mode='lines',
         ))
         st.plotly_chart(fig)

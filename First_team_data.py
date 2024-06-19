@@ -230,11 +230,11 @@ def Dashboard():
             (df_passes_horsens['140.0'].astype(float) >= 33.3) & 
             (df_passes_horsens['140.0'].astype(float) <= 66.3) & 
             (df_passes_horsens['141.0'].astype(float) >= 21.1) & 
-            (df_passes_horsens['141.0'].astype(float) <= 78.9) 
-            #(df_passes_horsens['y'].astype(float) <=21.1) &
-            #(df_passes_horsens['y'].astype(float) >= 78.9)
-        ]        
-        
+            (df_passes_horsens['141.0'].astype(float) <= 78.9) & 
+            (df_passes_horsens['y'].astype(float) <= 21.1) & 
+            (df_passes_horsens['y'].astype(float) >= 78.9)
+        ]
+
         st.write(mid_third_pass_ends)
         
     Data_types = {

@@ -128,6 +128,9 @@ def Dashboard():
     team_summary = team_summary.round(2)
     st.dataframe(team_summary.style.format(precision=2), use_container_width=True,hide_index=True)
 
+    
+    st.cache_data(experimental_allow_widgets=True)
+    st.cache_resource(experimental_allow_widgets=True)
     def xg():
         df_xg = load_xg()
         xg_all = load_all_xg()

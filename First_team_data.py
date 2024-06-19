@@ -159,10 +159,20 @@ def Dashboard():
         'xG': xg,
     }
 
-    col1,col2,col3 = st.columns(3)
+    col1, col2, col3 = st.columns(3)
+
     with col1:
-        selected_data = st.sidebar.radio('Choose data type',list(Data_types.keys()))
-        Data_types[selected_data]()
+        selected_data1 = st.selectbox('Choose data type 1', list(Data_types.keys()))
+        Data_types[selected_data1]()
+
+    with col2:
+        selected_data2 = st.selectbox('Choose data type 2', list(Data_types.keys()))
+        Data_types[selected_data2]()
+
+    with col3:
+        selected_data3 = st.selectbox('Choose data type 3', list(Data_types.keys()))
+        Data_types[selected_data3]()
+
 def Match_evaluation():
     team_name = 'Horsens'    
     df_pv = load_pv()

@@ -221,6 +221,7 @@ def Dashboard():
     def passes():
         df_possession = load_possession_data()
         df_possession = df_possession[df_possession['label'].isin(match_choice)]
+        df_passes = df_passes[df_passes['team_name'] == 'Horsens']
         df_passes = df_possession[df_possession['typeId'] == 1]
         st.dataframe(df_passes)
 

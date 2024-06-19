@@ -250,7 +250,7 @@ def Dashboard():
         player_counts.columns = ['playerName', 'count']
 
         # Vis resultaterne i to kolonner
-        col1, col2 = st.columns(2)
+        col1, col2 = st.columns([1,2])
         with col1:
             st.dataframe(player_counts,hide_index=True)
         with col2:

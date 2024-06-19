@@ -134,7 +134,11 @@ def Dashboard():
     def xg():
         df_xg = load_xg()
         xg_all = load_all_xg()
+        xg_all = xg_all[~(xg_all[['9','24', '25', '26']] == True).any(axis=1)]
+
         df_xg = df_xg[df_xg['label'].isin(match_choice)]
+        df_xg = df_xg[~(df_xg[['9','24', '25', '26']] == True).any(axis=1)]
+
         xg_period = df_xg[['team_name','321','label']]
         xg_period = xg_period.groupby(['team_name', 'label']).sum().reset_index()
         xg_period['xG_match'] = xg_period.groupby('label')['321'].transform('sum')
@@ -179,7 +183,6 @@ def Dashboard():
         )
         
         st.plotly_chart(fig)
-        df_xg = df_xg[~(df_xg[['9','24', '25', '26']] == True).any(axis=1)]
 
         df_xg['team_name'] = df_xg['team_name'].apply(lambda x: x if x == 'Horsens' else 'Opponent')
         df_xg = df_xg.sort_values(by=['team_name','timeMin'])
@@ -222,6 +225,8 @@ def Dashboard():
     st.cache_resource(experimental_allow_widgets=True)
     def passes():
         df_possession = load_possession_data()
+        df_possession = df_possession[~(df_possession[['6.0','107.0']] == True).any(axis=1)]
+
         df_possession = df_possession[df_possession['label'].isin(match_choice)]
         df_passes_horsens = df_possession[df_possession['team_name'] == 'Horsens']
         df_passes_horsens = df_possession[df_possession['typeId'] == 1]

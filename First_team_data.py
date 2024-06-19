@@ -99,7 +99,7 @@ def Match_evaluation ():
     df_xg = df_xg[df_xg['label'].isin(Kampvalg)]
     df_xg = df_xg[(df_xg[['9', '24', '25', '26']] != True).all(axis=1)]
     df_possession_stats = df_possession_stats[df_possession_stats['label'].isin(Kampvalg)]
-    df_possession = df_possession[df_possession['label'] == Kampvalg]
+    df_possession = df_possession[df_possession['label'].isin(Kampvalg)]
 
     df_possession_stats = df_possession_stats[df_possession_stats['type'] == 'territorialThird']
     df_possession_stats['home'] = df_possession_stats['home'].astype(float)

@@ -123,7 +123,7 @@ def Dashboard():
     
     
     team_summary = df_xg_summary.merge(df_xA_summary, on='team_name')
-    st.dataframe(team_summary)
+    st.dataframe(df_passes)
     team_summary = team_summary.merge(df_passes, on='team_name')
     st.dataframe(team_summary)
 

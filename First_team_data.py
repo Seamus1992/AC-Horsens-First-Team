@@ -167,7 +167,7 @@ def Dashboard():
         )
         
         st.plotly_chart(fig)
-        df_xg = df_xg[~(df_xg[['24', '25', '26']] == True).any(axis=1)]
+        df_xg = df_xg[~(df_xg[['9','24', '25', '26']] == True).any(axis=1)]
         df_xg = df_xg.sort_values(by=['team_name','timeMin', 'timeSec'])
 
         df_xg['cumulative_xG'] = df_xg.groupby(['team_name', 'label'])['321'].cumsum()

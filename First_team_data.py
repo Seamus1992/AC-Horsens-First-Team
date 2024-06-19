@@ -239,7 +239,7 @@ def Dashboard():
             (df_passes_horsens['y'].astype(float) <= 21.1) | 
             (df_passes_horsens['y'].astype(float) >= 78.9)
         ]
-        mid_third_pass_ends = mid_third_pass_ends[['team_name','playerName','eventId', '140.0', '141.0', 'y','label','date']]
+        mid_third_pass_ends = mid_third_pass_ends[['team_name','playerName','eventId', '140.0', '141.0','x', 'y','label','date']]
         st.write(mid_third_pass_ends)
         
     Data_types = {

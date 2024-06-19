@@ -78,6 +78,11 @@ def load_pv_opponent(Modstander):
     df_pv_opponent['team_name'].str.replace(' ', '_')
     return df_pv_opponent
 
+def load_xA():
+    df_xA = r'C:\Users\SéamusPeareBartholdy\Documents\GitHub\AC-Horsens-First-Team\DNK_1_Division_2023_2024\xA_all DNK_1_Division_2023_2024.csv'
+    df_xA['label'] = (df_xA['label'] + ' ' + df_xA['date'])
+    df_xA['team_name'].str.replace(' ', '_')
+    return df_xA
 @st.cache_data(experimental_allow_widgets=True)
 
 def Dashboard():
@@ -87,6 +92,7 @@ def Dashboard():
     df_possession = load_possession_data()
     df_matchstats = load_match_stats()
     df_packing = load_packing_data()
+    df_xA = load_xA()
 
     st.title('Horsens First Team Dashboard')
     df_possession['date'] = pd.to_datetime(df_possession['date'])
@@ -100,12 +106,22 @@ def Dashboard():
     df_matchstats = df_matchstats[df_matchstats['label'].isin(match_choice)]
     df_possession = df_possession[df_possession['label'].isin(match_choice)]
 
+    xA_map = xA_map[['contestantId','team_name']]
+    df_matchstats = df_matchstats.merge(xA_map, on='contestantId', how='left')
+
+
     df_xA_summary = df_possession.groupby('team_name')['318.0'].sum().reset_index()
     df_xA_summary = df_xA_summary.rename(columns={'318.0': 'xA'})
 
     df_xg_summary = df_xg.groupby('team_name')['321'].sum().reset_index()
     df_xg_summary = df_xg_summary.rename(columns={'321': 'xG'})
+    
+    df_passes = df_matchstats[['successfulOpenPlayPass','openPlayPass']]
+    
+    
+    
     team_summary = df_xg_summary.merge(df_xA_summary, on='team_name')
+    team_summary = team_summary.merge(df_passes, on='team_name')
     st.dataframe(team_summary)
 
 def Match_evaluation():

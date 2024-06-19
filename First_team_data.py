@@ -77,7 +77,7 @@ def load_pv_opponent(Modstander):
     df_pv_opponent['team_name'].str.replace(' ', '_')
     return df_pv_opponent
 
-@st.cache_data
+@st.cache_data(experimental_allow_widgets=True)
 def Match_evaluation ():
     team_name = 'Horsens'    
     df_pv = load_pv()

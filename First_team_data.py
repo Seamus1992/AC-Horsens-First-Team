@@ -170,8 +170,9 @@ def Dashboard():
         df_xg = df_xg[~(df_xg[['24', '25', '26']] == True).any(axis=1)]
         df_xg = df_xg.sort_values(by=['timeMin', 'timeSec'])
         df_xg['cumulative_xG'] = df_xg.groupby(['team_name', 'label'])['321'].cumsum()
+        df_xg_avg = df_xg.groupby(['team_name', 'timeMin', 'timeSec'])['cumulative_xG'].mean().reset_index()
 
-        st.dataframe(df_xg)
+        st.dataframe(df_xg_avg)
 
     
     def passes():

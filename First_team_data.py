@@ -10,7 +10,7 @@ st.set_page_config(layout='wide')
 
 @st.cache_data
 def load_packing_data():
-    df_packing = pd.read_csv(r'DNK_1_Division_2023_2024/Horsens/Horsens_packing_all DNK_1_Division_2023_2024.csv')
+    df_packing = pd.read_csv(r'DNK_1_Division_2023_2024/Horsens/packing_all DNK_1_Division_2023_2024.csv')
     df_packing['label'] = (df_packing['label'] + ' ' + df_packing['date']).astype(str)
     df_packing['team_name'].str.replace(' ', '_')
     return df_packing    

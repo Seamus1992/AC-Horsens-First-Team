@@ -113,6 +113,7 @@ def Dashboard():
     df_matchstats = df_matchstats.merge(xA_map, on='contestantId', how='inner')
     st.dataframe(df_matchstats)
     df_passes = df_matchstats[['team_name','player_matchName','successfulOpenPlayPass','openPlayPass']]
+    df_passes = pd.to_numeric(df_passes)
     df_passes = df_passes.groupby('player_matchName').mean().reset_index()
     st.dataframe(df_passes)
 

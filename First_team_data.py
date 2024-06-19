@@ -145,7 +145,7 @@ def Dashboard():
         
         for team in xg_all['team_name'].unique():
             team_data = xg_all[xg_all['team_name'] == team]
-            line_size = 3 if team == 'Horsens' else 1  # Larger line for Horsens
+            line_size = 5 if team == 'Horsens' else 1  # Larger line for Horsens
             fig.add_trace(go.Scatter(
                 x=team_data['date'], 
                 y=team_data['xG rolling average'], 

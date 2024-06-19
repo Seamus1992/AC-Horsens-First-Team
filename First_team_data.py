@@ -90,7 +90,7 @@ def Dashboard():
 
     st.title('Horsens First Team Dashboard')
     matches = df_possession['label'].unique()
-    matches = sorted(matches,ascending=True)
+    matches = matches.sorted(ascending=True)
     match_choice = st.multiselect('Choose a match', matches)
 
 

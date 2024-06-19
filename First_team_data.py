@@ -91,7 +91,6 @@ def Dashboard():
     st.title('Horsens First Team Dashboard')
     df_possession['date'] = pd.to_datetime(df_possession['date'])
     matches = df_possession['label'].unique()
-    matches = sorted(matches,reverse=True)  # Use sorted() to sort the unique matches in ascending order
     st.write(matches)
     match_choice = st.multiselect('Choose a match', matches)
 

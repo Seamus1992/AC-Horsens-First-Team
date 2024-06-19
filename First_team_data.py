@@ -140,8 +140,7 @@ def Dashboard():
         xg_period = xg_period[['team_name', 'xG difference period']]
         xg_period = xg_period.sort_values(by=['xG difference period'], ascending=False)
         xg_period['xG difference period'] = xg_period['xG difference period'].round(2)
-        xg_period['xG difference period rank'] = xg_period['xG difference period'].rank(ascending=False)
-        st.dataframe(xg_period, hide_index=True)
+        xg_period = xg_period[xg_period['team_name'] == 'Horsens']
         
         xg_all = xg_all[['team_name','321','label','date']]
         xg_all = xg_all.groupby(['team_name','label','date']).sum().reset_index()
@@ -201,7 +200,7 @@ def Dashboard():
             yaxis_title='Average Cumulative xG',
             template='plotly_white'
         )
-        
+        st.dataframe(xg_period, hide_index=True)        
         st.plotly_chart(fig)
     
         df_xg_plot = df_xg[['playerName','team_name','x','y', '321']]

@@ -113,6 +113,8 @@ def Dashboard():
     df_possession = df_possession[df_possession['label'].isin(match_choice)]
     df_xA = df_xA[df_xA['label'].isin(match_choice)]
     df_spacecontrol = df_spacecontrol[df_spacecontrol['label'].isin(match_choice)]
+    df_spacecontrol = df_spacecontrol[df_spacecontrol['Type'] == 'Player']
+    
     st.dataframe(df_spacecontrol)
     
     xA_map = df_xA[['contestantId','team_name']]

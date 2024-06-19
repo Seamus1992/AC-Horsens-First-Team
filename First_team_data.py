@@ -243,7 +243,7 @@ def Dashboard():
         df_matchstats = df_matchstats[['label','date', 'team_name', 'successfulOpenPlayPass', 'openPlayPass']]
         df_matchstats = df_matchstats.groupby(['label','date', 'team_name']).sum().reset_index()
         
-        df_matchstats = df_matchstats.sort_values('date')
+        df_matchstats = df_matchstats.sort_values(by='date')
 
         # Beregn 3-kamps rullende gennemsnit for hver team
         df_matchstats['rolling_openPlayPass'] = df_matchstats.groupby('team_name')['openPlayPass'].transform(lambda x: x.rolling(3, min_periods=1).mean())
@@ -253,7 +253,7 @@ def Dashboard():
         fig1, ax1 = plt.subplots(figsize=(12, 6))
         for team in df_matchstats['team_name'].unique():
             team_data = df_matchstats[df_matchstats['team_name'] == team]
-            ax1.plot(team_data['label'], team_data['rolling_openPlayPass'], label=team)
+            ax1.plot(team_data['date'], team_data['rolling_openPlayPass'], label=team)
         ax1.set_ylabel('Open Play Passes')
         ax1.set_title('3-Game Rolling Average of Open Play Passes by Team')
         ax1.legend()
@@ -263,7 +263,7 @@ def Dashboard():
         fig2, ax2 = plt.subplots(figsize=(12, 6))
         for team in df_matchstats['team_name'].unique():
             team_data = df_matchstats[df_matchstats['team_name'] == team]
-            ax2.plot(team_data['label'], team_data['rolling_successfulOpenPlayPass'], label=team)
+            ax2.plot(team_data['date'], team_data['rolling_successfulOpenPlayPass'], label=team)
         ax2.set_ylabel('Rolling Successful Open Play Passes')
         ax2.set_title('3-Game Rolling Average of Successful Open Play Passes by Team')
         ax2.legend()

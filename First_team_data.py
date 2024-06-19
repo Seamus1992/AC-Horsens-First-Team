@@ -89,7 +89,7 @@ def Dashboard():
     df_packing = load_packing_data()
 
     st.title('Horsens First Team Dashboard')
-    matches = df_possession['label'].unique()
+    matches = df_possession.sort_values(by='label', ascending=False)['label'].unique()
     matches = sorted(matches,reverse=True)  # Use sorted() to sort the unique matches in ascending order
 
     match_choice = st.multiselect('Choose a match', matches)

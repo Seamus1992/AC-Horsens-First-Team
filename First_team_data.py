@@ -140,6 +140,8 @@ def Dashboard():
         xg_all['xG_match'] = xg_all.groupby('label')['321'].transform('sum')
         xg_all['xG difference'] = xg_all['321'] - xg_all['xG_match'] + xg_all['321']
         xg_all = xg_all.sort_values(by=['date'], ascending=True)
+        st.dataframe(xg_all)
+
         xg_all['xG rolling average'] = xg_all.groupby('team_name')['xG difference'].transform(lambda x: x.rolling(window=3, min_periods=1).mean())
         fig = go.Figure()
         
@@ -163,7 +165,6 @@ def Dashboard():
         
         st.plotly_chart(fig)
         
-        st.dataframe(xg_all)
     
     def passes():
         df_possession = load_possession_data()

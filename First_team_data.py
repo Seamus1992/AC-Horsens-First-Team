@@ -254,11 +254,9 @@ def Dashboard():
         for team in df_matchstats['team_name'].unique():
             team_data = df_matchstats[df_matchstats['team_name'] == team]
             ax1.plot(team_data['label'], team_data['rolling_openPlayPass'], label=team)
-        ax1.set_xlabel('Label')
-        ax1.set_ylabel('Rolling Open Play Passes')
+        ax1.set_ylabel('Open Play Passes')
         ax1.set_title('3-Game Rolling Average of Open Play Passes by Team')
         ax1.legend()
-        ax1.set_xticklabels(team_data['label'], rotation=90)
         plt.tight_layout()
 
         # Plot for successfulOpenPlayPass med rullende gennemsnit
@@ -266,11 +264,9 @@ def Dashboard():
         for team in df_matchstats['team_name'].unique():
             team_data = df_matchstats[df_matchstats['team_name'] == team]
             ax2.plot(team_data['label'], team_data['rolling_successfulOpenPlayPass'], label=team)
-        ax2.set_xlabel('Label')
         ax2.set_ylabel('Rolling Successful Open Play Passes')
         ax2.set_title('3-Game Rolling Average of Successful Open Play Passes by Team')
         ax2.legend()
-        ax2.set_xticklabels(team_data['label'], rotation=90)
         plt.tight_layout()
 
         # Vis plots i Streamlit

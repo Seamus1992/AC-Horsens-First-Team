@@ -85,7 +85,7 @@ def Match_evaluation ():
     df_possession_stats = load_possession_stats()
     df_possession = load_possession_data()
 
-    Hold = df_pv['team_name'].unique()
+    Hold = df_possession['team_name'].unique()
     Hold = [team.replace(' ', '_') for team in Hold]
     Hold = sorted(Hold)
     Modstander = team_name

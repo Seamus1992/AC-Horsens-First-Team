@@ -101,6 +101,7 @@ def Dashboard():
     df_possession = df_possession[df_possession['label'].isin(match_choice)]
     
     df_xg_summary = df_xg.groupby('team_name')['321'].sum().reset_index()
+    df_xg_summary = df_xg_summary.rename(columns={'321': 'xG'})
     st.dataframe(df_xg_summary)
 
 def Match_evaluation():

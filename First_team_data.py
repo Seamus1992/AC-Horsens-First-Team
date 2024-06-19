@@ -252,9 +252,9 @@ def Dashboard():
         # Vis resultaterne i to kolonner
         col1, col2 = st.columns(2)
         with col1:
-            st.write(player_counts)
+            st.dataframe(player_counts,hide_index=True)
         with col2:
-            st.write(team_counts)
+            st.dataframe(team_counts,hide_index=True)
         
     Data_types = {
         'xG': xg,

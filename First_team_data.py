@@ -241,7 +241,8 @@ def Dashboard():
         xA_map = df_xA[['contestantId', 'team_name']].drop_duplicates()
         df_matchstats = df_matchstats.merge(xA_map, on='contestantId')
         df_matchstats = df_matchstats[['label','date', 'team_name', 'successfulOpenPlayPass', 'openPlayPass']]
-        df_matchstats_tabel = df_matchstats.groupby('team_name').sum().reset_index()
+        df_matchstats_tabel = df_matchstats[['label', 'team_name', 'successfulOpenPlayPass', 'openPlayPass']]
+        df_matchstats_tabel = df_matchstats_tabel.groupby('team_name').sum().reset_index()
         df_matchstats = df_matchstats.groupby(['label','date', 'team_name']).sum().reset_index()
         df_matchstats = df_matchstats.sort_values(by='date')
         st.dataframe(df_matchstats_tabel, hide_index=True)

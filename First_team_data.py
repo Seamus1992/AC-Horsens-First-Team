@@ -68,8 +68,6 @@ def load_xA():
     df_xA['label'] = (df_xA['label'] + ' ' + df_xA['date']).astype(str)
     return df_xA
 
-@st.cache_data(experimental_allow_widgets=True)
-@st.cache_resource(experimental_allow_widgets=True)
 def Dashboard():
     df_xg = load_xg()
     df_pv = load_pv()

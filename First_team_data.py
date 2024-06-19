@@ -132,7 +132,7 @@ def Dashboard():
         df_xg = load_xg()
         xg_all = load_all_xg()
         df_xg = df_xg[df_xg['label'].isin(match_choice)]
-        xg_period = xg_all[['team_name','321','label','date']]
+        xg_period = df_xg[['team_name','321','label','date']]
         xg_period = xg_period.groupby(['team_name', 'label', 'date']).sum().reset_index()
         xg_period['xG_match'] = xg_period.groupby('label')['321'].transform('sum')
         xg_period['xG difference period'] = xg_period['321'] - xg_period['xG_match'] + xg_period['321']

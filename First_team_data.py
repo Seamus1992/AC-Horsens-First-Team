@@ -21,7 +21,7 @@ def load_spacecontrol_data():
     df_spacecontrol = df_spacecontrol.rename(columns={'teamName': 'team_name'})
     return df_spacecontrol   
 @st.cache_data
-def load_match_stats():
+def load_match_stats(columns=None):
     match_stats = pd.read_csv(r'DNK_1_Division_2023_2024/matchstats_all DNK_1_Division_2023_2024.csv')
     match_stats['label'] = (match_stats['label'] + ' ' + match_stats['date'])
     return match_stats

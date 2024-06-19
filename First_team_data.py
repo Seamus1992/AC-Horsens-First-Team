@@ -163,7 +163,7 @@ def Dashboard():
             template='plotly_white'
         )
         
-        #st.plotly_chart(fig)
+        st.plotly_chart(fig)
         
     
     def passes():

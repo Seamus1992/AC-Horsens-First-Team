@@ -78,13 +78,25 @@ def load_pv_opponent(Modstander):
     return df_pv_opponent
 
 @st.cache_data(experimental_allow_widgets=True)
+
+def Dashboard():
+    df_xg = load_xg()
+    df_pv = load_pv()
+    df_possession_stats = load_possession_stats()
+    df_possession = load_possession_data()
+    df_matchstats = load_match_stats()
+    df_packing = load_packing_data()
+
+    st.title('Horsens First Team Dashboard')
+
 def Match_evaluation():
     team_name = 'Horsens'    
     df_pv = load_pv()
     df_xg = load_xg()
     df_possession_stats = load_possession_stats()
     df_possession = load_possession_data()
-
+    df_packing = load_packing_data()
+    
     Hold = df_possession['team_name'].unique()
     Hold = [team.replace(' ', '_') for team in Hold]
     Hold = sorted(Hold)
@@ -956,6 +968,7 @@ def League_stats():
     st.dataframe(filtered_data_df)
     
 Data_types = {
+    'Dashboard': Dashboard,
     'Match evaluation' : Match_evaluation,
     'Team development' : Team_development,
     'Opposition analysis' : Opposition_analysis,

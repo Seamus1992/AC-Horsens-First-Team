@@ -203,7 +203,7 @@ def Dashboard():
         sc = ax.scatter(df_xg_plot['x'], df_xg_plot['y'], s=df_xg_plot['321'] * 100, c='red', edgecolors='black', alpha=0.6)
         
         for i, row in df_xg_plot.iterrows():
-            ax.text(row['x'], row['y'], f"{row['playerName']}\n{row['321']:.2f}", fontsize=8, ha='center', va='center')
+            ax.text(row['x'], row['y'], f"{row['playerName']}\n{row['321']:.2f}", fontsize=6, ha='center', va='center')
         
         st.pyplot(fig)
         

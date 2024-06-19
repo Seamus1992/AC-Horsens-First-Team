@@ -73,6 +73,9 @@ def Dashboard():
     df_pv = load_pv()
     df_possession_stats = load_possession_stats()
     df_possession = load_possession_data()
+    df_possession['team_name'] = df_possession['team_name'].apply(lambda x: x if x == 'Horsens' else 'Opponent')
+    df_xg['team_name'] = df_xg['team_name'].apply(lambda x: x if x == 'Horsens' else 'Opponent')
+
     df_matchstats = load_match_stats()
     df_packing = load_packing_data()
     df_xA = load_xA()
@@ -94,6 +97,8 @@ def Dashboard():
     df_spacecontrol = df_spacecontrol[df_spacecontrol['Type'] == 'Player']
     df_spacecontrol = df_spacecontrol[['Team','TotalControlArea','CenterControlArea','PenaltyAreaControl','label']]
     df_spacecontrol[['TotalControlArea', 'CenterControlArea', 'PenaltyAreaControl']] = df_spacecontrol[['TotalControlArea', 'CenterControlArea', 'PenaltyAreaControl']].astype(float).round(2)
+    df_spacecontrol['Team'] = df_spacecontrol['Team'].apply(lambda x: x if x == 'Horsens' else 'Opponent')
+    
     df_spacecontrol = df_spacecontrol.groupby(['Team', 'label']).sum().reset_index()    
     df_spacecontrol['TotalControlArea_match'] = df_spacecontrol.groupby('label')['TotalControlArea'].transform('sum')
     df_spacecontrol['CenterControlArea_match'] = df_spacecontrol.groupby('label')['CenterControlArea'].transform('sum')
@@ -108,7 +113,9 @@ def Dashboard():
     xA_map = df_xA[['contestantId','team_name']]
     df_matchstats = df_matchstats.merge(xA_map, on='contestantId', how='inner')
     df_matchstats = df_matchstats.drop_duplicates()
+    df_matchstats['team_name'] = df_matchstats['team_name'].apply(lambda x: x if x == 'Horsens' else 'Opponent')
     df_passes = df_matchstats[['team_name','label','openPlayPass','successfulOpenPlayPass']]
+
     df_passes = df_passes.groupby(['team_name','label']).sum().reset_index()
 
     df_xA_summary = df_possession.groupby(['team_name','label'])['318.0'].sum().reset_index()
@@ -176,9 +183,9 @@ def Dashboard():
             ))
         
         fig.update_layout(
-            title='5-Game Rolling Average of xG Difference Over Time',
+            title='3-Game Rolling Average of xG Difference Over Time',
             xaxis_title='Date',
-            yaxis_title='5-Game Rolling Average xG Difference',
+            yaxis_title='3-Game Rolling Average xG Difference',
             template='plotly_white'
         )
         
@@ -230,6 +237,7 @@ def Dashboard():
         df_possession = df_possession[df_possession['label'].isin(match_choice)]
         df_passes_horsens = df_possession[df_possession['team_name'] == 'Horsens']
         df_passes_horsens = df_passes_horsens[df_passes_horsens['typeId'] == 1]
+        df_passes_horsens = df_passes_horsens[df_passes_horsens['outcome'] == 1]
 
         mid_third_pass_ends = df_passes_horsens[
             (df_passes_horsens['140.0'].astype(float) >= 33.3) & 

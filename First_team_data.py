@@ -225,10 +225,10 @@ def Dashboard():
         st.dataframe(df_passes)
 
         mid_third_pass_ends = df_passes[
-            (df_passes['140'].astype(float) >= 33.3) & 
-            (df_passes['140'].astype(float) <= 66.3) & 
-            (df_passes['141'].astype(float) >= 21.1) & 
-            (df_passes['141'].astype(float) <= 78.9)
+            (df_passes['140.0'].astype(float) >= 33.3) & 
+            (df_passes['140.0'].astype(float) <= 66.3) & 
+            (df_passes['141.0'].astype(float) >= 21.1) & 
+            (df_passes['141.0'].astype(float) <= 78.9)
         ]        
         
         st.write(mid_third_pass_ends)

@@ -12,7 +12,8 @@ st.set_page_config(layout='wide')
 def load_packing_data():
     df_packing = pd.read_csv(r'DNK_1_Division_2023_2024/packing_all DNK_1_Division_2023_2024.csv')
     df_packing['label'] = (df_packing['label'] + ' ' + df_packing['date']).astype(str)
-    df_packing['teamName'].str.replace(' ', '_')
+    df_packing = df_packing(rename={'teamName': 'team_name'})
+    df_packing['team_name'].str.replace(' ', '_')
     return df_packing    
 
 def load_match_stats():

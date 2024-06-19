@@ -233,7 +233,8 @@ def Dashboard():
     st.cache_data(experimental_allow_widgets=True)
     st.cache_resource(experimental_allow_widgets=True)
     def passes():
-        df_matchstats = load_match_stats(columns = ['contestantId','label','successfulOpenPlayPass','openPlayPass'])
+        
+        df_matchstats = load_match_stats(columns=['contestantId', 'label', 'successfulOpenPlayPass', 'openPlayPass'])
         df_possession = load_possession_data()
         xA_map = df_xA[['contestantId','team_name']].unique()
         df_matchstats = df_matchstats.merge(xA_map, on='contestantId', how='left')

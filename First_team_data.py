@@ -248,7 +248,7 @@ def Dashboard():
         # Tæl forekomster af hver playerName
         player_counts = mid_third_pass_ends['playerName'].value_counts().reset_index(name='count')
         player_counts.columns = ['playerName', 'count']
-
+        st.write('Passes from side/halfspace to centerspace')
         st.dataframe(player_counts,hide_index=True)
         st.dataframe(team_counts,hide_index=True)
         

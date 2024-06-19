@@ -78,7 +78,7 @@ def load_pv_opponent(Modstander):
     return df_pv_opponent
 
 @st.cache_data(experimental_allow_widgets=True)
-def Match_evaluation ():
+def Match_evaluation():
     team_name = 'Horsens'    
     df_pv = load_pv()
     df_xg = load_xg()
@@ -90,10 +90,10 @@ def Match_evaluation ():
     Hold = sorted(Hold)
     Modstander = team_name
     Kampe = df_possession[df_possession['team_name'].astype(str) == Modstander]
-    Kampe = Kampe.sort_values(by='date',ascending = False)
+    Kampe = Kampe.sort_values(by='date', ascending=False)
     Kampe_labels = Kampe['label'].unique()
 
-    Kampvalg = st.multiselect('Choose matches',Kampe_labels)
+    Kampvalg = st.multiselect('Choose matches', Kampe_labels)
 
     df_pv = df_pv[df_pv['label'].isin(Kampvalg)]
     df_xg = df_xg[df_xg['label'].isin(Kampvalg)]
@@ -101,32 +101,26 @@ def Match_evaluation ():
     df_possession_stats = df_possession_stats[df_possession_stats['label'].isin(Kampvalg)]
     df_possession = df_possession[df_possession['label'].isin(Kampvalg)]
     df_possession['id'] = df_possession['id'].astype(str)
-    df_possession = df_possession[(df_possession[['6.0','9.0', '24.0', '25.0', '26.0']] != True).all(axis=1)]
+    df_possession = df_possession[(df_possession[['6.0', '9.0', '24.0', '25.0', '26.0']] != True).all(axis=1)]
 
     df_possession_stats = df_possession_stats[df_possession_stats['type'] == 'territorialThird']
     df_possession_stats['home'] = df_possession_stats['home'].astype(float)
     df_possession_stats['away'] = df_possession_stats['away'].astype(float)
-    df_possession_home = df_possession_stats['home'].mean()
-    df_possession_away = df_possession_stats['away'].mean()
-    df_possession_stats_summary = pd.DataFrame({'home': [df_possession_home], 'away': [df_possession_away]})
-    first_home_team = df_possession_stats['home_team'].iloc[0]
-    first_away_team = df_possession_stats['away_team'].iloc[0]
-    df_possession_stats = df_possession_stats.rename(columns={'home': first_home_team, 'away': first_away_team})
-    df_possession_stats_summary = df_possession_stats_summary.rename(columns={'home': first_home_team, 'away': first_away_team})
-    df_possession_stats = df_possession_stats.drop_duplicates()
-    df_possession_stats = df_possession_stats[df_possession_stats['interval_type'] == 5]
-    df_possession_stats_summary = df_possession_stats_summary.transpose().reset_index()
-    df_possession_stats_summary = df_possession_stats_summary.rename(columns={'index':'team_name',0:'terr_poss'})
-    
+    df_possession_stats['team_type'] = df_possession_stats.apply(lambda row: 'Horsens' if row['home_team'] == 'Horsens' else 'Opponents', axis=1)
+
+    df_possession_stats_summary = df_possession_stats.groupby('team_type').agg({'home': 'mean', 'away': 'mean'}).reset_index()
+    df_possession_stats_summary = df_possession_stats_summary.melt(id_vars='team_type', value_vars=['home', 'away'], var_name='team', value_name='terr_poss')
+    df_possession_stats_summary['team'] = df_possession_stats_summary.apply(lambda row: row['team_type'] if row['team'] == 'home' else 'Opponents', axis=1)
+    df_possession_stats_summary = df_possession_stats_summary.groupby('team').agg({'terr_poss': 'mean'}).reset_index()
 
     df_possession = df_possession.astype(str)
-    df_pv = df_pv[['team_name','playerName','id','possessionValue.pvValue','possessionValue.pvAdded']].astype(str)
+    df_pv = df_pv[['team_name', 'playerName', 'id', 'possessionValue.pvValue', 'possessionValue.pvAdded']].astype(str)
 
-    df_possession_pv = pd.merge(df_possession,df_pv,how='outer')
+    df_possession_pv = pd.merge(df_possession, df_pv, how='outer')
     df_possession_pv['PvTotal'] = df_possession_pv['possessionValue.pvValue'].astype(float) + df_possession_pv['possessionValue.pvAdded'].astype(float)
     df_possession_pv_hold = df_possession_pv[df_possession_pv['label'].isin(Kampvalg)]
     df_possession_pv_hold = df_possession_pv_hold.drop_duplicates('id')
-    df_pv_agg = df_possession_pv_hold[['team_name','PvTotal','timeMin','timeSec']]
+    df_pv_agg = df_possession_pv_hold[['team_name', 'PvTotal', 'timeMin', 'timeSec']]
     df_pv_agg.loc[:, 'timeMin'] = df_pv_agg['timeMin'].astype(int)
     df_pv_agg.loc[:, 'timeSec'] = df_pv_agg['timeSec'].astype(int)
     df_pv_agg = df_pv_agg.sort_values(by=['timeMin', 'timeSec'])
@@ -136,31 +130,39 @@ def Match_evaluation ():
 
     df_xg_hold = df_xg[df_xg['label'].isin(Kampvalg)]
     df_xg_hold = df_xg_hold.rename(columns={'321': 'Open play xG'})
-    df_xg_agg = df_xg_hold[['team_name','Open play xG','periodId','timeMin','timeSec']]
-    df_xg_agg.loc[:,'timeMin'] = df_xg_agg['timeMin'].astype(int)
-    df_xg_agg.loc[:,'timeSec'] = df_xg_agg['timeSec'].astype(int)
+    df_xg_agg = df_xg_hold[['team_name', 'Open play xG', 'periodId', 'timeMin', 'timeSec']]
+    df_xg_agg.loc[:, 'timeMin'] = df_xg_agg['timeMin'].astype(int)
+    df_xg_agg.loc[:, 'timeSec'] = df_xg_agg['timeSec'].astype(int)
     df_xg_agg = df_xg_agg.sort_values(by=['timeMin', 'timeSec'])
 
     df_xg_agg = df_xg_agg[df_xg_agg['Open play xG'].astype(float) > 0]
     df_xg_agg['culmulativxg'] = df_xg_agg.groupby('team_name')['Open play xG'].cumsum()
     df_xg_hold = df_xg_hold.groupby(['team_name'])['Open play xG'].sum().reset_index()
-    df_holdsummary = df_xg_hold.merge(df_possession_pv_hold)
+    df_xg_hold['team_name'] = df_xg_hold['team_name'].apply(lambda x: 'Horsens' if x == 'Horsens' else 'Opponents')
+    df_xg_hold = df_xg_hold.groupby('team_name').mean().reset_index()
+
+    df_holdsummary = df_xg_hold.merge(df_possession_pv_hold, on='team_name')
+    df_holdsummary['team_name'] = df_holdsummary['team_name'].apply(lambda x: 'Horsens' if x == 'Horsens' else 'Opponents')
+
     df_xa = df_possession[df_possession['label'].isin(Kampvalg)]
     df_xa['318.0'] = df_xa['318.0'].astype(float)
-    df_xa_agg = df_xa[['team_name','318.0','timeMin','timeSec']]
+    df_xa_agg = df_xa[['team_name', '318.0', 'timeMin', 'timeSec']]
     df_xa_agg = df_xa_agg.rename(columns={'318.0': 'xA'})
-    df_xa_agg.loc[:,'timeMin'] = df_xa_agg['timeMin'].astype(int)
-    df_xa_agg.loc[:,'timeSec'] = df_xa_agg['timeSec'].astype(int)
+    df_xa_agg.loc[:, 'timeMin'] = df_xa_agg['timeMin'].astype(int)
+    df_xa_agg.loc[:, 'timeSec'] = df_xa_agg['timeSec'].astype(int)
     df_xa_agg = df_xa_agg.sort_values(by=['timeMin', 'timeSec'])
     df_xa_agg = df_xa_agg[df_xa_agg['xA'].astype(float) > 0]
     df_xa_agg['culmulativxa'] = df_xa_agg.groupby('team_name')['xA'].cumsum()
 
-    df_xa_hold = df_xa.groupby(['team_name'])['318.0'].mean().reset_index()
+    df_xa_hold = df_xa.groupby(['team_name'])['318.0'].sum().reset_index()
     df_xa_hold = df_xa_hold.rename(columns={'318.0': 'xA'})
-    df_holdsummary = df_xa_hold.merge(df_holdsummary)
-    df_holdsummary = df_possession_stats_summary.merge(df_holdsummary)
-    df_holdsummary = df_holdsummary[['team_name','xA','Open play xG','PvTotal','terr_poss']]
-    st.dataframe(df_holdsummary,hide_index=True)
+    df_xa_hold['team_name'] = df_xa_hold['team_name'].apply(lambda x: 'Horsens' if x == 'Horsens' else 'Opponents')
+    df_xa_hold = df_xa_hold.groupby('team_name').mean().reset_index()
+
+    df_holdsummary = df_holdsummary.merge(df_xa_hold, on='team_name')
+    df_holdsummary = df_possession_stats_summary.merge(df_holdsummary, on='team_name')
+    df_holdsummary = df_holdsummary[['team_name', 'xA', 'Open play xG', 'PvTotal', 'terr_poss']]
+    st.dataframe(df_holdsummary, hide_index=True)
     col1,col2,col3,col4 = st.columns(4)
 
     cols_to_average = df_possession_stats.columns[[6, 7, 8]]

@@ -196,6 +196,16 @@ def Dashboard():
     
         df_xg_plot = df_xg[['playerName','team_name','x','y', '321']]
         df_xg_plot = df_xg_plot[df_xg_plot['team_name'] == 'Horsens']
+        pitch = Pitch(pitch_type='wyscout',half=True,line_color='white', pitch_color='grass')
+        fig, ax = pitch.draw(figsize=(10, 6))
+        
+        sc = ax.scatter(df_xg_plot['x'], df_xg_plot['y'], s=df_xg_plot['321'] * 100, c='red', edgecolors='black', alpha=0.6)
+        
+        for i, row in df_xg_plot.iterrows():
+            ax.text(row['x'], row['y'], row['playerName'], fontsize=12, ha='center', va='center')
+        
+        st.pyplot(fig)
+        
         st.dataframe(df_xg_plot)
     def passes():
         df_possession = load_possession_data()

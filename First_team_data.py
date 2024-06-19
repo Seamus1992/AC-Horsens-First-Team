@@ -158,7 +158,7 @@ def Dashboard():
         st.dataframe(df_xg)
             
     Data_types = {
-        'xG': xg,
+        'xG': xg(df_xg),
     }
 
     col1, col2, col3 = st.columns(3)

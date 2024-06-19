@@ -123,6 +123,7 @@ def Dashboard():
     team_summary = df_xg_summary.merge(df_xA_summary, on=['team_name','label'])
     team_summary = team_summary.merge(df_passes, on=['team_name','label'])
     team_summary = team_summary.merge(df_packing_summary, on=['team_name', 'label'])
+    team_summary = team_summary.drop(columns='label')
     st.dataframe(team_summary)
 
 def Match_evaluation():

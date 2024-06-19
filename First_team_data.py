@@ -164,7 +164,7 @@ def Dashboard():
         st.write(df_possession)
         
     Data_types = {
-        'xG': xg(),
+        'xG': xg,
         'Passing':passes,
     }
 

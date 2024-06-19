@@ -139,6 +139,8 @@ def Dashboard():
         xg_all = xg_all.groupby(['team_name','label','date']).sum().reset_index()
         xg_all['xG_match'] = xg_all.groupby('label')['321'].transform('sum')
         xg_all['xG difference'] = xg_all['321'] - xg_all['xG_match'] + xg_all['321']
+        fig = px.line(xg_all, x='date', y='xG difference', color='team_name', title='xG Difference Over Time')
+        st.plotly_chart(fig)
         
         st.dataframe(xg_all)
         st.dataframe(df_xg)

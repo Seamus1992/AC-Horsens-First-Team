@@ -146,7 +146,6 @@ def Dashboard():
         st.plotly_chart(fig)
         
         st.dataframe(xg_all)
-        st.dataframe(df_xg)
     
     def passes():
         df_possession = load_possession_data()

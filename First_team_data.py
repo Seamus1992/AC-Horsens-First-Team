@@ -168,7 +168,7 @@ def Dashboard():
         
         st.plotly_chart(fig)
 
-        st.datafrmae(df_xg)
+        st.dataframe(df_xg)
 
     
     def passes():

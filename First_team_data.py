@@ -148,7 +148,8 @@ def Dashboard():
     team_summary = team_summary.drop(columns='label')
     team_summary = team_summary.groupby('team_name').mean().reset_index()
     team_summary = team_summary.round(2)
-    st.dataframe(team_summary.style.set_precision(2), use_container_width=True)
+    st.dataframe(team_summary.style.format(precision=2), use_container_width=True)
+
 def Match_evaluation():
     team_name = 'Horsens'    
     df_pv = load_pv()

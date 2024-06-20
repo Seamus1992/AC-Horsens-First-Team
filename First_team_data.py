@@ -445,10 +445,27 @@ def Dashboard():
         fig_histogram = px.histogram(df_packing_first_third, x='closest_opponent_distance', nbins=30, title='Histogram of Closest Opponent Distance')
         st.plotly_chart(fig_histogram)
 
+    def chance_creation():
+        df_possession = load_possession_data()
+        df_passes = df_possession[df_possession['team_name'] == 'Horsens']
+        df_passes = df_passes[df_passes['label'].isin(match_choice)]
+        df_forward_passes = df_passes[df_passes['typeId'] == 1]
+        df_passes = df_passes[df_passes['typeId'] == 1] & df_passes[df_passes['outcome'] == 1]
+        assistzone_pass_ends = df_passes[
+            (df_passes['140.0'].astype(float) >= 83) &
+            (df_passes['141.0'].astype(float) >= 21.1) & 
+            (df_passes['141.0'].astype(float) <= 36.8)|
+            (df_passes['140.0'].astype(float) >= 83) &
+            (df_passes['141.0'].astype(float) >= 63.2) &
+            (df_passes['141.0'].astype(float) <= 78.9)
+        ]
+        st.dataframe(assistzone_pass_ends, hide_index=True)
+        
     Data_types = {
         'xG': xg,
         'Passing':passes,
         'Packing': packing,
+        'Chance Creation': chance_creation,
     }
 
     col1, col2, col3 = st.columns(3)

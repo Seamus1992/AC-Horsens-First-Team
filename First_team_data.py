@@ -400,6 +400,7 @@ def Dashboard():
         df_packing['pass_receiver'] = df_packing['pass_receiver'].astype(str)
         df_packing = df_packing[df_packing['pass_receiver'] != '']
         df_packing = df_packing[df_packing['pass_receiver'] != None]
+        df_packing = df_packing[df_packing['bypassed_opponents'] < 11]
 
         st.write(df_packing['pass_receiver'].dtype)
         st.dataframe(df_packing, hide_index=True)

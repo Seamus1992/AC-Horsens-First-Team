@@ -395,7 +395,7 @@ def Dashboard():
 
     def packing():
         df_packing = load_packing_data()
-        packing_teams = df_packing.groupby('team_name')['bypassed_opponents'].sum().reset_index()
+        packing_teams = df_packing.groupby('team_name')[['bypassed_opponents','bypassed_defenders']].sum().reset_index()
         packing_teams = packing_teams.sort_values(by='bypassed_opponents', ascending=False)
         st.dataframe(packing_teams, hide_index=True)
     Data_types = {

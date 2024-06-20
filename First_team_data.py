@@ -299,6 +299,20 @@ def Dashboard():
         df_possession = df_possession[~(df_possession[['6.0','107.0']] == True).any(axis=1)]
         df_possession = df_possession[df_possession['label'].isin(match_choice)]
         df_passes_horsens = df_possession[df_possession['team_name'] == 'Horsens']
+        
+        df_passes_horsens = df_passes_horsens.sort_values(by='eventId').reset_index(drop=True)
+        df_passes_horsens['pass_receiver'] = None
+
+        for i in range(len(df_passes_horsens) - 1):
+            current_event = df_passes_horsens.loc[i]
+            if current_event['typeId'] == 1 and current_event['outcome'] == 1:
+                next_event_id = current_event['eventId'] + 1
+                next_event = df_passes_horsens[(df_passes_horsens['eventId'] == next_event_id) & (df_passes_horsens['team_name'] == current_event['team_name'])]
+
+                if not next_event.empty:
+                    pass_receiver = next_event.iloc[0]['playerName']
+                    df_passes_horsens.at[i, 'pass_receiver'] = pass_receiver
+        st.dataframe(df_passes_horsens)
         df_passes_horsens = df_passes_horsens[(df_passes_horsens['typeId'] == 1) & (df_passes_horsens['outcome'] == 1)]
 
         mid_third_pass_ends = df_passes_horsens[
@@ -314,20 +328,8 @@ def Dashboard():
         team_counts = mid_third_pass_ends.groupby(['team_name','label']).size().reset_index(name='count')
         team_counts.columns = ['team_name', 'label', 'count']
         team_counts = team_counts.sort_values(by=['count'], ascending=False)
-        mid_third_pass_ends = mid_third_pass_ends.sort_values(by='eventId').reset_index(drop=True)
 
         # Initialize the 'pass_receiver' column
-        mid_third_pass_ends['pass_receiver'] = None
-
-        for i in range(len(mid_third_pass_ends) - 1):
-            current_event = mid_third_pass_ends.loc[i]
-            if current_event['typeId'] == 1 and current_event['outcome'] == 1:
-                next_event_id = current_event['eventId'] + 1
-                next_event = mid_third_pass_ends[(mid_third_pass_ends['eventId'] == next_event_id) & (mid_third_pass_ends['team_name'] == current_event['team_name'])]
-
-                if not next_event.empty:
-                    pass_receiver = next_event.iloc[0]['playerName']
-                    mid_third_pass_ends.at[i, 'pass_receiver'] = pass_receiver
         st.dataframe(mid_third_pass_ends, hide_index=True)
         # Tæl forekomster af hver playerName
         player_counts = mid_third_pass_ends['playerName'].value_counts().reset_index(name='count')

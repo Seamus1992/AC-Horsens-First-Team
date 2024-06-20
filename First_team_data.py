@@ -614,7 +614,7 @@ def Dashboard():
             df_ppda = df_ppdabeyond40[['label', 'team_name', 'PPDA']]
             return df_ppda
         df_ppda = calculate_ppda(df_possession_data)
-
+        st.dataframe(df_ppda, hide_index=True)
     Data_types = {
         'xG': xg,
         'Passing':passes,

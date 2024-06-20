@@ -358,7 +358,7 @@ def Dashboard():
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        selected_data1 = st.selectbox('Choose data type 1', list(Data_types.keys()),index=None)
+        selected_data1 = st.selectbox('Choose data type 1', list(Data_types.keys()))
         Data_types[selected_data1]()
 
     with col2:
@@ -467,5 +467,5 @@ Data_types = {
     'League stats': League_stats
 }
 
-selected_data = st.sidebar.radio('Choose data type',list(Data_types.keys()))
+selected_data = st.sidebar.radio('Choose data type',list(Data_types.keys()), index=0)
 Data_types[selected_data]()

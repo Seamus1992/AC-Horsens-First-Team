@@ -332,8 +332,8 @@ def Dashboard():
         # Tæl forekomster af hver playerName
         player_counts = mid_third_pass_ends['playerName'].value_counts().reset_index(name='Passed')
         player_counts.columns = ['playerName', 'Passed']
-        pass_receiver_counts = mid_third_pass_ends['pass_receiver'].value_counts().reset_index(name='count')
-        pass_receiver_counts.columns = ['pass_receiver', 'count']
+        pass_receiver_counts = mid_third_pass_ends['pass_receiver'].value_counts().reset_index(name='Received')
+        pass_receiver_counts.columns = ['pass_receiver', 'Received']
         st.dataframe(pass_receiver_counts, hide_index=True)
         pass_receiver_counts.rename(columns={'pass_receiver': 'playerName'}, inplace=True)
         player_counts = player_counts.merge(pass_receiver_counts, on='playerName', how='outer')

@@ -143,8 +143,6 @@ def Dashboard():
     st.dataframe(team_summary.style.format(precision=2), use_container_width=True,hide_index=True)
 
     
-    @st.cache_data(experimental_allow_widgets=True)
-    @st.cache_resource(experimental_allow_widgets=True)
     def xg():
         df_xg = load_xg()
         xg_all = load_all_xg()
@@ -238,8 +236,6 @@ def Dashboard():
         
         st.pyplot(fig)
         
-    @st.cache_data(experimental_allow_widgets=True)
-    @st.cache_resource(experimental_allow_widgets=True)
     def passes():
         
         df_matchstats = load_match_stats(columns=['contestantId','date', 'label', 'successfulOpenPlayPass', 'openPlayPass'])
@@ -402,8 +398,6 @@ def Dashboard():
 
         st.pyplot(fig)
 
-    @st.cache_data(experimental_allow_widgets=True)
-    @st.cache_resource(experimental_allow_widgets=True)
     def packing():
         df_packing = load_packing_data()
         df_packing['pass_receiver'] = df_packing['pass_receiver'].astype(str)
@@ -480,8 +474,6 @@ def Dashboard():
         fig_histogram = px.histogram(df_packing_first_third, x='closest_opponent_distance', nbins=30, title='Histogram of Closest Opponent Distance')
         st.plotly_chart(fig_histogram)
 
-    @st.cache_data(experimental_allow_widgets=True)
-    @st.cache_resource(experimental_allow_widgets=True)
     def chance_creation():
         df_matchstats = load_match_stats(columns=['contestantId','date', 'label', 'touchesInOppBox'])
         df_matchstats['date'] = pd.to_datetime(df_matchstats['date'])

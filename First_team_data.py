@@ -73,6 +73,8 @@ def load_xA():
     df_xA['label'] = (df_xA['label'] + ' ' + df_xA['date']).astype(str)
     return df_xA
 
+st.cache_data(experimental_allow_widgets=True)
+st.cache_resource(experimental_allow_widgets=True)
 def Dashboard():
     df_xg = load_xg()
     df_pv = load_pv()
@@ -715,6 +717,7 @@ Data_types = {
     'Dashboard': Dashboard,
     'League stats': League_stats
 }
+
 st.cache_data(experimental_allow_widgets=True)
 st.cache_resource(experimental_allow_widgets=True)
 selected_data = st.sidebar.radio('Choose data type',list(Data_types.keys()))

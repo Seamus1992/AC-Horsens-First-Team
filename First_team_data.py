@@ -527,7 +527,7 @@ def Dashboard():
         touches_in_box_team['touches_in_box_diff'] = touches_in_box_team['touchesInOppBox'] - touches_in_box_team['tib_match'] + touches_in_box_team['touchesInOppBox']
         touches_in_box_team = touches_in_box_team.sort_values(by=['date'], ascending=True)
         touches_in_box_team['rolling_touches_in_box'] = touches_in_box_team.groupby('team_name')['touches_in_box_diff'].transform(lambda x: x.rolling(3, min_periods=1).mean())
-
+        touches_in_box_team_period = touches_in_box_team[touches_in_box_team['label'].isin(match_choice)]
         fig1 = go.Figure()
 
         for team in touches_in_box_team['team_name'].unique():
@@ -549,7 +549,7 @@ def Dashboard():
         )
 
         st.plotly_chart(fig1)
-               
+        st.dataframe(touches_in_box_team_period, hide_index=True)      
     Data_types = {
         'xG': xg,
         'Passing':passes,

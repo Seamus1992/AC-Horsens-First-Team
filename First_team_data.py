@@ -404,7 +404,7 @@ def Dashboard():
         df_packing_time['packing_diff'] = df_packing_time['bypassed_opponents'] - df_packing_time['packing_match'] + df_packing_time['bypassed_opponents']
         st.dataframe(df_packing_time, hide_index=True)
         # Beregn 3-kamps rullende gennemsnit for hver team
-        df_packing_time['rolling_packing'] = df_packing_time.groupby('team_name')['bypassed_opponents'].transform(lambda x: x.rolling(3, min_periods=1).mean())
+        df_packing_time['rolling_packing'] = df_packing_time.groupby('team_name')['packing_diff'].transform(lambda x: x.rolling(3, min_periods=1).mean())
         
         fig1 = go.Figure()
 

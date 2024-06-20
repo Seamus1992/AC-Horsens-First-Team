@@ -507,23 +507,15 @@ def Dashboard():
         st.pyplot(fig)
         st.header('Touches in zone 14')
         df_zone14 = df_possession[(df_possession['x'].astype(float) >= 66) & ((df_possession['y'].astype(float) >= 21.1) & (df_possession['y'].astype(float) <= 78.9))]
-
-        pitch = Pitch(pitch_type='opta', pitch_color='grass', line_color='white')
-        fig, ax = pitch.draw(figsize=(10, 7))
-
-        # Plot data
-        ax.scatter(df_zone14['x'], df_zone14['y'], c='red', label='Zone 14 possessions')
-        ax.legend()
-
-        plt.title('Possession in Zone 14')
-        st.pyplot(fig)
         
         df_zone14_team = df_zone14.groupby(['team_name', 'label']).size().reset_index(name='Touches')
         df_zone14_team = df_zone14_team.sort_values(by=['Touches'], ascending=False)
         df_zone14_player = df_zone14.groupby(['playerName']).size().reset_index(name='Touches')
         df_zone14_player = df_zone14_player.sort_values(by=['Touches'], ascending=False)
         st.dataframe(df_zone14_team,hide_index=True)
-        st.dataframe(df_zone14_player, hide_index=True)       
+        st.dataframe(df_zone14_player, hide_index=True)
+        
+               
     Data_types = {
         'xG': xg,
         'Passing':passes,

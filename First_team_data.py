@@ -605,22 +605,41 @@ def Dashboard():
         'Chance Creation': chance_creation,
     }
 
+    def execute_data_type(data_type, key):
+        # Use st.session_state to store and compare selections
+        if key not in st.session_state:
+            st.session_state[key] = data_type
+        
+        # Check if the selection has changed
+        if st.session_state[key] != data_type:
+            Data_types[data_type]()
+            st.session_state[key] = data_type
+
+    # Initialize the session state if not already done
+    if 'selected_data1' not in st.session_state:
+        st.session_state.selected_data1 = ''
+    if 'selected_data2' not in st.session_state:
+        st.session_state.selected_data2 = ''
+    if 'selected_data3' not in st.session_state:
+        st.session_state.selected_data3 = ''
+
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        selected_data1 = st.selectbox('Choose data type 1', [''] + list(Data_types.keys()))
+        selected_data1 = st.selectbox('Choose data type 1', [''] + list(Data_types.keys()), key='selected_data1')
         if selected_data1:
-            Data_types[selected_data1]()
+            execute_data_type(selected_data1, 'selected_data1')
 
     with col2:
-        selected_data2 = st.selectbox('Choose data type 2', [''] + list(Data_types.keys()))
+        selected_data2 = st.selectbox('Choose data type 2', [''] + list(Data_types.keys()), key='selected_data2')
         if selected_data2:
-            Data_types[selected_data2]()
+            execute_data_type(selected_data2, 'selected_data2')
 
     with col3:
-        selected_data3 = st.selectbox('Choose data type 3', [''] + list(Data_types.keys()))
+        selected_data3 = st.selectbox('Choose data type 3', [''] + list(Data_types.keys()), key='selected_data3')
         if selected_data3:
-            Data_types[selected_data3]()
+            execute_data_type(selected_data3, 'selected_data3')
+
 
 def League_stats():
     matchstats_df = pd.read_csv(r'DNK_1_Division_2023_2024/matchstats_all DNK_1_Division_2023_2024.csv')

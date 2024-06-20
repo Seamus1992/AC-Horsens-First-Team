@@ -446,6 +446,12 @@ def Dashboard():
         st.plotly_chart(fig_histogram)
 
     def chance_creation():
+        df_matchstats = load_match_stats(columns=['contestantId','date', 'label', 'touchesInOppBox'])
+        df_matchstats['date'] = pd.to_datetime(df_matchstats['date'])
+        df_xA = load_xA()
+        xA_map = df_xA[['contestantId', 'team_name']].drop_duplicates()
+        df_matchstats = df_matchstats.merge(xA_map, on='contestantId')
+        
         df_possession = load_possession_data()
         df_possession = df_possession[~(df_possession[['6.0','107.0']] == True).any(axis=1)]
         df_possession = df_possession[df_possession['label'].isin(match_choice)]
@@ -515,6 +521,10 @@ def Dashboard():
         st.dataframe(df_zone14_team,hide_index=True)
         st.dataframe(df_zone14_player, hide_index=True)
         
+        st.header('Touches in box')
+        touches_in_box_team = df_matchstats.groupby(['team_name', 'label'])['touchesInOppBox'].sum().reset_index()
+        touches_in_box_team = touches_in_box_team.sort_values(by=['touchesInOppBox'], ascending=False)
+        st.dataframe(touches_in_box_team, hide_index=True)
                
     Data_types = {
         'xG': xg,

@@ -723,4 +723,7 @@ Data_types = {
 st.cache_data(experimental_allow_widgets=True)
 st.cache_resource(experimental_allow_widgets=True)
 selected_data = st.sidebar.radio('Choose data type',list(Data_types.keys()))
+
+st.cache_data(experimental_allow_widgets=True)
+st.cache_resource(experimental_allow_widgets=True)
 Data_types[selected_data]()

@@ -624,18 +624,37 @@ def Dashboard():
         df_ppda = calculate_ppda(df_possession_data)
         df_ppda = df_ppda[df_ppda['team_name'] == 'Horsens']
         df_ppda_season_average = df_ppda.groupby(['team_name'])['PPDA'].mean().reset_index()
-        average_ppda = df_ppda_season_average['PPDA']
-        st.write(average_ppda)
+        average_ppda = df_ppda_season_average['PPDA'][0]
         df_ppda_sorted = df_ppda.sort_values(by=['date', 'label'], ascending=[True, True])
 
+        def add_avg_line(fig, avg):
+            fig.add_shape(
+                type="line",
+                x0=-0.5, x1=len(fig.data[0].x)-0.5,
+                y0=avg, y1=avg,
+                line=dict(color="Red", dash="dash")
+            )
+            fig.add_annotation(
+                x=len(fig.data[0].x)-0.5,
+                y=avg,
+                text=f"Avg PPDA: {avg:.2f}",
+                showarrow=False,
+                yshift=10
+        )
+            
         st.header('Whole season')
         fig_whole_season = px.bar(df_ppda_sorted, x='label', y='PPDA', title='PPDA for Horsens - Whole Season')
+        add_avg_line(fig_whole_season, average_ppda)
         st.plotly_chart(fig_whole_season)
         st.dataframe(df_ppda_sorted, hide_index=True)
+
+        # Dummy match_choice for demonstration
+        match_choice = ['match1', 'match2']
 
         st.header('Chosen matches')
         df_ppda_chosen_period = df_ppda_sorted[df_ppda_sorted['label'].isin(match_choice)]
         fig_chosen_matches = px.bar(df_ppda_chosen_period, x='label', y='PPDA', title='PPDA for Horsens - Chosen Matches')
+        add_avg_line(fig_chosen_matches, average_ppda)
         st.plotly_chart(fig_chosen_matches)
         st.dataframe(df_ppda_chosen_period, hide_index=True)
         

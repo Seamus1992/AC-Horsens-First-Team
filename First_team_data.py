@@ -646,14 +646,12 @@ def Dashboard():
         fig_whole_season = px.bar(df_ppda_sorted, x='label', y='PPDA', title='PPDA for Horsens - Whole Season')
         add_avg_line(fig_whole_season, average_ppda)
         st.plotly_chart(fig_whole_season)
-        st.dataframe(df_ppda_sorted, hide_index=True)
 
         st.header('Chosen matches')
         df_ppda_chosen_period = df_ppda_sorted[df_ppda_sorted['label'].isin(match_choice)]
         fig_chosen_matches = px.bar(df_ppda_chosen_period, x='label', y='PPDA', title='PPDA for Horsens - Chosen Matches')
         add_avg_line(fig_chosen_matches, average_ppda)
         st.plotly_chart(fig_chosen_matches)
-        st.dataframe(df_ppda_chosen_period, hide_index=True)
         
     Data_types = {
         'xG': xg,

@@ -617,6 +617,7 @@ def Dashboard():
         
         def counterpressing(df_possession_data):
             df_counterpressing = df_possession_data
+            df_counterpressing['gameclock'] = (df_counterpressing['timeMin'] * 60) + df_counterpressing['timeSec']
             return df_counterpressing
         
         df_ppda = calculate_ppda(df_possession_data)

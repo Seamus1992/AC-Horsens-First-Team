@@ -302,7 +302,7 @@ def Dashboard():
         
         df_passes_horsens = df_passes_horsens.sort_values(by='eventId').reset_index(drop=True)
         df_passes_horsens['pass_receiver'] = None
-
+    
         for i in range(len(df_passes_horsens) - 1):
             current_event = df_passes_horsens.loc[i]
             if current_event['typeId'] == 1 and current_event['outcome'] == 1:
@@ -449,6 +449,16 @@ def Dashboard():
         df_possession = load_possession_data()
         df_passes = df_possession[df_possession['team_name'] == 'Horsens']
         df_passes = df_passes[df_passes['label'].isin(match_choice)]
+        for i in range(len(df_passes) - 1):
+            current_event = df_passes.loc[i]
+            if current_event['typeId'] == 1 and current_event['outcome'] == 1:
+                next_event_id = current_event['eventId'] + 1
+                next_event = df_passes[(df_passes['eventId'] == next_event_id) & (df_passes['team_name'] == current_event['team_name'])]
+
+                if not next_event.empty:
+                    pass_receiver = next_event.iloc[0]['playerName']
+                    df_passes.at[i, 'pass_receiver'] = pass_receiver
+
         df_forward_passes = df_passes[df_passes['typeId'] == 1]
         df_passes = df_passes[(df_passes['typeId'] == 1) & (df_passes['outcome'] == 1)]
         assistzone_pass_ends = df_passes[

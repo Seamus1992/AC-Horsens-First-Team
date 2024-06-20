@@ -455,7 +455,7 @@ def Dashboard():
         df_packing_period_player = df_packing_period_player.groupby(['playerName'])[['bypassed_opponents','bypassed_defenders']].sum().reset_index()
         df_packing_period_player = df_packing_period_player.sort_values(by='bypassed_opponents', ascending=False)
         df_packing_period_player = df_packing_period_player.merge(df_packing_pass_received_player, on='playerName', how='left')
-        df_packing_period_player.rename(columns={'bypasses_opponents': 'packing', 'bypassed_defenders': 'packing_defenders', 'bypassed_opponents_received': 'packing_received'}, inplace=True)
+        df_packing_period_player.rename(columns={'bypassed_opponents': 'packing', 'bypassed_defenders': 'packing_defenders', 'bypassed_opponents_received': 'packing_received'}, inplace=True)
         
         st.dataframe(df_packing_period_player, hide_index=True)
         

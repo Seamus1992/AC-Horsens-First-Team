@@ -634,8 +634,7 @@ def Dashboard():
         if st.session_state['selected_data3']:
             Data_types[st.session_state['selected_data3']]()
 
-    # Execute the main data type function from the sidebar
-    Data_types[selected_data]()
+
 
 def League_stats():
     matchstats_df = pd.read_csv(r'DNK_1_Division_2023_2024/matchstats_all DNK_1_Division_2023_2024.csv')

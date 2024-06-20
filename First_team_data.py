@@ -630,9 +630,6 @@ def Dashboard():
         st.plotly_chart(fig_whole_season)
         st.dataframe(df_ppda_sorted, hide_index=True)
 
-        # Dummy match_choice for demonstration
-        match_choice = ['match1', 'match2']
-
         st.header('Chosen matches')
         df_ppda_chosen_period = df_ppda_sorted[df_ppda_sorted['label'].isin(match_choice)]
         fig_chosen_matches = px.bar(df_ppda_chosen_period, x='label', y='PPDA', title='PPDA for Horsens - Chosen Matches')

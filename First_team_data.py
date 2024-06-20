@@ -410,10 +410,10 @@ def Dashboard():
 
         for team in df_packing_time['team_name'].unique():
             team_data = df_packing_time[df_packing_time['team_name'] == team]
-            line_size = 5 if team == 'Horsens' else 1  # Larger line for Horsens
+            line_size = 5 if team == 'Horsens' else 1  # Større linje for Horsens
             fig1.add_trace(go.Scatter(
                 x=team_data['date'],
-                y=team_data['packing_diff'],
+                y=team_data['rolling_packing'],
                 mode='lines',
                 name=team,
                 line=dict(width=line_size)
@@ -425,7 +425,7 @@ def Dashboard():
             yaxis_title='3-Game Rolling Average of packing difference',
             template='plotly_white'
         )
-        st.pyplot(fig1)
+        st.plotly_chart(fig1)
         
                 
     Data_types = {

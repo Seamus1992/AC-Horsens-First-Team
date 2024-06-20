@@ -449,6 +449,8 @@ def Dashboard():
         df_possession = load_possession_data()
         df_passes = df_possession[df_possession['team_name'] == 'Horsens']
         df_passes = df_passes[df_passes['label'].isin(match_choice)]
+        
+        df_passes['pass_receiver'] = None
         for i in range(len(df_passes) - 1):
             current_event = df_passes.loc[i]
             if current_event['typeId'] == 1 and current_event['outcome'] == 1:

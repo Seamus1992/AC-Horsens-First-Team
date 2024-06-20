@@ -429,7 +429,7 @@ def Dashboard():
         df_packing_period = df_packing[df_packing['label'].isin(match_choice)]
         df_packing_period = df_packing_period[df_packing_period['team_name'] == 'Horsens']
         df_packing_period = df_packing_period[['label', 'team_name', 'bypassed_opponents', 'bypassed_defenders']]
-        df_packing_period = df_packing_period.groupby(['label', 'team_name'])['bypassed_opponents','bypassed_defenders'].sum().reset_index()
+        df_packing_period = df_packing_period.groupby(['label', 'team_name'])[['bypassed_opponents','bypassed_defenders']].sum().reset_index()
         df_packing_period = df_packing_period.sort_values(by='bypassed_opponents', ascending=False)
         df_packing_period['packing_match'] = df_packing_period.groupby('label')['bypassed_opponents'].transform('sum')
         df_packing_period['packing_diff'] = df_packing_period['bypassed_opponents'] - df_packing_period['packing_match'] + df_packing_period['bypassed_opponents']

@@ -625,7 +625,7 @@ def Dashboard():
         df_ppda = df_ppda[df_ppda['team_name'] == 'Horsens']
         df_ppda_season_average = df_ppda.groupby(['label'])['PPDA'].mean().reset_index()
         st.header('Whole season')
-        st.bar_chart(df_ppda[['label', 'PPDA']].set_index('date'))
+        st.bar_chart(df_ppda[['label', 'PPDA']].set_index('label'))
         st.dataframe(df_ppda, hide_index=True)
         
         st.header('Chosen matches')

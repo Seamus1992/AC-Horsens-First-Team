@@ -477,7 +477,7 @@ def Dashboard():
             (df_passes['141.0'].astype(float) >= 63.2) &
             (df_passes['141.0'].astype(float) <= 78.9)
         ]
-        st.dataframe(df_possession, hide_index=True)
+        st.dataframe(df_passes, hide_index=True)
         
     Data_types = {
         'xG': xg,

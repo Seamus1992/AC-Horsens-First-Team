@@ -523,10 +523,30 @@ def Dashboard():
         
         st.header('Touches in box')
         touches_in_box_team = df_matchstats.groupby(['team_name','date', 'label'])['touchesInOppBox'].sum().reset_index()
-        touches_in_box_team = touches_in_box_team.sort_values(by=['date'], ascending=True)
         touches_in_box_team['tib_match'] = touches_in_box_team.groupby('label')['touchesInOppBox'].transform('sum')
         touches_in_box_team['touches_in_box_diff'] = touches_in_box_team['touchesInOppBox'] - touches_in_box_team['tib_match'] + touches_in_box_team['touchesInOppBox']
+        touches_in_box_team = touches_in_box_team.sort_values(by=['date'], ascending=True)
+        touches_in_box_team['rolling_touches_in_box'] = df_matchstats.groupby('team_name')['touches_in_box_diff'].transform(lambda x: x.rolling(3, min_periods=1).mean())
 
+        fig1 = go.Figure()
+
+        for team in df_matchstats['team_name'].unique():
+            team_data = df_matchstats[df_matchstats['team_name'] == team]
+            line_size = 5 if team == 'Horsens' else 1  # Larger line for Horsens
+            fig1.add_trace(go.Scatter(
+                x=team_data['date'],
+                y=team_data['rolling_touches_in_box'],
+                mode='lines',
+                name=team,
+                line=dict(width=line_size)
+            ))
+
+        fig1.update_layout(
+            title='3-Game Rolling Average of touches in box difference',
+            xaxis_title='Date',
+            yaxis_title='3-Game Rolling Average of touches in box difference',
+            template='plotly_white'
+        )
         st.dataframe(touches_in_box_team, hide_index=True)
                
     Data_types = {

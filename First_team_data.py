@@ -312,8 +312,8 @@ def Dashboard():
                 if not next_event.empty:
                     pass_receiver = next_event.iloc[0]['playerName']
                     df_passes_horsens.at[i, 'pass_receiver'] = pass_receiver
-        st.dataframe(df_passes_horsens)
         df_passes_horsens = df_passes_horsens[(df_passes_horsens['typeId'] == 1) & (df_passes_horsens['outcome'] == 1)]
+        st.dataframe(df_passes_horsens)
 
         mid_third_pass_ends = df_passes_horsens[
             (df_passes_horsens['140.0'].astype(float) >= 33.3) & 

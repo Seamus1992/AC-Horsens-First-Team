@@ -323,12 +323,12 @@ def Dashboard():
         st.write('Passes from side to halfspace/centerspace')
         st.dataframe(player_counts,hide_index=True)
         st.dataframe(team_counts,hide_index=True)
-        pitch = Pitch(pitch_type='statsbomb', pitch_color='grass', line_color='white')
+        pitch = Pitch(pitch_type='opta', pitch_color='grass', line_color='white')
         fig, ax = pitch.draw()
 
         # Plotting the arrows
         for index, row in mid_third_pass_ends.iterrows():
-            pitch.arrows(row['x'], row['y'], row['140.0'], row['141.0'], ax=ax, width=2, headwidth=3, color='green')
+            pitch.arrows(row['x'], row['y'], row['140.0'], row['141.0'], ax=ax, width=2, headwidth=3, color='black')
 
 # Display plot in Streamlit
         st.pyplot(fig)

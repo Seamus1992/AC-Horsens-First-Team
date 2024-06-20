@@ -635,15 +635,6 @@ def Dashboard():
         if selected_data3 and selected_data3 != st.session_state['selected_data3']:
             execute_data_type(selected_data3, 'selected_data3')
 
-    # Run the previously selected data types
-    if st.session_state['selected_data1']:
-        Data_types[st.session_state['selected_data1']]()
-
-    if st.session_state['selected_data2']:
-        Data_types[st.session_state['selected_data2']]()
-
-    if st.session_state['selected_data3']:
-        Data_types[st.session_state['selected_data3']]()
 
 
 def League_stats():

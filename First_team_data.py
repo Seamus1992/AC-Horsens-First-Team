@@ -447,7 +447,7 @@ def Dashboard():
 
     def chance_creation():
         df_possession = load_possession_data()
-        df_possession = df_possession[~(df_possession[['5.0','6.0','107.0']] == True).any(axis=1)]
+        df_possession = df_possession[~(df_possession[['6.0','107.0']] == True).any(axis=1)]
         df_possession = df_possession[df_possession['label'].isin(match_choice)]
         df_possession = df_possession[df_possession['team_name'] == 'Horsens']
 

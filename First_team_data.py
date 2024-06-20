@@ -427,6 +427,7 @@ def Dashboard():
         st.plotly_chart(fig1)
         
         df_packing_time = df_packing_time[df_packing_time['label'].isin(match_choice)]
+        df_packing_time = df_packing_time[df_packing_time['team_name'] == 'Horsens']
         st.dataframe(df_packing_time, hide_index=True)
     Data_types = {
         'xG': xg,

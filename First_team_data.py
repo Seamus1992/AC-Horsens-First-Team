@@ -624,7 +624,8 @@ def Dashboard():
         df_ppda = calculate_ppda(df_possession_data)
         df_ppda = df_ppda[df_ppda['team_name'] == 'Horsens']
         df_ppda_season_average = df_ppda.groupby(['team_name'])['PPDA'].mean().reset_index()
-        st.write(df_ppda_season_average)
+        average_ppda = df_ppda_season_average['PPDA']
+        st.write(average_ppda)
         df_ppda_sorted = df_ppda.sort_values(by=['date', 'label'], ascending=[True, True])
 
         st.header('Whole season')

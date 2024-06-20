@@ -630,13 +630,13 @@ def Dashboard():
         df_ppda_sorted = df_ppda.sort_values(by=['date', 'label'], ascending=[True, True])
 
         st.header('Whole season')
-        st.bar_chart(df_ppda_sorted[['label', 'PPDA']].set_index('label'))
+        st.bar_chart(df_ppda_sorted[['label', 'PPDA']])
         st.dataframe(df_ppda_sorted, hide_index=True)
 
 
         st.header('Chosen matches')
         df_ppda_chosen_period = df_ppda_sorted[df_ppda_sorted['label'].isin(match_choice)]
-        st.bar_chart(df_ppda_chosen_period[['label', 'PPDA']].set_index('label'))
+        st.bar_chart(df_ppda_chosen_period[['label', 'PPDA']])
         st.dataframe(df_ppda_chosen_period, hide_index=True)
         
     Data_types = {

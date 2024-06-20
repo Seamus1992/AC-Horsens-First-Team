@@ -436,6 +436,9 @@ def Dashboard():
         df_packing_period = df_packing_period[['label','bypassed_opponents', 'packing_diff']]
 
         st.dataframe(df_packing_period, hide_index=True)
+        
+        st.dataframe(df_packing, hide_index=True)
+        
     Data_types = {
         'xG': xg,
         'Passing':passes,

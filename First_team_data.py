@@ -397,6 +397,7 @@ def Dashboard():
 
     def packing():
         df_packing = load_packing_data()
+        
         packing_teams = df_packing.groupby('team_name')[['bypassed_opponents','bypassed_defenders']].sum().reset_index()
         packing_teams = packing_teams.sort_values(by='bypassed_opponents', ascending=False)
         st.header('Whole season')
@@ -437,8 +438,16 @@ def Dashboard():
         df_packing_period['packing_diff'] = df_packing_period['bypassed_opponents'] - df_packing_period['packing_match'] + df_packing_period['bypassed_opponents']
         df_packing_period = df_packing_period[df_packing_period['team_name'] == 'Horsens']
         df_packing_period = df_packing_period[['label','bypassed_opponents', 'packing_diff']]
+        
         st.header('Chosen matches')
         st.dataframe(df_packing_period, hide_index=True)
+        
+        df_packing_pass_received_player = df_packing[df_packing['label'].isin(match_choice)]
+        df_packing_pass_received_player = df_packing_pass_received_player[df_packing_pass_received_player['team_name'] == 'Horsens']
+        df_packing_pass_received_player = df_packing_pass_received_player[['pass_receiver', 'bypassed_opponents']]
+        df_packing_pass_received_player = df_packing_pass_received_player.groupby(['pass_receiver'])[['bypassed_opponents','bypassed_defenders']].sum().reset_index()
+        df_packing_pass_received_player = df_packing_pass_received_player.sort_values(by='bypassed_opponents', ascending=False)
+        st.dataframe(df_packing_pass_received_player, hide_index=True)
         
         df_packing_period_player = df_packing[df_packing['label'].isin(match_choice)]
         df_packing_period_player = df_packing_period_player[df_packing_period_player['team_name'] == 'Horsens']

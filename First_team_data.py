@@ -323,6 +323,7 @@ def Dashboard():
             (df_passes_horsens['y'].astype(float) >= 78.9))
         ]
         mid_third_pass_ends = mid_third_pass_ends[['typeId','team_name','playerName','pass_receiver','eventId', '140.0', '141.0','x', 'y','label','date','outcome']]
+        
         # Tæl forekomster af kombinationer af team_name og label
         team_counts = mid_third_pass_ends.groupby(['team_name','label']).size().reset_index(name='count')
         team_counts.columns = ['team_name', 'label', 'count']
@@ -331,8 +332,9 @@ def Dashboard():
         # Tæl forekomster af hver playerName
         player_counts = mid_third_pass_ends['playerName'].value_counts().reset_index(name='Passed')
         player_counts.columns = ['playerName', 'Passed']
-        player_counts_received = mid_third_pass_ends.groupby['pass_receiver'].value_counts().reset_index(name='Received')
-        st.dataframe(player_counts_received, hide_index=True)
+        pass_receiver_counts = mid_third_pass_ends['pass_receiver'].value_counts().reset_index(name='count')
+        pass_receiver_counts.columns = ['pass_receiver', 'count']
+        st.dataframe(pass_receiver_counts, hide_index=True)
         #player_counts_received.rename(columns={'pass_receiver': 'playerName'}, inplace=True)
         #player_counts = player_counts.merge(player_counts_received, on='playerName', how='outer')
         st.write('Passes from side to halfspace/centerspace')

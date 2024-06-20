@@ -151,7 +151,8 @@ def Dashboard():
         df_xg = load_xg()
         xg_all = load_all_xg()
         xg_all = xg_all[~(xg_all[['9','24', '25', '26']] == True).any(axis=1)]
-
+        
+        df_xg = df_xg[['playerName', 'label', 'team_name', 'x', 'y', '321', 'periodId', 'timeMin', 'timeSec', '9', '24', '25', '26']]
         df_xg = df_xg[df_xg['label'].isin(match_choice)]
         df_xg = df_xg[~(df_xg[['9','24', '25', '26']] == True).any(axis=1)]
 
@@ -596,6 +597,7 @@ def Dashboard():
         st.write('Chosen matches')
         st.dataframe(touches_in_box_team_period, hide_index=True)
         st.dataframe(touches_in_box_player, hide_index=True)      
+
     Data_types = {
         'xG': xg,
         'Passing':passes,
@@ -603,22 +605,26 @@ def Dashboard():
         'Chance Creation': chance_creation,
     }
 
+    @st.cache_data
+    def execute_data_type(data_type):
+        Data_types[data_type]()
+
     col1, col2, col3 = st.columns(3)
 
     with col1:
         selected_data1 = st.selectbox('Choose data type 1', [''] + list(Data_types.keys()))
         if selected_data1:
-            Data_types[selected_data1]()
+            execute_data_type(selected_data1)
 
     with col2:
         selected_data2 = st.selectbox('Choose data type 2', [''] + list(Data_types.keys()))
         if selected_data2:
-            Data_types[selected_data2]()
+            execute_data_type(selected_data2)
 
     with col3:
         selected_data3 = st.selectbox('Choose data type 3', [''] + list(Data_types.keys()))
         if selected_data3:
-            Data_types[selected_data3]()
+            execute_data_type(selected_data3)
 
 def League_stats():
     matchstats_df = pd.read_csv(r'DNK_1_Division_2023_2024/matchstats_all DNK_1_Division_2023_2024.csv')

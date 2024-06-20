@@ -313,7 +313,6 @@ def Dashboard():
                     pass_receiver = next_event.iloc[0]['playerName']
                     df_passes_horsens.at[i, 'pass_receiver'] = pass_receiver
         df_passes_horsens = df_passes_horsens[(df_passes_horsens['typeId'] == 1) & (df_passes_horsens['outcome'] == 1)]
-        st.dataframe(df_passes_horsens)
 
         mid_third_pass_ends = df_passes_horsens[
             (df_passes_horsens['140.0'].astype(float) >= 33.3) & 
@@ -329,10 +328,8 @@ def Dashboard():
         team_counts.columns = ['team_name', 'label', 'count']
         team_counts = team_counts.sort_values(by=['count'], ascending=False)
 
-        # Initialize the 'pass_receiver' column
-        st.dataframe(mid_third_pass_ends, hide_index=True)
         # Tæl forekomster af hver playerName
-        player_counts = mid_third_pass_ends['playerName'].value_counts().reset_index(name='count')
+        player_counts = mid_third_pass_ends['playerName','pass_receiver'].value_counts().reset_index(name='count')
         player_counts.columns = ['playerName', 'count']
         st.write('Passes from side to halfspace/centerspace')
         st.dataframe(player_counts,hide_index=True)

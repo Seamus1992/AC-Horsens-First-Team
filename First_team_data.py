@@ -618,7 +618,7 @@ def Dashboard():
         def counterpressing(df_possession_data):
             # Create a copy of the dataframe to work on
             df_counterpressing = df_possession_data.copy()
-            df_counterpressing = df_counterpressing[['gameclock', 'timeMin', 'timeSec', 'typeId', 'outcome', 'label', 'team_name']]
+            df_counterpressing = df_counterpressing[['timeMin', 'timeSec', 'typeId', 'outcome', 'label', 'team_name']]
             # Calculate the gameclock in seconds
             df_counterpressing['gameclock'] = (df_counterpressing['timeMin'] * 60) + df_counterpressing['timeSec']
             

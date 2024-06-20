@@ -530,8 +530,8 @@ def Dashboard():
 
         fig1 = go.Figure()
 
-        for team in df_matchstats['team_name'].unique():
-            team_data = df_matchstats[df_matchstats['team_name'] == team]
+        for team in touches_in_box_team['team_name'].unique():
+            team_data = touches_in_box_team[touches_in_box_team['team_name'] == team]
             line_size = 5 if team == 'Horsens' else 1  # Larger line for Horsens
             fig1.add_trace(go.Scatter(
                 x=team_data['date'],

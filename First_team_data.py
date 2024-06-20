@@ -441,8 +441,9 @@ def Dashboard():
         df_packing_first_third = df_packing_first_third[df_packing_first_third['team_name'] == 'Horsens']   
         df_packing_first_third = df_packing_first_third[df_packing_first_third['bypassed_opponents'] > 0]
         df_packing_first_third = df_packing_first_third[['closest_opponent_distance']]
-        st.dataframe(df_packing_first_third, hide_index=True)
-        
+        fig_histogram = px.histogram(df_packing_first_third, x='closest_opponent_distance', nbins=30, title='Histogram of Closest Opponent Distance')
+        st.plotly_chart(fig_histogram)
+
     Data_types = {
         'xG': xg,
         'Passing':passes,

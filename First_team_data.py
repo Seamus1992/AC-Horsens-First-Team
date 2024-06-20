@@ -300,7 +300,6 @@ def Dashboard():
         
         st.dataframe(df_matchstats, hide_index=True)
         df_possession = df_possession[~(df_possession[['6.0','107.0']] == True).any(axis=1)]
-        df_passes_all = df_possession[df_possession['typeId'] == 1]
         df_possession = df_possession[df_possession['label'].isin(match_choice)]
         df_passes_horsens = df_possession[df_possession['team_name'] == 'Horsens']
         df_passes_horsens = df_passes_horsens[(df_passes_horsens['typeId'] == 1) & (df_passes_horsens['outcome'] == 1)]

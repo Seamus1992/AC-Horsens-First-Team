@@ -644,7 +644,7 @@ def Dashboard():
                 # Count typeId 49 events for 'Horsens' within the 15 seconds window
                 counterpressing_15s = df_counterpressing[(df_counterpressing['label'] == match_label) &
                                                         (df_counterpressing['gameclock'] >= event['gameclock']) &
-                                                        (df_counterpressing['gameclock'] <= gameclock_5) &
+                                                        (df_counterpressing['gameclock'] <= gameclock_15) &
                                                         (df_counterpressing['typeId'] == 49) | (df_counterpressing['typeId'] == 8) | (df_counterpressing['typeId'] == 7 & df_counterpressing['outcome'] == 1) &
                                                         (df_counterpressing['team_name'] == 'Horsens')].shape[0]
                 # Assign the counts to the respective columns
@@ -680,8 +680,8 @@ def Dashboard():
         fig_whole_season = px.bar(df_ppda_sorted, x='label', y='PPDA', title='PPDA for Horsens - Whole Season')
         add_avg_line(fig_whole_season, average_ppda)
         st.plotly_chart(fig_whole_season)
-        df_counterpressing = counterpressing(df_possession_data)
-        st.dataframe(df_counterpressing, hide_index=True)
+        #df_counterpressing = counterpressing(df_possession_data)
+        #st.dataframe(df_counterpressing, hide_index=True)
 
         st.header('Chosen matches')
         df_ppda_chosen_period = df_ppda_sorted[df_ppda_sorted['label'].isin(match_choice)]

@@ -447,9 +447,11 @@ def Dashboard():
 
     def chance_creation():
         df_possession = load_possession_data()
-        df_possession = df_possession.sort_values(by='eventId').reset_index(drop=True)
+        df_possession = df_possession[~(df_possession[['6.0','107.0']] == True).any(axis=1)]
         df_possession = df_possession[df_possession['label'].isin(match_choice)]
-        
+        df_possession = df_possession[df_possession['team_name'] == 'Horsens']
+
+        df_possession = df_possession.sort_values(by='eventId').reset_index(drop=True)        
         df_possession['pass_receiver'] = None
         for i in range(len(df_possession) - 1):
             current_event = df_possession.loc[i]

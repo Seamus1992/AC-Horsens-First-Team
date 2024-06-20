@@ -440,6 +440,11 @@ def Dashboard():
         st.header('Chosen matches')
         st.dataframe(df_packing_period, hide_index=True)
         
+        df_packing_period_player = df_packing[df_packing['label'].isin(match_choice)]
+        df_packing_period_player = df_packing_period_player[['playerName', 'bypassed_opponents', 'bypassed_defenders']]
+        df_packing_period_player = df_packing_period_player.groupby(['playerName'])[['bypassed_opponents','bypassed_defenders']].sum().reset_index()
+        st.dataframe(df_packing_period_player, hide_index=True)
+        
         df_packing_first_third = df_packing[df_packing['label'].isin(match_choice)]
         df_packing_first_third = df_packing_first_third[df_packing_first_third['x'] <= 33.3]
         df_packing_first_third = df_packing_first_third[df_packing_first_third['team_name'] == 'Horsens']   

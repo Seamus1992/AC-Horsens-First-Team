@@ -477,6 +477,24 @@ def Dashboard():
             (df_passes['141.0'].astype(float) >= 63.2) &
             (df_passes['141.0'].astype(float) <= 78.9)
         ]
+
+        team_counts = assistzone_pass_ends.groupby(['team_name','label']).size().reset_index(name='count')
+        team_counts.columns = ['team_name', 'label', 'count']
+        team_counts = team_counts.sort_values(by=['count'], ascending=False)
+
+        # Tæl forekomster af hver playerName
+        player_counts = assistzone_pass_ends['playerName'].value_counts().reset_index(name='Passed')
+        player_counts.columns = ['playerName', 'Passed']
+        pass_receiver_counts = assistzone_pass_ends['pass_receiver'].value_counts().reset_index(name='Received')
+        pass_receiver_counts.columns = ['pass_receiver', 'Received']
+        pass_receiver_counts.rename(columns={'pass_receiver': 'playerName'}, inplace=True)
+        player_counts = player_counts.merge(pass_receiver_counts, on='playerName', how='outer')
+        player_counts['Total'] = player_counts['Passed'] + player_counts['Received']
+        player_counts = player_counts.sort_values(by=['Total'], ascending=False)
+        st.dataframe(player_counts,hide_index=True)
+        st.dataframe(team_counts,hide_index=True)
+
+        
         pitch = Pitch(pitch_type='opta', pitch_color='grass', line_color='white')
         fig, ax = pitch.draw()
 

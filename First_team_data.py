@@ -336,6 +336,7 @@ def Dashboard():
         pass_receiver_counts.columns = ['pass_receiver', 'Received']
         pass_receiver_counts.rename(columns={'pass_receiver': 'playerName'}, inplace=True)
         player_counts = player_counts.merge(pass_receiver_counts, on='playerName', how='outer')
+        player_counts['Total'] = player_counts['Passed'] + player_counts['Received']
         st.write('Passes from side to halfspace/centerspace')
         st.dataframe(player_counts,hide_index=True)
         st.dataframe(team_counts,hide_index=True)

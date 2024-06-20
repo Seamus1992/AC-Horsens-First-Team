@@ -524,7 +524,6 @@ def Dashboard():
         st.header('Touches in box')
         st.write('Whole season')
         touches_in_box_player = df_matchstats[df_matchstats['team_name'] == 'Horsens']
-        st.dataframe(touches_in_box_player, hide_index=True)
         touches_in_box_player = touches_in_box_player[touches_in_box_player['label'].isin(match_choice)]
         touches_in_box_player = touches_in_box_player.groupby(['player_matchName'])['touchesInOppBox'].sum().reset_index()
         touches_in_box_team = df_matchstats.groupby(['team_name','date', 'label'])['touchesInOppBox'].sum().reset_index()

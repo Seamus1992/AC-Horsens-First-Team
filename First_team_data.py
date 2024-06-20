@@ -397,7 +397,9 @@ def Dashboard():
 
     def packing():
         df_packing = load_packing_data()
-        #df_packing = df_packing[df_packing['pass_receiver'] != 'None']
+        df_packing = df_packing[df_packing['pass_receiver'] != 'None']
+        df_packing = df_packing[df_packing['pass_receiver'] != None]
+
         packing_teams = df_packing.groupby('team_name')[['bypassed_opponents','bypassed_defenders']].sum().reset_index()
         packing_teams = packing_teams.sort_values(by='bypassed_opponents', ascending=False)
         st.header('Whole season')

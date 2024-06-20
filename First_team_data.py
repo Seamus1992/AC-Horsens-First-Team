@@ -522,6 +522,9 @@ def Dashboard():
         st.dataframe(df_zone14_player, hide_index=True)
         
         st.header('Touches in box')
+        touches_in_box_player = df_matchstats[df_matchstats['team_name'] == 'Horsens']
+        touches_in_box_player = touches_in_box_player[touches_in_box_player['label'].isin(match_choice)]
+        touches_in_box_player = touches_in_box_player.groupby(['playerName'])['touchesInOppBox'].sum().reset_index()
         touches_in_box_team = df_matchstats.groupby(['team_name','date', 'label'])['touchesInOppBox'].sum().reset_index()
         touches_in_box_team['tib_match'] = touches_in_box_team.groupby('label')['touchesInOppBox'].transform('sum')
         touches_in_box_team['touches_in_box_diff'] = touches_in_box_team['touchesInOppBox'] - touches_in_box_team['tib_match'] + touches_in_box_team['touchesInOppBox']
@@ -552,7 +555,8 @@ def Dashboard():
         )
 
         st.plotly_chart(fig1)
-        st.dataframe(touches_in_box_team_period, hide_index=True)      
+        st.dataframe(touches_in_box_team_period, hide_index=True)
+        st.dataframe(touches_in_box_player, hide_index=True)      
     Data_types = {
         'xG': xg,
         'Passing':passes,

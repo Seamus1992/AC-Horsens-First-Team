@@ -404,10 +404,30 @@ def Dashboard():
         df_packing_time['packing_diff'] = df_packing_time['bypassed_opponents'] - df_packing_time['packing_match'] + df_packing_time['bypassed_opponents']
         st.dataframe(df_packing_time, hide_index=True)
         # Beregn 3-kamps rullende gennemsnit for hver team
-        df_matchstats['rolling_openPlayPass'] = df_matchstats.groupby('team_name')['openPlayPass'].transform(lambda x: x.rolling(3, min_periods=1).mean())
-        df_matchstats['rolling_successfulOpenPlayPass'] = df_matchstats.groupby('team_name')['successfulOpenPlayPass'].transform(lambda x: x.rolling(3, min_periods=1).mean())
+        df_packing_time['rolling_packing'] = df_packing_time.groupby('team_name')['bypassed_opponents'].transform(lambda x: x.rolling(3, min_periods=1).mean())
         
+        fig1 = go.Figure()
+
+        for team in df_matchstats['team_name'].unique():
+            team_data = df_matchstats[df_matchstats['team_name'] == team]
+            line_size = 5 if team == 'Horsens' else 1  # Larger line for Horsens
+            fig1.add_trace(go.Scatter(
+                x=team_data['date'],
+                y=team_data['packing_diff'],
+                mode='lines',
+                name=team,
+                line=dict(width=line_size)
+            ))
+
+        fig1.update_layout(
+            title='3-Game Rolling Average of packing difference',
+            xaxis_title='Date',
+            yaxis_title='3-Game Rolling Average of packing difference',
+            template='plotly_white'
+        )
+        st.pyplot(fig1)
         
+                
     Data_types = {
         'xG': xg,
         'Passing':passes,

@@ -335,8 +335,8 @@ def Dashboard():
         pass_receiver_counts = mid_third_pass_ends['pass_receiver'].value_counts().reset_index(name='count')
         pass_receiver_counts.columns = ['pass_receiver', 'count']
         st.dataframe(pass_receiver_counts, hide_index=True)
-        #player_counts_received.rename(columns={'pass_receiver': 'playerName'}, inplace=True)
-        #player_counts = player_counts.merge(player_counts_received, on='playerName', how='outer')
+        pass_receiver_counts.rename(columns={'pass_receiver': 'playerName'}, inplace=True)
+        player_counts = player_counts.merge(pass_receiver_counts, on='playerName', how='outer')
         st.write('Passes from side to halfspace/centerspace')
         st.dataframe(player_counts,hide_index=True)
         st.dataframe(team_counts,hide_index=True)

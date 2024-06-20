@@ -616,9 +616,7 @@ def Dashboard():
             return df_ppda
         
         def counterpressing(df_possession_data):
-            df_counterpressing = df_possession_data[df_possession_data['typeId'] == 45]
-            df_counterpressing = df_counterpressing.groupby(['label', 'team_name', 'date'])['eventId'].count().reset_index()
-            df_counterpressing = df_counterpressing.rename(columns={'eventId': 'counterpressing'})
+            df_counterpressing = df_possession_data
             return df_counterpressing
         
         df_ppda = calculate_ppda(df_possession_data)
@@ -646,6 +644,8 @@ def Dashboard():
         fig_whole_season = px.bar(df_ppda_sorted, x='label', y='PPDA', title='PPDA for Horsens - Whole Season')
         add_avg_line(fig_whole_season, average_ppda)
         st.plotly_chart(fig_whole_season)
+        df_counterpressing = counterpressing(df_possession_data)
+        st.dataframe(df_counterpressing, hide_index=True)
 
         st.header('Chosen matches')
         df_ppda_chosen_period = df_ppda_sorted[df_ppda_sorted['label'].isin(match_choice)]

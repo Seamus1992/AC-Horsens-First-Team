@@ -437,7 +437,8 @@ def Dashboard():
 
         st.dataframe(df_packing_period, hide_index=True)
         
-        df_packing_first_third = df_packing[df_packing['x'] <= 33.3]
+        df_packing_first_third = df_packing[df_packing['label'].isin(match_choice)]
+        df_packing_first_third = df_packing_first_third[df_packing_first_third['x'] <= 33.3]
         df_packing_first_third = df_packing_first_third[df_packing_first_third['team_name'] == 'Horsens']   
         df_packing_first_third = df_packing_first_third[df_packing_first_third['bypassed_opponents'] > 0]
         df_packing_first_third = df_packing_first_third[['closest_opponent_distance']]

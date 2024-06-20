@@ -448,13 +448,13 @@ def Dashboard():
         df_packing_pass_received_player = df_packing_pass_received_player.groupby(['pass_receiver'])['bypassed_opponents'].sum().reset_index()
         df_packing_pass_received_player = df_packing_pass_received_player.sort_values(by='bypassed_opponents', ascending=False)
         df_packing_pass_received_player.rename(columns={'pass_receiver': 'playerName', 'bypassed_opponents': 'bypassed_opponents_received'}, inplace=True)
-        st.dataframe(df_packing_pass_received_player, hide_index=True)
         
         df_packing_period_player = df_packing[df_packing['label'].isin(match_choice)]
         df_packing_period_player = df_packing_period_player[df_packing_period_player['team_name'] == 'Horsens']
         df_packing_period_player = df_packing_period_player[['playerName', 'bypassed_opponents', 'bypassed_defenders']]
         df_packing_period_player = df_packing_period_player.groupby(['playerName'])[['bypassed_opponents','bypassed_defenders']].sum().reset_index()
         df_packing_period_player = df_packing_period_player.sort_values(by='bypassed_opponents', ascending=False)
+        df_packing_period_player = df_packing_period_player.merge(df_packing_pass_received_player, on='playerName', how='left')
         st.dataframe(df_packing_period_player, hide_index=True)
         
         df_packing_first_third = df_packing[df_packing['label'].isin(match_choice)]

@@ -614,7 +614,17 @@ def Dashboard():
             df_ppda = df_ppdabeyond40[['label', 'team_name','date', 'PPDA']]
             df_ppda = df_ppda.sort_values(by=['date'], ascending=True)
             return df_ppda
+        
+        def counterpressing(df_possession_data):
+            df_counterpressing = df_possession_data[df_possession_data['typeId'] == 45]
+            df_counterpressing = df_counterpressing.groupby(['label', 'team_name', 'date'])['eventId'].count().reset_index()
+            df_counterpressing = df_counterpressing.rename(columns={'eventId': 'counterpressing'})
+            return df_counterpressing
+        
         df_ppda = calculate_ppda(df_possession_data)
+        df_ppda = df_ppda[df_ppda['team_name'] == 'Horsens']
+
+        st.header('Whole season')
         st.dataframe(df_ppda, hide_index=True)
     Data_types = {
         'xG': xg,

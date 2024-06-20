@@ -176,6 +176,7 @@ def Dashboard():
         xg_all_table = xg_all_table.sort_values(by=['xG difference'], ascending=False)
         xg_all_table['xG difference'] = xg_all_table['xG difference'].round(2)
         xg_all_table['xG difference rank'] = xg_all_table['xG difference'].rank(ascending=False)
+        st.header('Whole season')
         st.dataframe(xg_all_table,hide_index=True)
 
         xg_all['xG rolling average'] = xg_all.groupby('team_name')['xG difference'].transform(lambda x: x.rolling(window=3, min_periods=1).mean())
@@ -223,6 +224,7 @@ def Dashboard():
             yaxis_title='Average Cumulative xG',
             template='plotly_white'
         )
+        st.header('Chosen matches')
         st.dataframe(xg_period, hide_index=True)        
         st.plotly_chart(fig)
     

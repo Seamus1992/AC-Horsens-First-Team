@@ -508,7 +508,7 @@ def Dashboard():
         st.header('Touches in zone 14')
         df_zone14 = df_possession[(df_possession['x'].astype(float) >= 66) & ((df_possession['y'].astype(float) >= 21.1) & (df_possession['y'].astype(float) <= 78.9))]
 
-        pitch = Pitch(pitch_type='statsbomb', pitch_color='grass', line_color='white')
+        pitch = Pitch(pitch_type='opta', pitch_color='grass', line_color='white')
         fig, ax = pitch.draw(figsize=(10, 7))
 
         # Plot data

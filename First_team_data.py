@@ -625,7 +625,7 @@ def Dashboard():
         df_ppda = df_ppda[df_ppda['team_name'] == 'Horsens']
 
         st.header('Whole season')
-        st.bar_chart(df_ppda[['date', 'PPDA']].set_index('date'))
+        st.bar_chart(df_ppda[['label', 'PPDA']].set_index('label'))
         st.dataframe(df_ppda, hide_index=True)
     Data_types = {
         'xG': xg,

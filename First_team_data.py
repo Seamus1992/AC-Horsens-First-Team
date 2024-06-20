@@ -491,6 +491,8 @@ def Dashboard():
         player_counts = player_counts.merge(pass_receiver_counts, on='playerName', how='outer')
         player_counts['Total'] = player_counts['Passed'] + player_counts['Received']
         player_counts = player_counts.sort_values(by=['Total'], ascending=False)
+        
+        st.header('Passes into halfspace in the box')
         st.dataframe(player_counts,hide_index=True)
         st.dataframe(team_counts,hide_index=True)
 

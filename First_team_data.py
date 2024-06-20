@@ -477,8 +477,14 @@ def Dashboard():
             (df_passes['141.0'].astype(float) >= 63.2) &
             (df_passes['141.0'].astype(float) <= 78.9)
         ]
-        st.dataframe(df_passes, hide_index=True)
-        
+        pitch = Pitch(pitch_type='opta', pitch_color='grass', line_color='white')
+        fig, ax = pitch.draw()
+
+        # Plotting the arrows
+        for index, row in assistzone_pass_ends.iterrows():
+            pitch.arrows(row['x'], row['y'], row['140.0'], row['141.0'], ax=ax, width=2, headwidth=3, color='black')
+
+        st.pyplot(fig)        
     Data_types = {
         'xG': xg,
         'Passing':passes,

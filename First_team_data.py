@@ -548,7 +548,7 @@ def Dashboard():
             template='plotly_white'
         )
 
-        st.pyplot(fig)
+        st.plotly_chart(fig1)
                
     Data_types = {
         'xG': xg,

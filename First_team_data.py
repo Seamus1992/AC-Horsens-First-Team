@@ -616,9 +616,44 @@ def Dashboard():
             return df_ppda
         
         def counterpressing(df_possession_data):
-            df_counterpressing = df_possession_data
+            # Create a copy of the dataframe to work on
+            df_counterpressing = df_possession_data.copy()
+            
+            # Calculate the gameclock in seconds
             df_counterpressing['gameclock'] = (df_counterpressing['timeMin'] * 60) + df_counterpressing['timeSec']
+            
+            # Filter for unsuccessful typeId 1 or 3 events
+            unsuccessful_events = df_counterpressing[(df_counterpressing['typeId'].isin([1, 3])) & (df_counterpressing['outcome'] == 0)]
+            
+            # Initialize columns for counterpressing counts
+            df_counterpressing['counterpressing_5s'] = 0
+            df_counterpressing['counterpressing_15s'] = 0
+            
+            for idx, event in unsuccessful_events.iterrows():
+                match_label = event['label']
+                gameclock_5 = event['gameclock'] + 5
+                gameclock_15 = event['gameclock'] + 15
+                
+                # Count typeId 49 events for 'Horsens' within the 5 seconds window
+                counterpressing_5s = df_counterpressing[(df_counterpressing['label'] == match_label) &
+                                                        (df_counterpressing['gameclock'] >= event['gameclock']) &
+                                                        (df_counterpressing['gameclock'] <= gameclock_5) &
+                                                        (df_counterpressing['typeId'] == 49) &
+                                                        (df_counterpressing['team'] == 'Horsens')].shape[0]
+                
+                # Count typeId 49 events for 'Horsens' within the 15 seconds window
+                counterpressing_15s = df_counterpressing[(df_counterpressing['label'] == match_label) &
+                                                        (df_counterpressing['gameclock'] > gameclock_5) &
+                                                        (df_counterpressing['gameclock'] <= gameclock_15) &
+                                                        (df_counterpressing['typeId'] == 49) &
+                                                        (df_counterpressing['team'] == 'Horsens')].shape[0]
+                
+                # Assign the counts to the respective columns
+                df_counterpressing.at[idx, 'counterpressing_5s'] = counterpressing_5s
+                df_counterpressing.at[idx, 'counterpressing_15s'] = counterpressing_15s
+            
             return df_counterpressing
+
         
         df_ppda = calculate_ppda(df_possession_data)
         df_ppda = df_ppda[df_ppda['team_name'] == 'Horsens']

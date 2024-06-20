@@ -308,8 +308,8 @@ def Dashboard():
             (df_passes_horsens['140.0'].astype(float) <= 66.3) & 
             (df_passes_horsens['141.0'].astype(float) >= 21.1) & 
             (df_passes_horsens['141.0'].astype(float) <= 78.9) & 
-            (df_passes_horsens['y'].astype(float) <= 21.1) | 
-            (df_passes_horsens['y'].astype(float) >= 78.9)
+            ((df_passes_horsens['y'].astype(float) <= 21.1) | 
+            (df_passes_horsens['y'].astype(float) >= 78.9))
         ]
         mid_third_pass_ends = mid_third_pass_ends[['team_name','playerName','eventId', '140.0', '141.0','x', 'y','label','date']]
         # Tæl forekomster af kombinationer af team_name og label

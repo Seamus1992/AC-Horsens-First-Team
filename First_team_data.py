@@ -623,7 +623,15 @@ def Dashboard():
         
         df_ppda = calculate_ppda(df_possession_data)
         df_ppda = df_ppda[df_ppda['team_name'] == 'Horsens']
+        plt.figure(figsize=(10, 6))
+        plt.bar(df_ppda['date'], df_ppda['PPDA'], color='blue')
+        plt.xlabel('Date')
+        plt.ylabel('PPDA')
+        plt.title('PPDA for Horsens')
+        plt.xticks(rotation=45)
+        plt.tight_layout()
 
+        st.pyplot(plt)
         st.header('Whole season')
         st.dataframe(df_ppda, hide_index=True)
     Data_types = {

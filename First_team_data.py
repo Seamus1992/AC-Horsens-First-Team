@@ -504,7 +504,10 @@ def Dashboard():
         for index, row in assistzone_pass_ends.iterrows():
             pitch.arrows(row['x'], row['y'], row['140.0'], row['141.0'], ax=ax, width=2, headwidth=3, color='black')
 
-        st.pyplot(fig)        
+        st.pyplot(fig)
+        st.header('Touches in zone 14')
+        df_zone14 = df_possession[(df_possession['x'].astype(float) >= 66) & (df_possession['y'].astype(float) >= 21.1) & (df_possession['y'].astype(float) <= 78.9)]
+        st.dataframe(df_zone14,hide_index=True)       
     Data_types = {
         'xG': xg,
         'Passing':passes,

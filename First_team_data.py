@@ -13,6 +13,11 @@ def load_packing_data():
     df_packing = pd.read_csv(r'DNK_1_Division_2023_2024/packing_all DNK_1_Division_2023_2024.csv')
     df_packing['label'] = (df_packing['label'] + ' ' + df_packing['date']).astype(str)
     df_packing = df_packing.rename(columns={'teamName': 'team_name'})
+    df_packing['pass_receiver'] = df_packing['pass_receiver'].astype(str)
+    df_packing = df_packing[df_packing['pass_receiver'] != '']
+    df_packing = df_packing[df_packing['pass_receiver'] != None]
+    df_packing = df_packing[df_packing['bypassed_opponents'] < 11]
+
     return df_packing    
 @st.cache_data
 def load_spacecontrol_data():

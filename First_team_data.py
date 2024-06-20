@@ -699,7 +699,6 @@ def Dashboard():
             Data_types[st.session_state['selected_data3']]()
 
 
-
 def League_stats():
     matchstats_df = pd.read_csv(r'DNK_1_Division_2023_2024/matchstats_all DNK_1_Division_2023_2024.csv')
     matchstats_df = matchstats_df.rename(columns={'player_matchName': 'playerName'})

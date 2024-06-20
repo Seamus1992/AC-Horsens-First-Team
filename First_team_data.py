@@ -607,22 +607,45 @@ def Dashboard():
         'Chance Creation': chance_creation,
     }
 
+    if 'selected_data1' not in st.session_state:
+        st.session_state['selected_data1'] = ''
+    if 'selected_data2' not in st.session_state:
+        st.session_state['selected_data2'] = ''
+    if 'selected_data3' not in st.session_state:
+        st.session_state['selected_data3'] = ''
+
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        selected_data1 = st.selectbox('Choose data type 1', [''] + list(Data_types.keys()))
-        if selected_data1:
-            Data_types[selected_data1]()
+        selected_data1 = st.selectbox('Choose data type 1', [''] + list(Data_types.keys()), key='selected_data1_selectbox')
+        if selected_data1 and selected_data1 != st.session_state['selected_data1']:
+            st.session_state['selected_data1'] = selected_data1
 
     with col2:
-        selected_data2 = st.selectbox('Choose data type 2', [''] + list(Data_types.keys()))
-        if selected_data2:
-            Data_types[selected_data2]()
+        selected_data2 = st.selectbox('Choose data type 2', [''] + list(Data_types.keys()), key='selected_data2_selectbox')
+        if selected_data2 and selected_data2 != st.session_state['selected_data2']:
+            st.session_state['selected_data2'] = selected_data2
 
     with col3:
-        selected_data3 = st.selectbox('Choose data type 3', [''] + list(Data_types.keys()))
-        if selected_data3:
-            Data_types[selected_data3]()
+        selected_data3 = st.selectbox('Choose data type 3', [''] + list(Data_types.keys()), key='selected_data3_selectbox')
+        if selected_data3 and selected_data3 != st.session_state['selected_data3']:
+            st.session_state['selected_data3'] = selected_data3
+
+    # Display the current selection results in columns
+    with col1:
+        if st.session_state['selected_data1']:
+            Data_types[st.session_state['selected_data1']]()
+
+    with col2:
+        if st.session_state['selected_data2']:
+            Data_types[st.session_state['selected_data2']]()
+
+    with col3:
+        if st.session_state['selected_data3']:
+            Data_types[st.session_state['selected_data3']]()
+
+    # Execute the main data type function from the sidebar
+    Data_types[selected_data]()
 
 def League_stats():
     matchstats_df = pd.read_csv(r'DNK_1_Division_2023_2024/matchstats_all DNK_1_Division_2023_2024.csv')

@@ -349,6 +349,49 @@ def Dashboard():
             pitch.arrows(row['x'], row['y'], row['140.0'], row['141.0'], ax=ax, width=2, headwidth=3, color='black')
 
         st.pyplot(fig)
+        
+        st.write('Passes from center to side/halfspace on last third')
+        final_third_pass_ends = df_passes_horsens[
+            (
+                (df_passes_horsens['140.0'].astype(float) >= 66.3) & 
+                (
+                    (df_passes_horsens['141.0'].astype(float) <= 21.1) | 
+                    (df_passes_horsens['141.0'].astype(float) >= 78.9)
+                )
+            ) | 
+            (
+                ((df_passes_horsens['140.0'].astype(float) >= 66.3) & 
+                (df_passes_horsens['y'].astype(float) >= 36.8) & 
+                (df_passes_horsens['y'].astype(float) <= 63.2))
+            )
+        ]
+        final_third_pass_ends = final_third_pass_ends[['typeId','team_name','playerName','pass_receiver','eventId', '140.0', '141.0','x', 'y','label','date','outcome']]
+        
+        # Tæl forekomster af kombinationer af team_name og label
+        team_counts = final_third_pass_ends.groupby(['team_name','label']).size().reset_index(name='count')
+        team_counts.columns = ['team_name', 'label', 'count']
+        team_counts = team_counts.sort_values(by=['count'], ascending=False)
+
+        # Tæl forekomster af hver playerName
+        player_counts = final_third_pass_ends['playerName'].value_counts().reset_index(name='Passed')
+        player_counts.columns = ['playerName', 'Passed']
+        pass_receiver_counts = final_third_pass_ends['pass_receiver'].value_counts().reset_index(name='Received')
+        pass_receiver_counts.columns = ['pass_receiver', 'Received']
+        pass_receiver_counts.rename(columns={'pass_receiver': 'playerName'}, inplace=True)
+        player_counts = player_counts.merge(pass_receiver_counts, on='playerName', how='outer')
+        player_counts['Total'] = player_counts['Passed'] + player_counts['Received']
+        player_counts = player_counts.sort_values(by=['Total'], ascending=False)
+        st.write('Passes from side to halfspace/centerspace')
+        st.dataframe(player_counts,hide_index=True)
+        st.dataframe(team_counts,hide_index=True)
+        pitch = Pitch(pitch_type='opta', pitch_color='grass', line_color='white')
+        fig, ax = pitch.draw()
+
+        # Plotting the arrows
+        for index, row in final_third_pass_ends.iterrows():
+            pitch.arrows(row['x'], row['y'], row['140.0'], row['141.0'], ax=ax, width=2, headwidth=3, color='black')
+
+        st.pyplot(fig)
 
     Data_types = {
         'xG': xg,

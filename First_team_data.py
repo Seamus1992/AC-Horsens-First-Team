@@ -358,16 +358,19 @@ def Dashboard():
     col1, col2, col3 = st.columns(3)
 
     with col1:
-        selected_data1 = st.selectbox('Choose data type 1', list(Data_types.keys()))
-        Data_types[selected_data1]()
+        selected_data1 = st.selectbox('Choose data type 1', [''] + list(Data_types.keys()))
+        if selected_data1:
+            Data_types[selected_data1]()
 
     with col2:
-        selected_data2 = st.selectbox('Choose data type 2', list(Data_types.keys()))
-        Data_types[selected_data2]()
+        selected_data2 = st.selectbox('Choose data type 2', [''] + list(Data_types.keys()))
+        if selected_data2:
+            Data_types[selected_data2]()
 
     with col3:
-        selected_data3 = st.selectbox('Choose data type 3', list(Data_types.keys()))
-        Data_types[selected_data3]()
+        selected_data3 = st.selectbox('Choose data type 3', [''] + list(Data_types.keys()))
+        if selected_data3:
+            Data_types[selected_data3]()
 
 def League_stats():
     matchstats_df = pd.read_csv(r'DNK_1_Division_2023_2024/matchstats_all DNK_1_Division_2023_2024.csv')
@@ -467,5 +470,5 @@ Data_types = {
     'League stats': League_stats
 }
 
-selected_data = st.sidebar.radio('Choose data type',list(Data_types.keys()), index=0)
+selected_data = st.sidebar.radio('Choose data type',list(Data_types.keys()))
 Data_types[selected_data]()

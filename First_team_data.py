@@ -445,7 +445,7 @@ def Dashboard():
         df_packing_pass_received_player = df_packing[df_packing['label'].isin(match_choice)]
         df_packing_pass_received_player = df_packing_pass_received_player[df_packing_pass_received_player['team_name'] == 'Horsens']
         df_packing_pass_received_player = df_packing_pass_received_player[['pass_receiver', 'bypassed_opponents']]
-        df_packing_pass_received_player = df_packing_pass_received_player.groupby(['pass_receiver'])[['bypassed_opponents','bypassed_defenders']].sum().reset_index()
+        df_packing_pass_received_player = df_packing_pass_received_player.groupby(['pass_receiver'])['bypassed_opponents'].sum().reset_index()
         df_packing_pass_received_player = df_packing_pass_received_player.sort_values(by='bypassed_opponents', ascending=False)
         st.dataframe(df_packing_pass_received_player, hide_index=True)
         

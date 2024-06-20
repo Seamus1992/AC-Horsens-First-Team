@@ -524,6 +524,9 @@ def Dashboard():
         st.header('Touches in box')
         touches_in_box_team = df_matchstats.groupby(['team_name', 'label'])['touchesInOppBox'].sum().reset_index()
         touches_in_box_team = touches_in_box_team.sort_values(by=['touchesInOppBox'], ascending=False)
+        touches_in_box_team['tib_match'] = touches_in_box_team.groupby('label')['touchesInOppBox'].transform('sum')
+        touches_in_box_team['touches_in_box_diff'] = touches_in_box_team['touchesInOppBox'] - touches_in_box_team['tib_match'] + touches_in_box_team['touchesInOppBox']
+
         st.dataframe(touches_in_box_team, hide_index=True)
                
     Data_types = {

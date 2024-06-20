@@ -398,6 +398,14 @@ def Dashboard():
         packing_teams = df_packing.groupby('team_name')[['bypassed_opponents','bypassed_defenders']].sum().reset_index()
         packing_teams = packing_teams.sort_values(by='bypassed_opponents', ascending=False)
         st.dataframe(packing_teams, hide_index=True)
+        df_packing_time = df_packing.groupby(['label','date', 'team_name'])['bypassed_opponents', 'bypassed_defenders'].sum().reset_index()
+        df_packing_time = df_packing_time.sort_values(by='date')
+        st.dataframe(df_packing_time, hide_index=True)
+        # Beregn 3-kamps rullende gennemsnit for hver team
+        df_matchstats['rolling_openPlayPass'] = df_matchstats.groupby('team_name')['openPlayPass'].transform(lambda x: x.rolling(3, min_periods=1).mean())
+        df_matchstats['rolling_successfulOpenPlayPass'] = df_matchstats.groupby('team_name')['successfulOpenPlayPass'].transform(lambda x: x.rolling(3, min_periods=1).mean())
+        
+        
     Data_types = {
         'xG': xg,
         'Passing':passes,

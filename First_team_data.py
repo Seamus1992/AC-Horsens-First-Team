@@ -624,12 +624,20 @@ def Dashboard():
         df_ppda = calculate_ppda(df_possession_data)
         df_ppda = df_ppda[df_ppda['team_name'] == 'Horsens']
         df_ppda_season_average = df_ppda.groupby(['label'])['PPDA'].mean().reset_index()
+        df_ppda_season_average = df_ppda_season_average.sort_values(by=['label'], ascending=True)
+
+        # Ensure sorting by date for display
+        df_ppda_sorted = df_ppda.sort_values(by=['date', 'label'], ascending=[True, True])
+
         st.header('Whole season')
-        st.bar_chart(df_ppda[['label', 'PPDA']].set_index('label'))
-        st.dataframe(df_ppda, hide_index=True)
-        
+        st.bar_chart(df_ppda_sorted[['label', 'PPDA']].set_index('label'))
+        st.dataframe(df_ppda_sorted, hide_index=True)
+
+
         st.header('Chosen matches')
-        df_ppda_chosen_period = df_ppda[df_ppda['label'].isin(match_choice)]
+        df_ppda_chosen_period = df_ppda_sorted[df_ppda_sorted['label'].isin(match_choice)]
+        st.bar_chart(df_ppda_chosen_period[['label', 'PPDA']].set_index('label'))
+        st.dataframe(df_ppda_chosen_period, hide_index=True)
         
     Data_types = {
         'xG': xg,

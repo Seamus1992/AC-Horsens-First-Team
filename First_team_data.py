@@ -590,11 +590,37 @@ def Dashboard():
         st.dataframe(touches_in_box_team_period, hide_index=True)
         st.dataframe(touches_in_box_player, hide_index=True)      
 
+    def pressing():
+        df_possession_data = load_possession_data()
+        def calculate_ppda(df_possession_data):
+            df_ppda = df_possession_data[df_possession_data['typeId'].isin([1, 4, 7,8, 45])]
+            df_ppdabeyond40 = df_ppda[df_ppda['x'].astype(float) > 40]
+            df_ppdabeyond40_passes = df_ppdabeyond40[df_ppdabeyond40['typeId'] == 1]
+            df_ppdabeyond40_passestotal = df_ppdabeyond40_passes.groupby('label')['eventId'].count().reset_index()
+            df_ppdabeyond40_passestotal = df_ppdabeyond40_passestotal.rename(columns={'eventId': 'passes in game'})
+            df_ppdabeyond40_passesteams = df_ppdabeyond40_passes.groupby(['label','team_name'])['eventId'].count().reset_index()
+            df_ppdabeyond40_passesteams = df_ppdabeyond40_passesteams.rename(columns={'eventId': 'passes'})
+
+            df_ppdabeyond40_defactions = df_ppdabeyond40[df_ppdabeyond40['typeId'].isin([4, 7, 8, 45])]
+            df_ppdabeyond40_defactionstotal = df_ppdabeyond40_defactions.groupby('label')['eventId'].count().reset_index()
+            df_ppdabeyond40_defactionstotal = df_ppdabeyond40_defactionstotal.rename(columns={'eventId': 'defensive actions in game'})
+            df_ppdabeyond40_defactionsteams = df_ppdabeyond40_defactions.groupby(['label', 'team_name'])['eventId'].count().reset_index()
+            df_ppdabeyond40_defactionsteams = df_ppdabeyond40_defactionsteams.rename(columns={'eventId': 'defensive actions'})
+            df_ppdabeyond40total = df_ppdabeyond40_defactionstotal.merge(df_ppdabeyond40_passestotal)
+            df_ppdabeyond40 = df_ppdabeyond40_defactionsteams.merge(df_ppdabeyond40total)
+            df_ppdabeyond40 = df_ppdabeyond40.merge(df_ppdabeyond40_passesteams)
+            df_ppdabeyond40['opponents passes'] = df_ppdabeyond40['passes in game'] - df_ppdabeyond40['passes']
+            df_ppdabeyond40['PPDA'] = df_ppdabeyond40['opponents passes'] / df_ppdabeyond40['defensive actions']
+            df_ppda = df_ppdabeyond40[['label', 'team_name', 'PPDA']]
+            return df_ppda
+        df_ppda = calculate_ppda(df_possession_data)
+
     Data_types = {
         'xG': xg,
         'Passing':passes,
         'Packing': packing,
         'Chance Creation': chance_creation,
+        'Pressing': pressing,
     }
 
     if 'selected_data1' not in st.session_state:

@@ -329,8 +329,11 @@ def Dashboard():
         team_counts = team_counts.sort_values(by=['count'], ascending=False)
 
         # Tæl forekomster af hver playerName
-        player_counts = mid_third_pass_ends[['playerName', 'pass_receiver']].value_counts().reset_index(name='count')
-        player_counts.columns = ['playerName','pass_receiver', 'count']
+        player_counts = mid_third_pass_ends['playerName'].value_counts().reset_index(name='Passed')
+        player_counts.columns = ['playerName', 'Passed']
+        player_counts_received = mid_third_pass_ends.groupby('pass_receiver')['playerName'].count().reset_index(name='Received')
+        player_counts_received.columns = ['pass_receiver', 'Received']
+        player_counts = player_counts.merge(player_counts_received, on='playerName', how='outer')
         st.write('Passes from side to halfspace/centerspace')
         st.dataframe(player_counts,hide_index=True)
         st.dataframe(team_counts,hide_index=True)

@@ -526,7 +526,7 @@ def Dashboard():
         touches_in_box_team['tib_match'] = touches_in_box_team.groupby('label')['touchesInOppBox'].transform('sum')
         touches_in_box_team['touches_in_box_diff'] = touches_in_box_team['touchesInOppBox'] - touches_in_box_team['tib_match'] + touches_in_box_team['touchesInOppBox']
         touches_in_box_team = touches_in_box_team.sort_values(by=['date'], ascending=True)
-        touches_in_box_team['rolling_touches_in_box'] = df_matchstats.groupby('team_name')['touches_in_box_diff'].transform(lambda x: x.rolling(3, min_periods=1).mean())
+        touches_in_box_team['rolling_touches_in_box'] = touches_in_box_team.groupby('team_name')['touches_in_box_diff'].transform(lambda x: x.rolling(3, min_periods=1).mean())
 
         fig1 = go.Figure()
 
@@ -547,7 +547,8 @@ def Dashboard():
             yaxis_title='3-Game Rolling Average of touches in box difference',
             template='plotly_white'
         )
-        st.dataframe(touches_in_box_team, hide_index=True)
+
+        st.pyplot(fig)
                
     Data_types = {
         'xG': xg,

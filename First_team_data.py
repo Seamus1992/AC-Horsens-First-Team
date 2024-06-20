@@ -399,7 +399,8 @@ def Dashboard():
 
         st.pyplot(fig)
 
-
+    st.cache_data(experimental_allow_widgets=True)
+    st.cache_resource(experimental_allow_widgets=True)
     def packing():
         df_packing = load_packing_data()
         df_packing['pass_receiver'] = df_packing['pass_receiver'].astype(str)
@@ -476,6 +477,8 @@ def Dashboard():
         fig_histogram = px.histogram(df_packing_first_third, x='closest_opponent_distance', nbins=30, title='Histogram of Closest Opponent Distance')
         st.plotly_chart(fig_histogram)
 
+    st.cache_data(experimental_allow_widgets=True)
+    st.cache_resource(experimental_allow_widgets=True)
     def chance_creation():
         df_matchstats = load_match_stats(columns=['contestantId','date', 'label', 'touchesInOppBox'])
         df_matchstats['date'] = pd.to_datetime(df_matchstats['date'])
@@ -712,6 +715,7 @@ Data_types = {
     'Dashboard': Dashboard,
     'League stats': League_stats
 }
-
+st.cache_data(experimental_allow_widgets=True)
+st.cache_resource(experimental_allow_widgets=True)
 selected_data = st.sidebar.radio('Choose data type',list(Data_types.keys()))
 Data_types[selected_data]()

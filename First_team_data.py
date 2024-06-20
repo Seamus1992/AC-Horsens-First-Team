@@ -298,7 +298,6 @@ def Dashboard():
 
         
         
-        st.dataframe(df_matchstats, hide_index=True)
         df_possession = df_possession[~(df_possession[['6.0','107.0']] == True).any(axis=1)]
         df_possession = df_possession[df_possession['label'].isin(match_choice)]
         df_passes_horsens = df_possession[df_possession['team_name'] == 'Horsens']
@@ -324,7 +323,16 @@ def Dashboard():
         st.write('Passes from side to halfspace/centerspace')
         st.dataframe(player_counts,hide_index=True)
         st.dataframe(team_counts,hide_index=True)
-        
+        pitch = Pitch(pitch_type='statsbomb', pitch_color='grass', line_color='white')
+        fig, ax = pitch.draw()
+
+        # Plotting the arrows
+        for index, row in mid_third_pass_ends.iterrows():
+            pitch.arrows(row['x'], row['y'], row['140.0'], row['141.0'], ax=ax, width=2, headwidth=3, color='green')
+
+# Display plot in Streamlit
+        st.pyplot(fig)
+
     Data_types = {
         'xG': xg,
         'Passing':passes,

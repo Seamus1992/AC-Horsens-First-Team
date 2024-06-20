@@ -246,6 +246,7 @@ def Dashboard():
         df_matchstats_tabel = df_matchstats_tabel.sort_values(by='openPlayPass', ascending=False)
         df_matchstats = df_matchstats.groupby(['label','date', 'team_name']).sum().reset_index()
         df_matchstats = df_matchstats.sort_values(by='date')
+        st.header('Whole season')
         st.dataframe(df_matchstats_tabel, hide_index=True)
         # Beregn 3-kamps rullende gennemsnit for hver team
         df_matchstats['rolling_openPlayPass'] = df_matchstats.groupby('team_name')['openPlayPass'].transform(lambda x: x.rolling(3, min_periods=1).mean())
@@ -338,6 +339,7 @@ def Dashboard():
         player_counts = player_counts.merge(pass_receiver_counts, on='playerName', how='outer')
         player_counts['Total'] = player_counts['Passed'] + player_counts['Received']
         player_counts = player_counts.sort_values(by=['Total'], ascending=False)
+        st.header('Chosen matches')
         st.write('Passes from side to halfspace/centerspace')
         st.dataframe(player_counts,hide_index=True)
         st.dataframe(team_counts,hide_index=True)
@@ -397,6 +399,7 @@ def Dashboard():
         df_packing = load_packing_data()
         packing_teams = df_packing.groupby('team_name')[['bypassed_opponents','bypassed_defenders']].sum().reset_index()
         packing_teams = packing_teams.sort_values(by='bypassed_opponents', ascending=False)
+        st.header('Whole season')
         st.dataframe(packing_teams, hide_index=True)
         df_packing_time = df_packing.groupby(['label','date', 'team_name'])['bypassed_opponents'].sum().reset_index()
         df_packing_time = df_packing_time.sort_values(by='date')
@@ -434,7 +437,7 @@ def Dashboard():
         df_packing_period['packing_diff'] = df_packing_period['bypassed_opponents'] - df_packing_period['packing_match'] + df_packing_period['bypassed_opponents']
         df_packing_period = df_packing_period[df_packing_period['team_name'] == 'Horsens']
         df_packing_period = df_packing_period[['label','bypassed_opponents', 'packing_diff']]
-
+        st.header('Chosen matches')
         st.dataframe(df_packing_period, hide_index=True)
         
         df_packing_first_third = df_packing[df_packing['label'].isin(match_choice)]

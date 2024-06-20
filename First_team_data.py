@@ -392,9 +392,14 @@ def Dashboard():
 
         st.pyplot(fig)
 
+
+    def packing():
+        df_packing = load_packing_data()
+        st.dataframe(df_packing)
     Data_types = {
         'xG': xg,
         'Passing':passes,
+        'Packing': packing,
     }
 
     col1, col2, col3 = st.columns(3)

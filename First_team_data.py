@@ -612,7 +612,7 @@ def Dashboard():
             df_ppdabeyond40['opponents passes'] = df_ppdabeyond40['passes in game'] - df_ppdabeyond40['passes']
             df_ppdabeyond40['PPDA'] = df_ppdabeyond40['opponents passes'] / df_ppdabeyond40['defensive actions']
             df_ppda = df_ppdabeyond40[['label', 'team_name','date', 'PPDA']]
-            df_ppda = df_ppda.sort_values(by=['date'], ascending=False)
+            df_ppda = df_ppda.sort_values(by=['date'], ascending=True)
             return df_ppda
         df_ppda = calculate_ppda(df_possession_data)
         st.dataframe(df_ppda, hide_index=True)

@@ -530,6 +530,7 @@ def Dashboard():
         touches_in_box_team_period = touches_in_box_team[touches_in_box_team['label'].isin(match_choice)]
         touches_in_box_team_period = touches_in_box_team_period[touches_in_box_team_period['team_name'] == 'Horsens']
         touches_in_box_team_period = touches_in_box_team_period[['team_name','label', 'touches_in_box_diff']]
+        touches_in_box_team_period = touches_in_box_team_period.sort_values(by=['touches_in_box_diff'], ascending=False)
         fig1 = go.Figure()
 
         for team in touches_in_box_team['team_name'].unique():

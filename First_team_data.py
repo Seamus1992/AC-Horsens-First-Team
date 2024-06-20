@@ -450,7 +450,7 @@ def Dashboard():
         df_passes = df_possession[df_possession['team_name'] == 'Horsens']
         df_passes = df_passes[df_passes['label'].isin(match_choice)]
         df_forward_passes = df_passes[df_passes['typeId'] == 1]
-        df_passes = df_passes[df_passes['typeId'] == 1] & df_passes[df_passes['outcome'] == 1]
+        df_passes = df_passes[(df_passes['typeId'] == 1) & (df_passes['outcome'] == 1)]
         assistzone_pass_ends = df_passes[
             (df_passes['140.0'].astype(float) >= 83) &
             (df_passes['141.0'].astype(float) >= 21.1) & 

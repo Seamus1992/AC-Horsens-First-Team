@@ -426,7 +426,8 @@ def Dashboard():
         )
         st.plotly_chart(fig1)
         
-                
+        packing_teams = packing_teams[packing_teams['label'].isin(match_choice)]
+        st.dataframe(packing_teams, hide_index=True)
     Data_types = {
         'xG': xg,
         'Passing':passes,

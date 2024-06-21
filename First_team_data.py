@@ -635,7 +635,7 @@ def Dashboard():
             
             for idx, event in unsuccessful_events.iterrows():
                 match_label = event['label']
-                gameclock = event['gameclock']
+                gameclock = event['gameclock'].astype(int)
                 gameclock_5 = gameclock + 5
                 gameclock_15 = gameclock + 15
                 
@@ -652,8 +652,6 @@ def Dashboard():
                 # Assign the counts to the respective columns
                 df_counterpressing.at[idx, 'counterpressing_5s'] = counterpressing_5s
                 df_counterpressing.at[idx, 'counterpressing_15s'] = counterpressing_15s
-                df_counterpressing['counterpressing_5s'] = df_counterpressing['counterpressing_5s'].astype(int)
-                df_counterpressing['counterpressing_15s'] = df_counterpressing['counterpressing_15s'].astype(int)
             
             return df_counterpressing
 

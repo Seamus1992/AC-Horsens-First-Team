@@ -75,7 +75,7 @@ def load_xA():
 
 @st.cache_data
 def counterpressing():
-    df_counterpressing = pd.read_csv(r'DNK_1_Division_2023_2024\Horsens\Horsens_counterpressing.csv')
+    df_counterpressing = pd.read_csv(r'DNK_1_Division_2023_2024/Horsens/Horsens_counterpressing.csv')
     df_counterpressing['label'] = (df_counterpressing['label'] + ' ' + df_counterpressing['date']).astype(str)
     return df_counterpressing
 

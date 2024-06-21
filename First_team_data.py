@@ -652,7 +652,7 @@ def Dashboard():
                 
                 # Assign the counts to the respective columns in the new DataFrame
                 counterpressing_counts.at[idx, 'counterpressing_5s'] = counterpressing_5s
-                counterpressing_counts.at[idx, 'counterpressing_15s'] = counterpressing_10s
+                counterpressing_counts.at[idx, 'counterpressing_10s'] = counterpressing_10s
             
             # Merge the counts back to the original DataFrame
             df_counterpressing = df_counterpressing.join(counterpressing_counts)

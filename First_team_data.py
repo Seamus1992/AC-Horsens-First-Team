@@ -632,13 +632,13 @@ def Dashboard():
             # Initialize a DataFrame to store counterpressing counts
             counterpressing_counts = pd.DataFrame(index=unsuccessful_events.index)
             counterpressing_counts['counterpressing_5s'] = 0
-            counterpressing_counts['counterpressing_15s'] = 0
+            counterpressing_counts['counterpressing_10s'] = 0
             
             for idx, event in unsuccessful_events.iterrows():
                 match_label = event['label']
                 gameclock = event['gameclock']
                 gameclock_5 = gameclock + 5
-                gameclock_15 = gameclock + 15
+                gameclock_10 = gameclock + 10
                 
                 # Count events for 'Horsens' within the 5 seconds window
                 counterpressing_5s = horsens_events[(horsens_events['label'] == match_label) &
@@ -646,24 +646,24 @@ def Dashboard():
                                                     (horsens_events['gameclock'] <= gameclock_5)].shape[0]
                 
                 # Count events for 'Horsens' within the 15 seconds window
-                counterpressing_15s = horsens_events[(horsens_events['label'] == match_label) &
+                counterpressing_10s = horsens_events[(horsens_events['label'] == match_label) &
                                                     (horsens_events['gameclock'] >= gameclock) &
-                                                    (horsens_events['gameclock'] <= gameclock_15)].shape[0]
+                                                    (horsens_events['gameclock'] <= gameclock_10)].shape[0]
                 
                 # Assign the counts to the respective columns in the new DataFrame
                 counterpressing_counts.at[idx, 'counterpressing_5s'] = counterpressing_5s
-                counterpressing_counts.at[idx, 'counterpressing_15s'] = counterpressing_15s
+                counterpressing_counts.at[idx, 'counterpressing_15s'] = counterpressing_10s
             
             # Merge the counts back to the original DataFrame
             df_counterpressing = df_counterpressing.join(counterpressing_counts)
             
             # Filter out rows where counterpressing_5s and counterpressing_15s are both zero
             df_counterpressing = df_counterpressing[(df_counterpressing['counterpressing_5s'] > 0) | 
-                                                    (df_counterpressing['counterpressing_15s'] > 0)]
+                                                    (df_counterpressing['counterpressing_10s'] > 0)]
             df_counterpressing = df_counterpressing[df_counterpressing['team_name'] == 'Horsens']
 
             # Group by 'label' and 'team_name', then sum the counterpressing counts
-            df_counterpressing = df_counterpressing.groupby(['label', 'date', 'team_name'])[['counterpressing_5s', 'counterpressing_15s']].sum().reset_index()
+            df_counterpressing = df_counterpressing.groupby(['label', 'date', 'team_name'])[['counterpressing_5s', 'counterpressing_10s']].sum().reset_index()
             
             return df_counterpressing
 

@@ -701,8 +701,8 @@ def Dashboard():
 
         fig.add_trace(go.Bar(
             x=df_counterpressing['label'],
-            y=df_counterpressing['counterpressing_15s'],
-            name='Counterpressing 15s',
+            y=df_counterpressing['counterpressing_10s'],
+            name='Counterpressing 10s',
             base=df_counterpressing['counterpressing_5s']
         ))
 
@@ -733,7 +733,7 @@ def Dashboard():
 
         fig.add_trace(go.Bar(
             x=df_counterpressing['label'],
-            y=df_counterpressing['counterpressing_15s'],
+            y=df_counterpressing['counterpressing_10s'],
             name='Counterpressing 15s',
             base=df_counterpressing['counterpressing_5s']
         ))

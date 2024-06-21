@@ -660,7 +660,8 @@ def Dashboard():
             # Filter out rows where counterpressing_5s and counterpressing_15s are both zero
             df_counterpressing = df_counterpressing[(df_counterpressing['counterpressing_5s'] > 0) | 
                                                     (df_counterpressing['counterpressing_15s'] > 0)]
-            
+            df_counterpressing = df_counterpressing[df_counterpressing['team_name'] == 'Horsens']
+
             # Group by 'label' and 'team_name', then sum the counterpressing counts
             df_counterpressing = df_counterpressing.groupby(['label', 'team_name'])[['counterpressing_5s', 'counterpressing_15s']].sum().reset_index()
             
@@ -674,12 +675,8 @@ def Dashboard():
         average_ppda = df_ppda_season_average['PPDA'][0]
         df_ppda_sorted = df_ppda.sort_values(by=['date', 'label'], ascending=[True, True])
         df_counterpressing = counterpressing(df_possession_data)
-        df_counterpressing = df_counterpressing[df_counterpressing['team_name'] == 'Horsens']
-        df_counterpressing = df_counterpressing[(df_counterpressing['counterpressing_5s'] > 0) & 
-                                                (df_counterpressing['counterpressing_15s'] > 0)]
         st.dataframe(df_counterpressing, hide_index=True)
-        df_counterpressing = df_counterpressing.groupby(['label', 'team_name'])[['counterpressing_5s', 'counterpressing_15s']].count().reset_index()
-        st.dataframe(df_counterpressing, hide_index=True)
+
         def add_avg_line(fig, avg):
             fig.add_shape(
                 type="line",

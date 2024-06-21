@@ -667,8 +667,6 @@ def Dashboard():
             
             return df_counterpressing
 
-
-
         df_ppda = calculate_ppda(df_possession_data)
         df_ppda = df_ppda[df_ppda['team_name'] == 'Horsens']
         df_ppda_season_average = df_ppda.groupby(['team_name'])['PPDA'].mean().reset_index()
@@ -676,7 +674,6 @@ def Dashboard():
         df_ppda_sorted = df_ppda.sort_values(by=['date', 'label'], ascending=[True, True])
         df_counterpressing = counterpressing(df_possession_data)
         df_counterpressing = df_counterpressing.sort_values(by=['date'], ascending=True)
-        st.dataframe(df_counterpressing, hide_index=True)
 
         def add_avg_line(fig, avg):
             fig.add_shape(
@@ -694,13 +691,62 @@ def Dashboard():
         )
             
         st.header('Whole season')
+        fig = go.Figure()
+
+        fig.add_trace(go.Bar(
+            x=df_counterpressing['label'],
+            y=df_counterpressing['counterpressing_5s'],
+            name='Counterpressing 5s'
+        ))
+
+        fig.add_trace(go.Bar(
+            x=df_counterpressing['label'],
+            y=df_counterpressing['counterpressing_15s'],
+            name='Counterpressing 15s',
+            base=df_counterpressing['counterpressing_5s']
+        ))
+
+        fig.update_layout(
+            barmode='stack',
+            title='Counterpressing Events',
+            xaxis_title='Match',
+            yaxis_title='Number of Events',
+            legend_title='Event Type'
+        )
+
+        st.plotly_chart(fig)
+
+        
         fig_whole_season = px.bar(df_ppda_sorted, x='label', y='PPDA', title='PPDA for Horsens - Whole Season')
         add_avg_line(fig_whole_season, average_ppda)
         st.plotly_chart(fig_whole_season)
-        #df_counterpressing = counterpressing(df_possession_data)
-        #st.dataframe(df_counterpressing, hide_index=True)
 
         st.header('Chosen matches')
+        df_counterpressing = df_counterpressing[df_counterpressing['label'].isin(match_choice)]
+        fig = go.Figure()
+
+        fig.add_trace(go.Bar(
+            x=df_counterpressing['label'],
+            y=df_counterpressing['counterpressing_5s'],
+            name='Counterpressing 5s'
+        ))
+
+        fig.add_trace(go.Bar(
+            x=df_counterpressing['label'],
+            y=df_counterpressing['counterpressing_15s'],
+            name='Counterpressing 15s',
+            base=df_counterpressing['counterpressing_5s']
+        ))
+
+        fig.update_layout(
+            barmode='stack',
+            title='Counterpressing Events',
+            xaxis_title='Match',
+            yaxis_title='Number of Events',
+            legend_title='Event Type'
+        )
+
+        st.plotly_chart(fig)
         df_ppda_chosen_period = df_ppda_sorted[df_ppda_sorted['label'].isin(match_choice)]
         fig_chosen_matches = px.bar(df_ppda_chosen_period, x='label', y='PPDA', title='PPDA for Horsens - Chosen Matches')
         add_avg_line(fig_chosen_matches, average_ppda)

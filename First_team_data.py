@@ -635,7 +635,7 @@ def Dashboard():
             
             for idx, event in unsuccessful_events.iterrows():
                 match_label = event['label']
-                gameclock = event['gameclock'].astype(int)
+                gameclock = event['gameclock']
                 gameclock_5 = gameclock + 5
                 gameclock_15 = gameclock + 15
                 

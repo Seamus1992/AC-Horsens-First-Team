@@ -664,6 +664,7 @@ def Dashboard():
         df_ppda_sorted = df_ppda.sort_values(by=['date', 'label'], ascending=[True, True])
         df_counterpressing = counterpressing(df_possession_data)
         df_counterpressing = df_counterpressing[df_counterpressing['team_name'] == 'Horsens']
+        st.dataframe(df_counterpressing, hide_index=True)
         df_counterpressing = df_counterpressing.groupby(['label', 'team_name'])['counterpressing_5s', 'counterpressing_15s'].sum().reset_index()
         st.dataframe(df_counterpressing, hide_index=True)
         def add_avg_line(fig, avg):

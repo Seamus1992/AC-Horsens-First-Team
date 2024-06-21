@@ -675,7 +675,7 @@ def Dashboard():
         average_ppda = df_ppda_season_average['PPDA'][0]
         df_ppda_sorted = df_ppda.sort_values(by=['date', 'label'], ascending=[True, True])
         df_counterpressing = counterpressing(df_possession_data)
-        df_counterpressing = df_counterpressing.sort_values(by=['date'], ascending=[True, True])
+        df_counterpressing = df_counterpressing.sort_values(by=['date'], ascending=True)
         st.dataframe(df_counterpressing, hide_index=True)
 
         def add_avg_line(fig, avg):

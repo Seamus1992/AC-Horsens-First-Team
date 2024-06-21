@@ -662,7 +662,6 @@ def Dashboard():
 
         fig.update_layout(
             barmode='stack',
-            title='Counterpressing Events',
             legend_title='Event Type'
         )
 

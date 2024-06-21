@@ -617,8 +617,7 @@ def Dashboard():
         
         def counterpressing(df_possession_data):
             # Create a copy of the dataframe to work on
-            df_counterpressing = df_possession_data.copy()
-            df_counterpressing = df_counterpressing[['timeMin', 'timeSec', 'typeId', 'outcome', 'label', 'team_name']]
+            df_counterpressing = df_possession_data[['timeMin', 'timeSec', 'typeId', 'outcome', 'label', 'team_name']]
             # Calculate the game clock in seconds
             df_counterpressing['gameclock'] = (df_counterpressing['timeMin'] * 60) + df_counterpressing['timeSec']
             
@@ -666,6 +665,8 @@ def Dashboard():
         df_ppda_sorted = df_ppda.sort_values(by=['date', 'label'], ascending=[True, True])
         df_counterpressing = counterpressing(df_possession_data)
         df_counterpressing = df_counterpressing[df_counterpressing['team_name'] == 'Horsens']
+        df_counterpressing = df_counterpressing[(df_counterpressing['counterpressing_5s'] > 0) & 
+                                                (df_counterpressing['counterpressing_15s'] > 0)]
         st.dataframe(df_counterpressing, hide_index=True)
         df_counterpressing = df_counterpressing.groupby(['label', 'team_name'])[['counterpressing_5s', 'counterpressing_15s']].count().reset_index()
         st.dataframe(df_counterpressing, hide_index=True)

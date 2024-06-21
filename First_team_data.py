@@ -663,6 +663,8 @@ def Dashboard():
         average_ppda = df_ppda_season_average['PPDA'][0]
         df_ppda_sorted = df_ppda.sort_values(by=['date', 'label'], ascending=[True, True])
         df_counterpressing = counterpressing(df_possession_data)
+        df_counterpressing = df_counterpressing[df_counterpressing['team_name'] == 'Horsens']
+        df_counterpressing = df_counterpressing.groupby(['label', 'team_name'])['counterpressing_5s', 'counterpressing_15s'].sum().reset_index()
         st.dataframe(df_counterpressing, hide_index=True)
         def add_avg_line(fig, avg):
             fig.add_shape(

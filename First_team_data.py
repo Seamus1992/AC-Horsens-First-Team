@@ -663,8 +663,6 @@ def Dashboard():
         fig.update_layout(
             barmode='stack',
             title='Counterpressing Events',
-            xaxis_title='Match',
-            yaxis_title='Number of Events',
             legend_title='Event Type'
         )
 

@@ -623,7 +623,7 @@ def Dashboard():
             df_counterpressing['gameclock'] = (df_counterpressing['timeMin'] * 60) + df_counterpressing['timeSec']
             
             # Filter for unsuccessful typeId 1 or 3 events
-            unsuccessful_events = df_counterpressing[(df_counterpressing['typeId'].isin([1, 3,61])) & (df_counterpressing['outcome'] == 0)]
+            unsuccessful_events = df_counterpressing[(df_counterpressing['typeId'].isin([1, 3])) & (df_counterpressing['outcome'] == 0)]
             
             # Initialize columns for counterpressing counts
             df_counterpressing['counterpressing_5s'] = 0
@@ -634,25 +634,29 @@ def Dashboard():
                 gameclock_5 = event['gameclock'] + 5
                 gameclock_15 = event['gameclock'] + 15
                 
-                # Count typeId 49, 8, or successful typeId 7 events for 'Horsens' within the 5 seconds window
+                # Count typeId 49, 8, 74, or successful typeId 7 events for 'Horsens' within the 5 seconds window
                 counterpressing_5s = df_counterpressing[
                     (df_counterpressing['label'] == match_label) &
                     (df_counterpressing['gameclock'] >= event['gameclock']) &
                     (df_counterpressing['gameclock'] <= gameclock_5) &
                     (
-                        ((df_counterpressing['typeId'] == 49) | (df_counterpressing['typeId'] == 8) |
+                        ((df_counterpressing['typeId'] == 49) | 
+                        (df_counterpressing['typeId'] == 8) | 
+                        (df_counterpressing['typeId'] == 74) |
                         ((df_counterpressing['typeId'] == 7) & (df_counterpressing['outcome'] == 1))) &
                         (df_counterpressing['team_name'] == 'Horsens')
                     )
                 ].shape[0]
                 
-                # Count typeId 49, 8, or successful typeId 7 events for 'Horsens' within the 15 seconds window
+                # Count typeId 49, 8, 74, or successful typeId 7 events for 'Horsens' within the 15 seconds window
                 counterpressing_15s = df_counterpressing[
                     (df_counterpressing['label'] == match_label) &
                     (df_counterpressing['gameclock'] >= event['gameclock']) &
                     (df_counterpressing['gameclock'] <= gameclock_15) &
                     (
-                        ((df_counterpressing['typeId'] == 49) | (df_counterpressing['typeId'] == 8) |
+                        ((df_counterpressing['typeId'] == 49) | 
+                        (df_counterpressing['typeId'] == 8) | 
+                        (df_counterpressing['typeId'] == 74) |
                         ((df_counterpressing['typeId'] == 7) & (df_counterpressing['outcome'] == 1))) &
                         (df_counterpressing['team_name'] == 'Horsens')
                     )
@@ -663,6 +667,7 @@ def Dashboard():
                 df_counterpressing.at[idx, 'counterpressing_15s'] = counterpressing_15s
             
             return df_counterpressing
+
 
 
 

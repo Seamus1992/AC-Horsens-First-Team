@@ -73,6 +73,12 @@ def load_xA():
     df_xA['label'] = (df_xA['label'] + ' ' + df_xA['date']).astype(str)
     return df_xA
 
+@st.cache_data
+def counterpressing():
+    df_counterpressing = pd.read_csv(r'DNK_1_Division_2023_2024\Horsens\Horsens_counterpressing.csv')
+    df_counterpressing['label'] = (df_counterpressing['label'] + ' ' + df_counterpressing['date']).astype(str)
+    return df_counterpressing
+
 def Dashboard():
     df_xg = load_xg()
     df_pv = load_pv()
@@ -615,64 +621,14 @@ def Dashboard():
             df_ppda = df_ppda.sort_values(by=['date'], ascending=True)
             return df_ppda
         
-        def counterpressing(df_possession_data):
-            # Create a copy of the dataframe to work on
-            df_counterpressing = df_possession_data[['timeMin', 'timeSec', 'typeId','date', 'outcome', 'label', 'team_name']].copy()
-            # Calculate the game clock in seconds
-            df_counterpressing['gameclock'] = (df_counterpressing['timeMin'] * 60) + df_counterpressing['timeSec']
-            
-            # Filter for unsuccessful typeId 1 or 3 events
-            unsuccessful_events = df_counterpressing[(df_counterpressing['typeId'].isin([1, 3])) & (df_counterpressing['outcome'] == 0)]
-            
-            # Filter for relevant events for 'Horsens'
-            horsens_events = df_counterpressing[(df_counterpressing['team_name'] == 'Horsens') & 
-                                                (df_counterpressing['typeId'].isin([49, 8, 74]) | 
-                                                ((df_counterpressing['typeId'] == 7) & (df_counterpressing['outcome'] == 1)))]
-            
-            # Initialize a DataFrame to store counterpressing counts
-            counterpressing_counts = pd.DataFrame(index=unsuccessful_events.index)
-            counterpressing_counts['counterpressing_5s'] = 0
-            counterpressing_counts['counterpressing_10s'] = 0
-            
-            for idx, event in unsuccessful_events.iterrows():
-                match_label = event['label']
-                gameclock = event['gameclock']
-                gameclock_5 = gameclock + 5
-                gameclock_10 = gameclock + 10
-                
-                # Count events for 'Horsens' within the 5 seconds window
-                counterpressing_5s = horsens_events[(horsens_events['label'] == match_label) &
-                                                    (horsens_events['gameclock'] >= gameclock) &
-                                                    (horsens_events['gameclock'] <= gameclock_5)].shape[0]
-                
-                # Count events for 'Horsens' within the 15 seconds window
-                counterpressing_10s = horsens_events[(horsens_events['label'] == match_label) &
-                                                    (horsens_events['gameclock'] >= gameclock) &
-                                                    (horsens_events['gameclock'] <= gameclock_10)].shape[0]
-                
-                # Assign the counts to the respective columns in the new DataFrame
-                counterpressing_counts.at[idx, 'counterpressing_5s'] = counterpressing_5s
-                counterpressing_counts.at[idx, 'counterpressing_10s'] = counterpressing_10s
-            
-            # Merge the counts back to the original DataFrame
-            df_counterpressing = df_counterpressing.join(counterpressing_counts)
-            
-            # Filter out rows where counterpressing_5s and counterpressing_15s are both zero
-            df_counterpressing = df_counterpressing[(df_counterpressing['counterpressing_5s'] > 0) | 
-                                                    (df_counterpressing['counterpressing_10s'] > 0)]
-            df_counterpressing = df_counterpressing[df_counterpressing['team_name'] == 'Horsens']
 
-            # Group by 'label' and 'team_name', then sum the counterpressing counts
-            df_counterpressing = df_counterpressing.groupby(['label', 'date', 'team_name'])[['counterpressing_5s', 'counterpressing_10s']].sum().reset_index()
-            
-            return df_counterpressing
 
         df_ppda = calculate_ppda(df_possession_data)
         df_ppda = df_ppda[df_ppda['team_name'] == 'Horsens']
         df_ppda_season_average = df_ppda.groupby(['team_name'])['PPDA'].mean().reset_index()
         average_ppda = df_ppda_season_average['PPDA'][0]
         df_ppda_sorted = df_ppda.sort_values(by=['date', 'label'], ascending=[True, True])
-        df_counterpressing = counterpressing(df_possession_data)
+        df_counterpressing = counterpressing(df_counterpressing)
         df_counterpressing = df_counterpressing.sort_values(by=['date'], ascending=True)
 
         def add_avg_line(fig, avg):

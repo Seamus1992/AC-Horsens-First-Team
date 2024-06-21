@@ -188,7 +188,7 @@ def Dashboard():
             team_data = xg_all[xg_all['team_name'] == team]
             line_size = 5 if team == 'Horsens' else 1  # Larger line for Horsens
             fig.add_trace(go.Scatter(
-                x=team_data['date'], 
+                x=team_data['label'], 
                 y=team_data['xG rolling average'], 
                 mode='lines',
                 name=team,
@@ -268,7 +268,7 @@ def Dashboard():
             team_data = df_matchstats[df_matchstats['team_name'] == team]
             line_size = 5 if team == 'Horsens' else 1  # Larger line for Horsens
             fig1.add_trace(go.Scatter(
-                x=team_data['date'],
+                x=team_data['label'],
                 y=team_data['rolling_openPlayPass'],
                 mode='lines',
                 name=team,
@@ -428,7 +428,7 @@ def Dashboard():
             team_data = df_packing_time[df_packing_time['team_name'] == team]
             line_size = 5 if team == 'Horsens' else 1  # Større linje for Horsens
             fig1.add_trace(go.Scatter(
-                x=team_data['date'],
+                x=team_data['label'],
                 y=team_data['rolling_packing'],
                 mode='lines',
                 name=team,

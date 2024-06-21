@@ -619,7 +619,7 @@ def Dashboard():
             # Create a copy of the dataframe to work on
             df_counterpressing = df_possession_data.copy()
             df_counterpressing = df_counterpressing[['timeMin', 'timeSec', 'typeId', 'outcome', 'label', 'team_name']]
-            # Calculate the gameclock in seconds
+            # Calculate the game clock in seconds
             df_counterpressing['gameclock'] = (df_counterpressing['timeMin'] * 60) + df_counterpressing['timeSec']
             
             # Filter for unsuccessful typeId 1 or 3 events
@@ -634,24 +634,36 @@ def Dashboard():
                 gameclock_5 = event['gameclock'] + 5
                 gameclock_15 = event['gameclock'] + 15
                 
-                # Count typeId 49 events for 'Horsens' within the 5 seconds window
-                counterpressing_5s = df_counterpressing[(df_counterpressing['label'] == match_label) &
-                                                        (df_counterpressing['gameclock'] >= event['gameclock']) &
-                                                        (df_counterpressing['gameclock'] <= gameclock_5) &
-                                                        (df_counterpressing['typeId'] == 49) | (df_counterpressing['typeId'] == 8) | (df_counterpressing['typeId'] == 7 & df_counterpressing['outcome'] == 1) &
-                                                        (df_counterpressing['team_name'] == 'Horsens')].shape[0]
+                # Count typeId 49, 8, or successful typeId 7 events for 'Horsens' within the 5 seconds window
+                counterpressing_5s = df_counterpressing[
+                    (df_counterpressing['label'] == match_label) &
+                    (df_counterpressing['gameclock'] >= event['gameclock']) &
+                    (df_counterpressing['gameclock'] <= gameclock_5) &
+                    (
+                        ((df_counterpressing['typeId'] == 49) | (df_counterpressing['typeId'] == 8) |
+                        ((df_counterpressing['typeId'] == 7) & (df_counterpressing['outcome'] == 1))) &
+                        (df_counterpressing['team_name'] == 'Horsens')
+                    )
+                ].shape[0]
                 
-                # Count typeId 49 events for 'Horsens' within the 15 seconds window
-                counterpressing_15s = df_counterpressing[(df_counterpressing['label'] == match_label) &
-                                                        (df_counterpressing['gameclock'] >= event['gameclock']) &
-                                                        (df_counterpressing['gameclock'] <= gameclock_15) &
-                                                        (df_counterpressing['typeId'] == 49) | (df_counterpressing['typeId'] == 8) | (df_counterpressing['typeId'] == 7 & df_counterpressing['outcome'] == 1) &
-                                                        (df_counterpressing['team_name'] == 'Horsens')].shape[0]
+                # Count typeId 49, 8, or successful typeId 7 events for 'Horsens' within the 15 seconds window
+                counterpressing_15s = df_counterpressing[
+                    (df_counterpressing['label'] == match_label) &
+                    (df_counterpressing['gameclock'] >= event['gameclock']) &
+                    (df_counterpressing['gameclock'] <= gameclock_15) &
+                    (
+                        ((df_counterpressing['typeId'] == 49) | (df_counterpressing['typeId'] == 8) |
+                        ((df_counterpressing['typeId'] == 7) & (df_counterpressing['outcome'] == 1))) &
+                        (df_counterpressing['team_name'] == 'Horsens')
+                    )
+                ].shape[0]
+                
                 # Assign the counts to the respective columns
                 df_counterpressing.at[idx, 'counterpressing_5s'] = counterpressing_5s
                 df_counterpressing.at[idx, 'counterpressing_15s'] = counterpressing_15s
             
             return df_counterpressing
+
 
 
         
@@ -660,7 +672,8 @@ def Dashboard():
         df_ppda_season_average = df_ppda.groupby(['team_name'])['PPDA'].mean().reset_index()
         average_ppda = df_ppda_season_average['PPDA'][0]
         df_ppda_sorted = df_ppda.sort_values(by=['date', 'label'], ascending=[True, True])
-
+        df_counterpressing = counterpressing(df_possession_data)
+        st.dataframe(df_counterpressing, hide_index=True)
         def add_avg_line(fig, avg):
             fig.add_shape(
                 type="line",

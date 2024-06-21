@@ -693,14 +693,12 @@ def Dashboard():
         fig.update_layout(
             barmode='stack',
             title='Counterpressing Events',
-            xaxis_title='Match',
-            yaxis_title='Number of Events',
             legend_title='Event Type'
         )
 
         st.plotly_chart(fig)
         df_ppda_chosen_period = df_ppda_sorted[df_ppda_sorted['label'].isin(match_choice)]
-        fig_chosen_matches = px.bar(df_ppda_chosen_period, x='label', y='PPDA', title='PPDA for Horsens - Chosen Matches')
+        fig_chosen_matches = px.bar(df_ppda_chosen_period, title='PPDA for Horsens - Chosen Matches')
         add_avg_line(fig_chosen_matches, average_ppda)
         st.plotly_chart(fig_chosen_matches)
         

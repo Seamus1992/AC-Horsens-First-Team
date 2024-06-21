@@ -623,7 +623,7 @@ def Dashboard():
             df_counterpressing['gameclock'] = (df_counterpressing['timeMin'] * 60) + df_counterpressing['timeSec']
             
             # Filter for unsuccessful typeId 1 or 3 events
-            unsuccessful_events = df_counterpressing[(df_counterpressing['typeId'].isin([1, 3])) & (df_counterpressing['outcome'] == 0)]
+            unsuccessful_events = df_counterpressing[(df_counterpressing['typeId'].isin([1, 3,61])) & (df_counterpressing['outcome'] == 0)]
             
             # Initialize columns for counterpressing counts
             df_counterpressing['counterpressing_5s'] = 0

@@ -653,6 +653,8 @@ def Dashboard():
                 # Assign the counts to the respective columns
                 df_counterpressing.at[idx, 'counterpressing_5s'] = counterpressing_5s
                 df_counterpressing.at[idx, 'counterpressing_15s'] = counterpressing_15s
+                df_counterpressing['counterpressing_5s'] = df_counterpressing['counterpressing_5s'].astype(int)
+                df_counterpressing['counterpressing_15s'] = df_counterpressing['counterpressing_15s'].astype(int)
             
             return df_counterpressing
 

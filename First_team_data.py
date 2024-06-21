@@ -617,7 +617,7 @@ def Dashboard():
         
         def counterpressing(df_possession_data):
             # Create a copy of the dataframe to work on
-            df_counterpressing = df_possession_data[['timeMin', 'timeSec', 'typeId', 'outcome', 'label', 'team_name']]
+            df_counterpressing = df_possession_data[['timeMin', 'timeSec', 'typeId', 'outcome', 'label', 'team_name']].copy()
             # Calculate the game clock in seconds
             df_counterpressing['gameclock'] = (df_counterpressing['timeMin'] * 60) + df_counterpressing['timeSec']
             
@@ -629,9 +629,10 @@ def Dashboard():
                                                 (df_counterpressing['typeId'].isin([49, 8, 74]) | 
                                                 ((df_counterpressing['typeId'] == 7) & (df_counterpressing['outcome'] == 1)))]
             
-            # Initialize columns for counterpressing counts
-            df_counterpressing['counterpressing_5s'] = 0
-            df_counterpressing['counterpressing_15s'] = 0
+            # Initialize a DataFrame to store counterpressing counts
+            counterpressing_counts = pd.DataFrame(index=unsuccessful_events.index)
+            counterpressing_counts['counterpressing_5s'] = 0
+            counterpressing_counts['counterpressing_15s'] = 0
             
             for idx, event in unsuccessful_events.iterrows():
                 match_label = event['label']
@@ -649,11 +650,22 @@ def Dashboard():
                                                     (horsens_events['gameclock'] >= gameclock) &
                                                     (horsens_events['gameclock'] <= gameclock_15)].shape[0]
                 
-                # Assign the counts to the respective columns
-                df_counterpressing.at[idx, 'counterpressing_5s'] = counterpressing_5s
-                df_counterpressing.at[idx, 'counterpressing_15s'] = counterpressing_15s
+                # Assign the counts to the respective columns in the new DataFrame
+                counterpressing_counts.at[idx, 'counterpressing_5s'] = counterpressing_5s
+                counterpressing_counts.at[idx, 'counterpressing_15s'] = counterpressing_15s
+            
+            # Merge the counts back to the original DataFrame
+            df_counterpressing = df_counterpressing.join(counterpressing_counts)
+            
+            # Filter out rows where counterpressing_5s and counterpressing_15s are both zero
+            df_counterpressing = df_counterpressing[(df_counterpressing['counterpressing_5s'] > 0) | 
+                                                    (df_counterpressing['counterpressing_15s'] > 0)]
+            
+            # Group by 'label' and 'team_name', then sum the counterpressing counts
+            df_counterpressing = df_counterpressing.groupby(['label', 'team_name'])[['counterpressing_5s', 'counterpressing_15s']].sum().reset_index()
             
             return df_counterpressing
+
 
 
         df_ppda = calculate_ppda(df_possession_data)
